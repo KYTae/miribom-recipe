@@ -31,6 +31,14 @@
   document.querySelectorAll('.copy').forEach(function (b) {
     b.addEventListener('click', function () { copyFrom(b.parentElement.querySelector('code'), b, '복사'); });
   });
+  document.querySelectorAll('.ing').forEach(function (row) {
+    row.addEventListener('click', function () {
+      var c = row.querySelector('.c');
+      copyFrom(row.querySelector('code'), null, '');
+      row.classList.add('done'); c.textContent = '복사됨';
+      setTimeout(function () { row.classList.remove('done'); c.textContent = '복사'; }, 1400);
+    });
+  });
   document.querySelectorAll('[data-copy]').forEach(function (b) {
     b.addEventListener('click', function () { copyFrom(document.getElementById(b.getAttribute('data-copy')), null, ''); });
   });
