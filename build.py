@@ -58,13 +58,15 @@ def video(name, base, eager=False):
 def count(v):
     if v.get('type') == 'tools':
         return len(v['tools'])
+    if v.get('type') == 'guide':
+        return len(v['steps'])
     return sum(len(g['items']) for g in v['groups'])
 
 
 def issue_row(v, base):
     return f'''<li class="issue"><a href="{base}{v['slug']}/">
   <div class="no"><small>No.</small>{v['reel']}</div>
-  <div class="tt"><b>{e(v['title'])}</b><span>{e(v['short'])} · {'사이트' if v.get('type') == 'tools' else '핵심 문장'} {count(v)}개 · 릴스 #{v['reel']}</span><em>레시피 열기</em></div>
+  <div class="tt"><b>{e(v['title'])}</b><span>{e(v['short'])} · {'사이트' if v.get('type') == 'tools' else ('단계' if v.get('type') == 'guide' else '핵심 문장')} {count(v)}개 · 릴스 #{v['reel']}</span><em>레시피 열기</em></div>
   <div class="pic">{video(v['hero'], base)}</div>
 </a></li>'''
 
@@ -210,6 +212,45 @@ def tools_page(v):
 ''' + foot(base)
 
 
+def guide_page(v):
+    base = '../'
+    steps = []
+    for i, (clip, cred, ttl, pts) in enumerate(v['steps']):
+        cls = 'step' + (' flip' if i % 2 else '')
+        shape = 'stack' if '17-3' in clip else 'tall'
+        lis = ''.join(f'<li>{e(x)}</li>' for x in pts)
+        steps.append(f'''<article class="{cls}" id="s{i+1}">
+  <div class="clip {shape}">{video(clip, base)}<span class="tag">{e(cred)}</span></div>
+  <div class="txt"><div class="num">{i+1:02d}</div><div class="cat">STEP {i+1}</div><h3>{e(ttl)}</h3><ul class="pts">{lis}</ul></div>
+</article>''')
+    price = ''.join(f'<div class="prow"><span>{e(a)}</span><b>{e(b)}</b></div>' for a, b in v['price'])
+    alts = ''.join(f'''<a class="alt" href="{u}" target="_blank" rel="noopener"><img src="{base}assets/logo_{k}.png" alt=""><div><b>{e(n)}</b><span>{e(d)}</span></div></a>''' for k, n, d, u in v['alts'])
+    tips = ''.join(f'<li>{e(t)}</li>' for t in v['tips'])
+    notes = ''.join(f'<li>{e(t)}</li>' for t in v['notes'])
+    others = [o for o in VOLUMES if o['slug'] != v['slug']]
+    more = f'''<section class="sec"><div class="sec-h"><h2>다른 레시피</h2><span class="it">more</span></div><ul class="index">{''.join(issue_row(o, base) for o in others)}</ul></section>'''
+    return head(f"{v['title']} | 미리봄 레시피", v['lede'], base) + f'''<main class="wrap">
+<section class="cover">
+  <div>
+    <div class="kicker"><span class="it">Recipe No.{v['reel']}</span><span>릴스 #{v['reel']} · {v['part']}</span></div>
+    <h1>{e(v['title'])}</h1>
+    <p class="lede">{e(v['lede'])}</p>
+    <ul class="facts"><li><b>3</b><span>단계</span></li><li><b>~10</b><span>분</span></li><li><b>$2~</b><span>15초 1개</span></li></ul>
+    <div class="ctas"><a class="btn solid" href="#s1">만드는 법 보기</a><a class="btn" href="#price">가격·무료 방법</a></div>
+  </div>
+  <div class="hero-clip tall" style="max-width:420px;justify-self:center;width:100%">{video(v['hero'], base, eager=True)}<span class="tag">IG @muduronline</span></div>
+</section>
+<section class="sec" id="steps"><div class="sec-h"><h2>만드는 법</h2><span class="it">method</span><p>사진 한 장 + 댄스 영상 하나</p></div>{''.join(steps)}</section>
+<section class="sec" id="price"><div class="sec-h"><h2>가격</h2><span class="it">price</span><p>Higgsfield Genjutsu · 15초 기준</p></div>
+  <div class="prices">{price}</div>
+  <h3 class="sub3">무료로 해보려면</h3><div class="alts">{alts}</div>
+</section>
+<section class="sec"><div class="sec-h"><h2>꿀팁</h2><span class="it">tips</span></div><ol class="tips">{tips}</ol></section>
+<ul class="notes">{notes}</ul>
+{more}
+''' + foot(base)
+
+
 def index_page():
     base = ''
     total = sum(count(v) for v in VOLUMES)
@@ -235,6 +276,6 @@ if __name__ == '__main__':
     for v in VOLUMES:
         d = os.path.join(root, v['slug']); os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, 'index.html'), 'w') as f:
-            f.write(tools_page(v) if v.get('type') == 'tools' else volume_page(v))
+            f.write(tools_page(v) if v.get('type') == 'tools' else (guide_page(v) if v.get('type') == 'guide' else volume_page(v)))
     open(os.path.join(root, '.nojekyll'), 'w').close()
     print('built', [v['slug'] for v in VOLUMES])

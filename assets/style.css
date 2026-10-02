@@ -168,3 +168,21 @@ footer p { margin: 6px 0 0; color: var(--dim); font-size: 14px; }
 .go { align-self: flex-start; font-size: 14px; font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--pink); padding-bottom: 1px; }
 .go:hover { color: var(--pink); }
 a.ing { cursor: pointer; }
+
+/* guide page */
+.pts { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.pts li { position: relative; padding-left: 26px; color: var(--dim); font-size: 16px; }
+.pts li::before { content: "✓"; position: absolute; left: 0; color: var(--pink); font-weight: 700; }
+.prices { display: grid; gap: 0; max-width: 620px; }
+.prow { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0; border-bottom: 1px dashed var(--rule-2); }
+.prow span { font-family: var(--mono); color: var(--dim); }
+.prow b { font-size: 18px; }
+.sub3 { margin: 30px 0 12px; font-family: var(--serif-ko); font-size: 22px; }
+.alts { display: grid; gap: 12px; max-width: 620px; }
+.alt { display: flex; gap: 14px; align-items: center; text-decoration: none; padding: 14px; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper); }
+.alt img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+.alt div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.alt span { color: var(--dim); font-size: 14px; }
+.alt:hover { border-color: var(--pink); }
+.tips { margin: 0; padding-left: 22px; display: grid; gap: 10px; max-width: 700px; }
+.tips li::marker { color: var(--pink); font-family: var(--serif-en); font-style: italic; }
