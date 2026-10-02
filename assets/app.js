@@ -31,7 +31,7 @@
   document.querySelectorAll('.copy').forEach(function (b) {
     b.addEventListener('click', function () { copyFrom(b.parentElement.querySelector('code'), b, '복사'); });
   });
-  document.querySelectorAll('.ing').forEach(function (row) {
+  document.querySelectorAll('button.ing').forEach(function (row) {
     row.addEventListener('click', function () {
       var c = row.querySelector('.c');
       copyFrom(row.querySelector('code'), null, '');

@@ -56,13 +56,15 @@ def video(name, base, eager=False):
 
 
 def count(v):
+    if v.get('type') == 'tools':
+        return len(v['tools'])
     return sum(len(g['items']) for g in v['groups'])
 
 
 def issue_row(v, base):
     return f'''<li class="issue"><a href="{base}{v['slug']}/">
   <div class="no"><small>No.</small>{v['reel']}</div>
-  <div class="tt"><b>{e(v['title'])}</b><span>{e(v['short'])} · 핵심 문장 {count(v)}개 · 릴스 #{v['reel']}</span><em>레시피 열기</em></div>
+  <div class="tt"><b>{e(v['title'])}</b><span>{e(v['short'])} · {'사이트' if v.get('type') == 'tools' else '핵심 문장'} {count(v)}개 · 릴스 #{v['reel']}</span><em>레시피 열기</em></div>
   <div class="pic">{video(v['hero'], base)}</div>
 </a></li>'''
 
@@ -158,6 +160,56 @@ def volume_page(v):
 ''' + foot(base)
 
 
+def tools_page(v):
+    base = '../'
+    n = count(v)
+    rows = []
+    for i, (cat, beg, pro, why, url, clip, cred) in enumerate(v['tools']):
+        cls = 'step' + (' flip' if i % 2 else '') + ' wide-clip'
+        host = url.replace('https://', '').replace('www.', '')
+        rows.append(f'''<article class="{cls}">
+  <div class="clip wide">{video(clip, base)}<span class="tag">{e(cred)}</span></div>
+  <div class="txt">
+    <div class="num">{i+1:02d}</div>
+    <div class="cat">{e(cat)}</div>
+    <h3>{e(pro)}</h3>
+    <div class="vs"><span class="lab">초보</span><span>{e(beg)}</span></div>
+    <p>{e(why)}</p>
+    <a class="go" href="{url}" target="_blank" rel="noopener">{e(host)} 바로가기 ↗</a>
+  </div>
+</article>''')
+    idx = ''.join(f'<a class="ing" href="#t{i+1}" style="text-decoration:none"><span class="n">{i+1:02d}</span><code>{e(t[2])}</code><span class="c">{e(t[0])}</span></a>' for i, t in enumerate(v['tools']))
+    rows = [r.replace('<article class="', f'<article id="t{i+1}" class="', 1) for i, r in enumerate(rows)]
+    others = [o for o in VOLUMES if o['slug'] != v['slug']]
+    more = f'''<section class="sec"><div class="sec-h"><h2>다른 레시피</h2><span class="it">more</span></div><ul class="index">{''.join(issue_row(o, base) for o in others)}</ul></section>''' if others else ''
+    return head(f"{v['title']} | 미리봄 레시피", v['lede'], base) + f'''<main class="wrap">
+<section class="cover">
+  <div>
+    <div class="kicker"><span class="it">Recipe No.{v['reel']}</span><span>릴스 #{v['reel']} · {v['part']}</span></div>
+    <h1>{e(v['title'])}</h1>
+    <p class="lede">{e(v['lede'])}</p>
+    <ul class="facts"><li><b>{n}</b><span>분야</span></li><li><b>{n}</b><span>사이트</span></li><li><b>26.10</b><span>기준</span></li></ul>
+    <div class="ctas"><a class="btn solid" href="#list">한눈에 보기</a><a class="btn" href="#t1">하나씩 보기</a></div>
+  </div>
+  <div class="hero-clip wide">{video(v['hero'], base, eager=True)}<span class="tag">{e(v['tools'][0][6])}</span></div>
+</section>
+<section class="sec" id="list">
+  <div class="sec-h"><h2>한눈에 보기</h2><span class="it">index</span><p>누르면 설명으로 이동해요</p></div>
+  <div class="ings">{idx}</div>
+</section>
+<section class="sec" id="steps">
+  <div class="sec-h"><h2>분야별 고수 픽</h2><span class="it">picks</span><p>공식 영상과 함께 보기</p></div>
+  {''.join(rows)}
+</section>
+<ul class="notes">
+  <li>2026년 10월 기준이에요. 기능과 요금제는 자주 바뀌니 공식 사이트에서 확인하세요.</li>
+  <li>"초보" 칸은 틀렸다는 뜻이 아니라, 대부분 처음 쓰는 기본 선택지라는 뜻이에요.</li>
+  <li>영상은 각 회사 공식 계정과 크리에이터가 올린 영상이에요. 출처는 영상 위에 표시했어요.</li>
+</ul>
+{more}
+''' + foot(base)
+
+
 def index_page():
     base = ''
     total = sum(count(v) for v in VOLUMES)
@@ -183,6 +235,6 @@ if __name__ == '__main__':
     for v in VOLUMES:
         d = os.path.join(root, v['slug']); os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, 'index.html'), 'w') as f:
-            f.write(volume_page(v))
+            f.write(tools_page(v) if v.get('type') == 'tools' else volume_page(v))
     open(os.path.join(root, '.nojekyll'), 'w').close()
     print('built', [v['slug'] for v in VOLUMES])

@@ -2,6 +2,21 @@
 
 VOLUMES = [
     {
+        'slug': '16',
+        'reel': 16,
+        'type': 'tools',
+        'part': 'AI TOOLS',
+        'title': 'AI 초보 vs 고수, 쓰는 사이트 13',
+        'short': '영상·이미지·목소리부터 3D·번역까지',
+        'lede': '다들 쓰는 기본 기능 말고, AI 고수들이 분야마다 따로 쓰는 사이트를 모았어요. 2026년 10월 기준이에요.',
+        'hero': '16-hero',
+        'hero_shape': 'wide',
+        'stat': ('기준', '26.10'),
+        'groups': [],
+        'tools': [('영상', '챗봇 앱에서 바로 생성', 'Kling 4.0', '여러 컷 연출에 음성·립싱크까지 한 번에', 'https://klingai.com', '16-01', 'X @Kling_ai'), ('이미지', '채팅창에 "그려줘"', 'Midjourney V8.2', '내 취향을 학습해서 미감이 달라요', 'https://www.midjourney.com', '16-02', 'X @midjourney'), ('이미지 편집', '무료 업스케일 사이트', 'Magnific', '캐릭터 생성·편집·업스케일을 한 곳에서', 'https://www.magnific.com', '16-03', 'X @magnific'), ('목소리', '편집앱 기본 TTS', 'ElevenLabs v3', '[속삭임] [웃음] 태그로 감정 연기', 'https://elevenlabs.io', '16-04', 'X @ElevenLabs'), ('음악', 'Suno 기본 모드', 'Suno Studio', '악기별로 쪼개서 다시 만드는 AI 작곡실', 'https://suno.com', '16-05', 'X @jerrod_lew'), ('더빙', '자막만 번역', 'sync.', '입모양까지 그 나라 말로 바꿔줘요', 'https://sync.so', '16-06', 'X @synclabs'), ('캐릭터 광고', '기본 아바타', 'Hedra', '캐릭터 하나로 광고 캠페인까지', 'https://www.hedra.com', '16-07', 'X @hedra_labs'), ('워크플로', '사이트마다 따로 돌리기', 'Figma Weave', '여러 AI를 노드로 연결해 한 번에', 'https://www.figma.com', '16-08', 'X @figma'), ('3D', '3D는 어렵다고 포기', 'Tripo', '사진 몇 장으로 3D 모델 완성', 'https://www.tripo3d.ai', '16-09', 'X @tripoai'), ('리서치', '그냥 검색', 'Perplexity', '출처 달린 리포트를 알아서 작성', 'https://www.perplexity.ai', '16-10', 'X @perplexity_ai'), ('자료 요약', '챗봇에 PDF 던지기', 'Gemini Notebook', '내 자료 안에서만 답해요 (구 NotebookLM)', 'https://notebooklm.google.com', '16-11', 'X @Gemini_Notebook'), ('웹사이트', '템플릿 사이트', 'Framer', '프롬프트로 만들고 바로 배포', 'https://www.framer.com', '16-12', 'X @framer'), ('번역', '번역기에 복붙', 'DeepL Voice', '회의 중 실시간 음성 번역', 'https://www.deepl.com', '16-13', 'X @DeepLcom')],
+        'template': False,
+    },
+    {
         'slug': '15',
         'reel': 15,
         'part': 'PART 2',
