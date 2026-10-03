@@ -215,16 +215,17 @@ def tools_page(v):
 def guide_page(v):
     base = '../'
     steps = []
-    for i, (clip, cred, ttl, pts) in enumerate(v['steps']):
+    for i, st in enumerate(v['steps']):
+        clip, cred, ttl, pts = st[:4]
         cls = 'step' + (' flip' if i % 2 else '')
-        shape = 'stack' if '17-3' in clip else 'tall'
+        shape = st[4] if len(st) > 4 else ('stack' if '17-3' in clip else 'tall')
         lis = ''.join(f'<li>{e(x)}</li>' for x in pts)
         steps.append(f'''<article class="{cls}" id="s{i+1}">
   <div class="clip {shape}">{video(clip, base)}<span class="tag">{e(cred)}</span></div>
   <div class="txt"><div class="num">{i+1:02d}</div><div class="cat">STEP {i+1}</div><h3>{e(ttl)}</h3><ul class="pts">{lis}</ul></div>
 </article>''')
     price = ''.join(f'<div class="prow"><span>{e(a)}</span><b>{e(b)}</b></div>' for a, b in v['price'])
-    alts = ''.join(f'''<a class="alt" href="{u}" target="_blank" rel="noopener"><img src="{base}assets/logo_{k}.png" alt=""><div><b>{e(n)}</b><span>{e(d)}</span></div></a>''' for k, n, d, u in v['alts'])
+    alts_html = ''.join(f'''<a class="alt" href="{u}" target="_blank" rel="noopener"><img src="{base}assets/logo_{k}.png" alt=""><div><b>{e(n)}</b><span>{e(d)}</span></div></a>''' for k, n, d, u in v['alts'])
     tips = ''.join(f'<li>{e(t)}</li>' for t in v['tips'])
     notes = ''.join(f'<li>{e(t)}</li>' for t in v['notes'])
     others = [o for o in VOLUMES if o['slug'] != v['slug']]
@@ -235,15 +236,15 @@ def guide_page(v):
     <div class="kicker"><span class="it">Recipe No.{v['reel']}</span><span>릴스 #{v['reel']} · {v['part']}</span></div>
     <h1>{e(v['title'])}</h1>
     <p class="lede">{e(v['lede'])}</p>
-    <ul class="facts"><li><b>3</b><span>단계</span></li><li><b>~10</b><span>분</span></li><li><b>$2~</b><span>15초 1개</span></li></ul>
-    <div class="ctas"><a class="btn solid" href="#s1">만드는 법 보기</a><a class="btn" href="#price">가격·무료 방법</a></div>
+    <ul class="facts">{''.join(f'<li><b>{e(a)}</b><span>{e(b)}</span></li>' for a, b in v.get('facts', [('3', '단계'), ('~10', '분'), ('$2~', '15초 1개')]))}</ul>
+    <div class="ctas">{''.join(f'<a class="btn{" solid" if j == 0 else ""}" href="{h}">{e(t)}</a>' for j, (t, h) in enumerate(v.get('ctas', [('만드는 법 보기', '#s1'), ('가격·무료 방법', '#price')])))}</div>
   </div>
-  <div class="hero-clip tall" style="max-width:420px;justify-self:center;width:100%">{video(v['hero'], base, eager=True)}<span class="tag">IG @muduronline</span></div>
+  <div class="hero-clip {v.get('hero_shape', 'tall')}" style="max-width:420px;justify-self:center;width:100%">{video(v['hero'], base, eager=True)}<span class="tag">{e(v.get('hero_tag', 'IG @muduronline'))}</span></div>
 </section>
-<section class="sec" id="steps"><div class="sec-h"><h2>만드는 법</h2><span class="it">method</span><p>사진 한 장 + 댄스 영상 하나</p></div>{''.join(steps)}</section>
-<section class="sec" id="price"><div class="sec-h"><h2>가격</h2><span class="it">price</span><p>Higgsfield Genjutsu · 15초 기준</p></div>
+<section class="sec" id="steps"><div class="sec-h"><h2>{e(v.get('steps_title', '만드는 법'))}</h2><span class="it">method</span><p>{e(v.get('steps_sub', '사진 한 장 + 댄스 영상 하나'))}</p></div>{''.join(steps)}</section>
+<section class="sec" id="price"><div class="sec-h"><h2>{e(v.get('price_title', '가격'))}</h2><span class="it">{e(v.get('price_it', 'price'))}</span><p>{e(v.get('price_sub', 'Higgsfield Genjutsu · 15초 기준'))}</p></div>
   <div class="prices">{price}</div>
-  <h3 class="sub3">무료로 해보려면</h3><div class="alts">{alts}</div>
+  {f'<h3 class="sub3">무료로 해보려면</h3><div class="alts">{alts_html}</div>' if alts_html else ''}
 </section>
 <section class="sec"><div class="sec-h"><h2>꿀팁</h2><span class="it">tips</span></div><ol class="tips">{tips}</ol></section>
 <ul class="notes">{notes}</ul>
