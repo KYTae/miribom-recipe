@@ -125,7 +125,7 @@ mark { background: none; color: var(--pink); }
 @keyframes up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 
 /* stage with 미리 */
-.stage { position: relative; height: 230px; border-radius: calc(var(--r) + 6px); background: linear-gradient(180deg, #121215, #0e0e10); border: 1px solid var(--line); overflow: hidden; animation: up .8s .2s var(--ease) both; }
+.stage { position: relative; height: 270px; border-radius: calc(var(--r) + 6px); background: linear-gradient(180deg, #121215, #0e0e10); border: 1px solid var(--line); overflow: hidden; animation: up .8s .2s var(--ease) both; }
 @media (min-width: 900px) { .stage { height: 380px; } }
 .stage-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px); background-size: 16px 16px; mask-image: radial-gradient(closest-side, #000 40%, transparent); -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent); }
 .stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 26%; border-top: 1px solid var(--line); background: linear-gradient(180deg, rgba(255, 59, 160, .05), transparent); }
@@ -135,8 +135,8 @@ mark { background: none; color: var(--pink); }
 .bubble span.swap { opacity: 0; transform: translateY(4px); }
 @media (min-width: 900px) { .bubble { top: 34px; font-size: 14.5px; } }
 @keyframes pop { from { opacity: 0; transform: translateX(-50%) scale(.6); } to { opacity: 1; transform: translateX(-50%) scale(1); } }
-.miri-btn { position: absolute; z-index: 1; left: 50%; bottom: 14%; width: 132px; transform: translateX(-50%); padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-@media (min-width: 900px) { .miri-btn { width: 210px; } }
+.miri-btn { position: absolute; z-index: 1; left: 50%; bottom: 9%; width: 230px; transform: translateX(-50%); padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+@media (min-width: 900px) { .miri-btn { width: 310px; bottom: 12%; } }
 .miri-btn:focus-visible { outline-offset: 8px; }
 .miri-drop { display: block; animation: drop 1.05s .25s both; transform-origin: 50% 100%; }
 @keyframes drop {
@@ -148,15 +148,9 @@ mark { background: none; color: var(--pink); }
 }
 .miri-bob { display: block; transform-origin: 50% 100%; animation: bob 2.6s 1.3s steps(2, jump-none) infinite; }
 @keyframes bob { 0%, 100% { transform: none; } 50% { transform: scale(1.03, .96); } }
-.miri-shadow { position: absolute; left: 22%; right: 22%; bottom: -6px; height: 10px; border-radius: 50%; background: rgba(0, 0, 0, .55); filter: blur(2px); z-index: -1; animation: shadow 1.05s .25s both; }
+.miri-shadow { position: absolute; left: 36%; right: 36%; bottom: -6px; height: 10px; border-radius: 50%; background: rgba(0, 0, 0, .55); filter: blur(2px); z-index: -1; animation: shadow 1.05s .25s both; }
 @keyframes shadow { 0% { transform: scale(.3); opacity: 0; } 55% { transform: scale(1.1); opacity: 1; } 100% { transform: none; opacity: 1; } }
 
-.floaty { position: absolute; z-index: 1; display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: 999px; background: rgba(27, 27, 31, .9); border: 1px solid var(--line-2); color: var(--ink-2); font-family: var(--mono); font-size: 11.5px; white-space: nowrap; animation: float 6s ease-in-out infinite; }
-.floaty b { color: var(--pink-2); font-weight: 600; }
-.floaty.f1 { left: 6%; top: 46%; } .floaty.f2 { right: 6%; top: 34%; animation-delay: -2s; } .floaty.f3 { right: 9%; bottom: 30%; animation-delay: -4s; display: none; }
-@media (min-width: 900px) { .floaty.f1 { left: 7%; top: 44%; } .floaty.f2 { right: 7%; top: 30%; } .floaty.f3 { display: inline-flex; } }
-@media (max-width: 360px) { .floaty { display: none; } }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
 /* pixel character base */
 .miri { width: 100%; height: auto; overflow: visible; stroke: none; fill: initial; flex: none; }
@@ -168,23 +162,22 @@ mark { background: none; color: var(--pink); }
 .miri .e-blink { display: inline; opacity: 0; animation: eyeBlink 4.6s infinite; }
 @keyframes eyeOpen { 0%, 90%, 96%, 100% { opacity: 1; } 91%, 95% { opacity: 0; } }
 @keyframes eyeBlink { 0%, 90%, 96%, 100% { opacity: 0; } 91%, 95% { opacity: 1; } }
-/* hero: wave every 9s, happy eyes while waving */
-.m-hero .pz-idle { animation: pzIdle 9s 2s infinite step-end; }
-.m-hero .pz-wave { display: inline; opacity: 0; animation: pzWaveA 9s 2s infinite step-end; }
-.m-hero .pz-wave2 { display: inline; opacity: 0; animation: pzWaveB 9s 2s infinite step-end; }
-.m-hero .pz-wave .e-idle, .m-hero .pz-wave2 .e-idle, .m-hero .pz-wave .e-blink, .m-hero .pz-wave2 .e-blink,
-.m-hero .pz-cheer .e-idle, .m-hero .pz-cheer2 .e-idle, .m-hero .pz-cheer .e-blink, .m-hero .pz-cheer2 .e-blink { display: none; }
-.m-hero .pz-wave .e-happy, .m-hero .pz-wave2 .e-happy, .m-hero .pz-cheer .e-happy, .m-hero .pz-cheer2 .e-happy { display: inline; }
-@keyframes pzIdle { 0% { opacity: 1; } 70% { opacity: 0; } 88% { opacity: 1; } }
-@keyframes pzWaveA { 0% { opacity: 0; } 70% { opacity: 1; } 74% { opacity: 0; } 78% { opacity: 1; } 82% { opacity: 0; } 84% { opacity: 1; } 88% { opacity: 0; } }
-@keyframes pzWaveB { 0% { opacity: 0; } 74% { opacity: 1; } 78% { opacity: 0; } 82% { opacity: 1; } 84% { opacity: 0; } }
-/* tap → hop + cheer */
-.miri-btn.hop .miri-bob { animation: hop .7s var(--ease); }
-.miri-btn.hop .pz { display: none !important; animation: none !important; }
-.miri-btn.hop .pz-cheer { display: inline !important; opacity: 1 !important; animation: none; }
-.miri-btn.hop.b .pz-cheer { display: none !important; }
-.miri-btn.hop.b .pz-cheer2 { display: inline !important; opacity: 1 !important; }
-@keyframes hop { 0% { transform: none; } 20% { transform: scale(1.12, .86); } 50% { transform: translateY(-18%) scale(.95, 1.06); } 80% { transform: scale(1.08, .92); } 100% { transform: none; } }
+/* hero: JS-driven pose show (see app.js SCENES) */
+.m-hero.js .pz { display: none !important; }
+.m-hero.js .pz.on { display: inline !important; }
+.m-hero[data-eyes="happy"] .e-idle, .m-hero[data-eyes="happy"] .e-blink { display: none; }
+.m-hero[data-eyes="happy"] .e-happy { display: inline; }
+.miri-bob.poof { animation: poof .42s var(--spring); }
+@keyframes poof { 0% { transform: scale(.55, 1.25); } 45% { transform: scale(1.14, .86); } 100% { transform: none; } }
+.miri-bob.hop { animation: hop .7s var(--ease); }
+@keyframes hop { 0% { transform: none; } 20% { transform: scale(1.12, .86); } 50% { transform: translateY(-16%) scale(.95, 1.06); } 80% { transform: scale(1.08, .92); } 100% { transform: none; } }
+.shout { position: absolute; right: 2%; top: 4%; font-weight: 900; font-size: 18px; letter-spacing: -0.02em; color: var(--pink); transform: scale(.4) rotate(-8deg); opacity: 0; transition: transform .35s var(--spring), opacity .2s; pointer-events: none; }
+.shout.on { opacity: 1; transform: rotate(-8deg); animation: shout .5s .35s steps(2, jump-none) infinite alternate; }
+@media (min-width: 900px) { .shout { font-size: 24px; } }
+@keyframes shout { to { transform: rotate(-8deg) translateY(-3px); } }
+.puff { position: absolute; z-index: 2; left: 50%; bottom: 30%; width: 8px; height: 8px; margin-left: -4px; background: var(--pink-2); pointer-events: none; opacity: 0; }
+.puff.go { animation: puff .5s var(--ease) forwards; }
+@keyframes puff { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.4); } }
 
 /* recipe cover peek */
 .cover-fig { position: relative; padding-top: 44px; justify-self: center; width: 100%; max-width: 460px; }

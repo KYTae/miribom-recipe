@@ -207,25 +207,59 @@
   // reduced motion: tap a video to play/pause
   if (reduce) $$('video').forEach(function (v) { v.addEventListener('click', function () { v.paused ? v.play() : v.pause(); }); });
 
-  /* ---------- hero 미리: rotating tips + tap to hop ---------- */
-  var tipEl = $('.bubble span[data-tips]'), mb = $('.miri-btn');
-  if (tipEl) {
-    var tips = []; try { tips = JSON.parse(tipEl.getAttribute('data-tips')); } catch (e) {}
-    var ti = -1;
-    var nextTip = function () {
-      if (!tips.length) return;
-      ti = (ti + 1) % tips.length;
+  /* ---------- hero 미리: pose show (transforms + bubble lines) ---------- */
+  var hero = $('.m-hero'), mb = $('.miri-btn'), tipEl = $('.bubble .tip');
+  if (hero && mb) {
+    var SCENES = [
+      { p: ['wave', 'wave2'], ms: 300, eyes: 'happy', t: '안녕하세요, 미리예요!' },
+      { p: ['mega', 'mega2'], ms: 380, badge: '속보!', t: '새 레시피가 매주 올라와요!' },
+      { p: ['bulb', 'bulb2'], ms: 520, t: '프롬프트는 누르면 바로 복사돼요' },
+      { p: ['cam', 'cam', 'cam', 'cam2'], ms: 260, t: '원작 영상과 출처까지 같이 정리했어요' },
+      { p: ['mag'], t: '검색창에 툴 이름을 넣어보세요' },
+      { p: ['point'], t: '릴스 댓글에 키워드 → DM으로 링크가 와요' },
+      { p: ['cheer', 'cheer2'], ms: 260, eyes: 'happy', t: '따라하기 단계는 체크해두면 기억돼요' },
+      { p: ['heart', 'heart2'], ms: 480, eyes: 'happy', badge: '♥', t: '도움이 됐다면 친구에게 공유해 주세요' }
+    ];
+    var groups = {};
+    $$('.pz', hero).forEach(function (g) { var k = (g.getAttribute('class').match(/pz-(\S+)/) || [])[1]; if (k) groups[k] = g; });
+    var bob = $('.miri-bob'), badge = $('.shout'), cur = null, si = -1, fi = 0, frameT, sceneT;
+    var show = function (k) { if (cur) cur.classList.remove('on'); cur = groups[k] || groups.idle; cur.classList.add('on'); };
+    var say = function (txt) {
+      if (!tipEl) return;
       tipEl.classList.add('swap');
-      setTimeout(function () { tipEl.textContent = tips[ti]; tipEl.classList.remove('swap'); }, 250);
+      setTimeout(function () { tipEl.textContent = txt; tipEl.classList.remove('swap'); }, 200);
     };
-    if (!reduce) setInterval(function () { if (!document.hidden) nextTip(); }, 4200);
-    if (mb) mb.addEventListener('click', function () {
-      nextTip();
+    var puff = function () {
       if (reduce) return;
-      mb.classList.remove('hop', 'b'); void mb.offsetWidth; mb.classList.add('hop');
-      var k = 0, iv = setInterval(function () { mb.classList.toggle('b'); if (++k > 4) clearInterval(iv); }, 120);
-      clearTimeout(mb._t); mb._t = setTimeout(function () { mb.classList.remove('hop', 'b'); }, 720);
-    });
+      for (var i = 0; i < 6; i++) {
+        var d = document.createElement('i'); d.className = 'puff';
+        var a = Math.PI * (1.05 + i * 0.18);
+        d.style.setProperty('--dx', Math.cos(a) * 46 + 'px'); d.style.setProperty('--dy', Math.sin(a) * 34 + 'px');
+        mb.parentNode.appendChild(d); void d.offsetWidth; d.classList.add('go');
+        setTimeout(function (n) { return function () { n.remove(); }; }(d), 600);
+      }
+    };
+    var play = function (n, cls) {
+      clearInterval(frameT); clearTimeout(sceneT);
+      si = (n + SCENES.length) % SCENES.length; var sc = SCENES[si]; fi = 0;
+      // morph: squash through a ball, then pop into the new form
+      show('ball'); hero.removeAttribute('data-eyes');
+      bob.classList.remove('poof', 'hop'); void bob.offsetWidth; bob.classList.add(cls || 'poof'); puff();
+      setTimeout(function () {
+        show(sc.p[0]);
+        if (sc.eyes) hero.setAttribute('data-eyes', sc.eyes); else hero.removeAttribute('data-eyes');
+        if (sc.p.length > 1) frameT = setInterval(function () { fi = (fi + 1) % sc.p.length; show(sc.p[fi]); }, sc.ms || 300);
+      }, 140);
+      say(sc.t);
+      if (badge) { badge.classList.remove('on'); if (sc.badge) { badge.textContent = sc.badge; setTimeout(function () { badge.classList.add('on'); }, 220); } }
+      if (!reduce) sceneT = setTimeout(function next() { if (document.hidden) { sceneT = setTimeout(next, 1000); return; } play(si + 1); }, 3800);
+    };
+    hero.classList.add('js'); show('idle');
+    if (reduce) { mb.addEventListener('click', function () { si = (si + 1) % SCENES.length; say(SCENES[si].t); }); }
+    else {
+      setTimeout(function () { play(0); }, 1500);   // after the drop-in landing
+      mb.addEventListener('click', function () { play(si + 1, 'hop'); });
+    }
   }
 
   /* ---------- entrance motion (only when JS runs) ---------- */

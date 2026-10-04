@@ -7,7 +7,7 @@ from miri import MIRI
 SITE = 'https://kytae.github.io/miribom-recipe/'
 IG = 'https://www.instagram.com/ai.miribom/'
 YT = 'https://www.youtube.com/@ai.miribom'
-VER = '4'
+VER = '6'
 e = html.escape
 
 TYPE = {'guide': ('따라하기', 'HOW TO', 'guide'), 'tools': ('툴 추천', 'AI TOOLS', 'tools'), 'volume': ('프롬프트', 'PROMPT', 'prompt')}
@@ -31,6 +31,9 @@ ICON = {
     'check': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
     'play': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" class="dot"/></svg>',
 }
+
+
+HERO_POSES = ['idle', 'wave', 'wave2', 'mega', 'mega2', 'bulb', 'bulb2', 'cam', 'cam2', 'mag', 'point', 'cheer', 'cheer2', 'heart', 'heart2', 'tall', 'ball']
 
 
 def miri(poses, cls='', vb=None, label=''):
@@ -220,13 +223,11 @@ def index_page():
   </div>
   <div class="stage" aria-label="미리봄 캐릭터 미리">
     <div class="stage-grid" aria-hidden="true"></div>
-    <span class="floaty f1" aria-hidden="true"><b>/</b>prompt</span>
-    <span class="floaty f2" aria-hidden="true">copy <b>✓</b></span>
-    <span class="floaty f3" aria-hidden="true">720p <b>●</b></span>
-    <p class="bubble" aria-live="off"><span data-tips='["프롬프트는 누르면 바로 복사돼요","릴스 댓글에 키워드 남기면 DM으로 링크가 와요","따라하기 단계는 체크해두면 기억돼요","새 레시피는 매주 올라와요"]'>안녕하세요, 미리예요!</span></p>
+    <p class="bubble" aria-live="off"><span class="tip">안녕하세요, 미리예요!</span></p>
     <button class="miri-btn" type="button" aria-label="미리 누르기">
-      <span class="miri-drop"><span class="miri-bob">{miri(['idle', 'wave', 'wave2', 'hop', 'cheer', 'cheer2'], 'm-hero')}</span></span>
+      <span class="miri-drop"><span class="miri-bob">{miri(HERO_POSES, 'm-hero', vb='2 17 60 44')}</span></span>
       <span class="miri-shadow" aria-hidden="true"></span>
+      <span class="shout" aria-hidden="true"></span>
     </button>
   </div>
 </div></section>
