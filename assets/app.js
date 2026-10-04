@@ -208,7 +208,7 @@
   if (reduce) $$('video').forEach(function (v) { v.addEventListener('click', function () { v.paused ? v.play() : v.pause(); }); });
 
   /* ---------- hero 미리: pose show (transforms + bubble lines) ---------- */
-  var hero = $('.m-hero'), mb = $('.miri-btn'), tipEl = $('.bubble .tip');
+  var hero = $('.m-hero'), mb = $('.miri-btn'), tipEl = $('.bubble .bubble-t');
   if (hero && mb) {
     var SCENES = [
       { p: ['wave', 'wave2'], ms: 300, eyes: 'happy', t: '안녕하세요, 미리예요!' },
