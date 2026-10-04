@@ -9,7 +9,7 @@ SITE = f'https://{DOMAIN}/'
 ROOT_PATH = '/'   # site is served from the domain root
 IG = 'https://www.instagram.com/ai.miribom/'
 YT = 'https://www.youtube.com/@ai.miribom'
-VER = '8'
+VER = '9'
 e = html.escape
 
 TYPE = {'guide': ('따라하기', 'HOW TO', 'guide'), 'tools': ('툴 추천', 'AI TOOLS', 'tools'), 'volume': ('프롬프트', 'PROMPT', 'prompt')}

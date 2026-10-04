@@ -222,15 +222,15 @@
     ];
     var groups = {};
     $$('.pz', hero).forEach(function (g) { var k = (g.getAttribute('class').match(/pz-(\S+)/) || [])[1]; if (k) groups[k] = g; });
-    var bob = $('.miri-bob'), badge = $('.shout'), cur = null, si = -1, fi = 0, frameT, sceneT;
+    var bob = $('.miri-bob'), badge = $('.shout'), cur = null, si = -1, fi = 0, frameT, sceneT, morphT, sayT, badgeT, lastTap = 0;
     var show = function (k) { if (cur) cur.classList.remove('on'); cur = groups[k] || groups.idle; cur.classList.add('on'); };
     var say = function (txt) {
       if (!tipEl) return;
-      tipEl.classList.add('swap');
-      setTimeout(function () { tipEl.textContent = txt; tipEl.classList.remove('swap'); }, 200);
+      clearTimeout(sayT); tipEl.classList.add('swap');
+      sayT = setTimeout(function () { tipEl.textContent = txt; tipEl.classList.remove('swap'); }, 200);
     };
     var puff = function () {
-      if (reduce) return;
+      if (reduce || $$('.puff', mb.parentNode).length > 6) return;
       for (var i = 0; i < 6; i++) {
         var d = document.createElement('i'); d.className = 'puff';
         var a = Math.PI * (1.05 + i * 0.18);
@@ -240,25 +240,31 @@
       }
     };
     var play = function (n, cls) {
-      clearInterval(frameT); clearTimeout(sceneT);
+      // cancel everything from the previous scene so timers never stack up (rapid taps used to leave
+      // several frame intervals running at once → poses flickering forever)
+      clearInterval(frameT); clearTimeout(sceneT); clearTimeout(morphT); clearTimeout(badgeT);
       si = (n + SCENES.length) % SCENES.length; var sc = SCENES[si]; fi = 0;
       // morph: squash through a ball, then pop into the new form
       show('ball'); hero.removeAttribute('data-eyes');
       bob.classList.remove('poof', 'hop'); void bob.offsetWidth; bob.classList.add(cls || 'poof'); puff();
-      setTimeout(function () {
+      morphT = setTimeout(function () {
         show(sc.p[0]);
         if (sc.eyes) hero.setAttribute('data-eyes', sc.eyes); else hero.removeAttribute('data-eyes');
         if (sc.p.length > 1) frameT = setInterval(function () { fi = (fi + 1) % sc.p.length; show(sc.p[fi]); }, sc.ms || 300);
       }, 140);
       say(sc.t);
-      if (badge) { badge.classList.remove('on'); if (sc.badge) { badge.textContent = sc.badge; setTimeout(function () { badge.classList.add('on'); }, 220); } }
+      if (badge) { badge.classList.remove('on'); if (sc.badge) { badge.textContent = sc.badge; badgeT = setTimeout(function () { badge.classList.add('on'); }, 220); } }
       if (!reduce) sceneT = setTimeout(function next() { if (document.hidden) { sceneT = setTimeout(next, 1000); return; } play(si + 1); }, 3800);
     };
     hero.classList.add('js'); show('idle');
     if (reduce) { mb.addEventListener('click', function () { si = (si + 1) % SCENES.length; say(SCENES[si].t); }); }
     else {
       setTimeout(function () { play(0); }, 1500);   // after the drop-in landing
-      mb.addEventListener('click', function () { play(si + 1, 'hop'); });
+      mb.addEventListener('click', function () {
+        var now = Date.now(); if (now - lastTap < 700) return;   // one morph at a time
+        lastTap = now; play(si + 1, 'hop');
+      });
+      bob.addEventListener('animationend', function (e) { if (e.animationName === 'poof' || e.animationName === 'hop') bob.classList.remove('poof', 'hop'); });
     }
   }
 

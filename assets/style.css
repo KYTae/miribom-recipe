@@ -146,8 +146,8 @@ mark { background: none; color: var(--pink); }
   86% { transform: translateY(0) scale(1.06, .94); }
   100% { transform: none; }
 }
-.miri-bob { display: block; transform-origin: 50% 100%; animation: bob 2.6s 1.3s steps(2, jump-none) infinite; }
-@keyframes bob { 0%, 100% { transform: none; } 50% { transform: scale(1.03, .96); } }
+.miri-bob { display: block; transform-origin: 50% 100%; animation: bob 3.2s 1.3s ease-in-out infinite; }
+@keyframes bob { 0%, 100% { transform: none; } 50% { transform: scale(1.015, .985); } }
 .miri-shadow { position: absolute; left: 36%; right: 36%; bottom: -6px; height: 10px; border-radius: 50%; background: rgba(0, 0, 0, .55); filter: blur(2px); z-index: -1; animation: shadow 1.05s .25s both; }
 @keyframes shadow { 0% { transform: scale(.3); opacity: 0; } 55% { transform: scale(1.1); opacity: 1; } 100% { transform: none; opacity: 1; } }
 
