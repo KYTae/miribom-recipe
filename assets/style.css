@@ -440,10 +440,14 @@ mark { background: none; color: var(--pink); }
 .foot { margin-top: 80px; padding-block: 56px calc(100px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: linear-gradient(180deg, transparent, rgba(255, 59, 160, .05)); }
 .foot-top img { width: 34px; height: auto; }
 .foot-big { margin: 18px 0 0; font-size: var(--fs-h2); line-height: 1.35; font-weight: 800; letter-spacing: -0.03em; }
-.foot-big a { color: var(--pink); text-decoration: none; font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: 0; }
+.foot-big a { display: inline-flex; align-items: center; gap: .28em; margin-top: 4px; font-family: var(--sans); font-style: normal; font-weight: 800; letter-spacing: -0.025em; text-decoration: none; background: linear-gradient(92deg, #ff3ba0 0%, #ff7ac4 55%, #ffb3dc 100%); -webkit-background-clip: text; background-clip: text; color: transparent; transition: filter .2s; }
+.foot-big a:hover { filter: brightness(1.15); }
+.foot-big a svg { width: .9em; height: .9em; color: var(--pink); stroke-width: 2.2; }
 .foot-sub { margin: 12px 0 0; color: var(--dim); font-size: 14.5px; max-width: 34em; }
 .foot-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 .foot-legal { margin: 40px 0 0; color: var(--dim-2); font-size: 12px; line-height: 1.7; }
+.foot-legal a { color: var(--dim); font-weight: 600; text-decoration: none; }
+.foot-legal a:hover { color: var(--pink-2); }
 
 /* toast */
 .toast { position: fixed; left: 50%; bottom: calc(84px + env(safe-area-inset-bottom)); z-index: 60; transform: translate(-50%, 16px); opacity: 0; pointer-events: none; padding: 12px 18px; border-radius: 14px; background: #fff; color: #111; font-weight: 700; font-size: 14.5px; box-shadow: 0 14px 40px -12px rgba(0, 0, 0, .6); transition: opacity .25s, transform .25s var(--ease); white-space: nowrap; }
