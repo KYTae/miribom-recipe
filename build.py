@@ -7,7 +7,7 @@ from miri import MIRI
 SITE = 'https://kytae.github.io/miribom-recipe/'
 IG = 'https://www.instagram.com/ai.miribom/'
 YT = 'https://www.youtube.com/@ai.miribom'
-VER = '3'
+VER = '4'
 e = html.escape
 
 TYPE = {'guide': ('따라하기', 'HOW TO', 'guide'), 'tools': ('툴 추천', 'AI TOOLS', 'tools'), 'volume': ('프롬프트', 'PROMPT', 'prompt')}
@@ -47,8 +47,16 @@ def miri(poses, cls='', vb=None, label=''):
 def strip_tags(s): return re.sub(r'<[^>]+>', '', s)
 
 
-def head(title, desc, base, page='home', og_img=None, url=''):
-    img = og_img or f'{SITE}assets/clips/{VOLUMES[0]["hero"]}.jpg'
+def head(title, desc, base, page='home', og_img=None, url='', og_title=None, og_alt=''):
+    img = og_img or f'{SITE}og/home.jpg'
+    ogt = og_title or title
+    alt = og_alt or ogt
+    ld = ''
+    if page == 'home':
+        ld = '<script type="application/ld+json">' + json.dumps({
+            "@context": "https://schema.org", "@type": "WebSite", "name": "미리봄 레시피", "alternateName": ["miribom recipe", "미리봄"],
+            "url": SITE, "inLanguage": "ko-KR", "description": desc,
+            "publisher": {"@type": "Organization", "name": "미리봄 AI 매거진", "url": SITE, "logo": f"{SITE}icon-512.png", "sameAs": [IG]}}, ensure_ascii=False) + '</script>'
     return f'''<!doctype html>
 <html lang="ko">
 <head>
@@ -57,16 +65,32 @@ def head(title, desc, base, page='home', og_img=None, url=''):
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{SITE}{url}">
-<meta property="og:type" content="website">
+<meta name="application-name" content="미리봄 레시피">
+<meta name="apple-mobile-web-app-title" content="미리봄 레시피">
+<meta property="og:type" content="{'website' if page == 'home' else 'article'}">
 <meta property="og:site_name" content="미리봄 레시피">
-<meta property="og:title" content="{e(title)}">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="{e(ogt)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{SITE}{url}">
 <meta property="og:image" content="{img}">
+<meta property="og:image:secure_url" content="{img}">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{e(alt)}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{e(ogt)}">
+<meta name="twitter:description" content="{e(desc)}">
+<meta name="twitter:image" content="{img}">
 <meta name="theme-color" content="#0b0b0c">
 <meta name="format-detection" content="telephone=no">
-<link rel="icon" href="{base}assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="{base}favicon.ico" sizes="48x48">
+<link rel="icon" href="{base}favicon-96.png" type="image/png" sizes="96x96">
+<link rel="icon" href="{base}icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="{base}apple-touch-icon.png">
+<link rel="manifest" href="{base}site.webmanifest">
+{ld}
 {FONTS}
 <link rel="stylesheet" href="{base}assets/style.css?v={VER}">
 </head>
@@ -89,11 +113,11 @@ def foot(base):
   <div class="foot-top">
     <div class="foot-miri">{miri(['sit'], 'm-sit')}</div>
     <img src="{base}assets/logo.svg" alt="" width="40" height="58">
-    <p class="foot-big">남들보다 먼저 보는 AI 소식,<br><a href="{IG}" target="_blank" rel="noopener">@ai.miribom</a></p>
+    <p class="foot-big">남들보다 먼저 보는 AI 소식,<br><a href="{IG}" target="_blank" rel="noopener">{ICON['ig']}@ai.miribom</a></p>
     <p class="foot-sub">새 레시피는 인스타그램 릴스에 먼저 올라와요. 릴스 댓글에 키워드를 남기면 이 페이지 링크를 DM으로 보내드려요.</p>
     <div class="foot-cta"><a class="btn solid" href="{IG}" target="_blank" rel="noopener">{ICON['ig']}인스타그램 팔로우</a></div>
   </div>
-  <p class="foot-legal">영상·프롬프트의 저작권은 각 원작자에게 있어요. 출처는 영상마다 표시했어요. 삭제 요청은 인스타그램 DM으로 주세요.<br>© miribom · AI 매거진 미리봄</p>
+  <p class="foot-legal">영상·프롬프트의 저작권은 각 원작자에게 있어요. 출처는 영상마다 표시했어요. 삭제 요청은 인스타그램 DM으로 주세요.<br>© <a href="{IG}" target="_blank" rel="noopener">@ai.miribom</a> · AI 매거진 미리봄</p>
 </div></footer>
 <button class="totop" type="button" aria-label="맨 위로">{ICON['up']}</button>
 <div class="toast" role="status" aria-live="polite">{miri(["ball"], "m-toast")}<span class="toast-t"></span></div>
@@ -119,6 +143,11 @@ def count(v):
 
 
 def unit(v): return {'tools': '사이트', 'guide': '단계', 'volume': '프롬프트'}[vtype(v)]
+
+
+def count_label(v):
+    n = count(v); t = vtype(v)
+    return f'{n}단계' if t == 'guide' else f'{unit(v)} {n}개'
 
 
 def prompts_in(v):
@@ -164,7 +193,7 @@ def card(v, base, feat=False, idx=0):
   <a href="{base}{v['slug']}/">
     <div class="card-media">{video(v['hero'], base)}<span class="card-no"><i>No.</i>{v['reel']}</span>{new}</div>
     <div class="card-body">
-      <div class="card-kick"><span class="pill t-{lab[2]}">{lab[0]}</span><span>{count(v)} {unit(v)}</span></div>
+      <div class="card-kick"><span class="pill t-{lab[2]}">{lab[0]}</span><span>{count_label(v)}</span></div>
       <h3>{e(v['title'])}</h3>
       <p>{e(v['short'])}</p>
       {'<span class="card-go">레시피 열기' + ICON['next'] + '</span>' if feat else ''}
@@ -180,7 +209,7 @@ def index_page():
                     for k, n, c in [('all', '전체', len(VOLUMES)), ('guide', '따라하기', sum(vtype(v) == 'guide' for v in VOLUMES)),
                                     ('prompt', '프롬프트', sum(vtype(v) == 'volume' for v in VOLUMES)), ('tools', '툴 추천', sum(vtype(v) == 'tools' for v in VOLUMES))])
     cards = ''.join(card(v, base, idx=i) for i, v in enumerate(VOLUMES))
-    return head('미리봄 레시피 — 릴스로 본 AI, 그대로 따라 하기', '미리봄 릴스에서 소개한 AI 영상·이미지 만드는 법과 프롬프트를 편마다 정리했어요. 누르면 바로 복사돼요.', base) + f'''<main id="main">
+    return head('미리봄 레시피', '미리봄 릴스에서 소개한 AI 영상·이미지 만드는 법과 프롬프트를 편마다 정리했어요. 누르면 바로 복사돼요.', base, og_title='미리봄 레시피 — 릴스에서 본 그 AI, 그대로 따라 만들어요', og_alt='미리봄 레시피: 릴스에서 본 그 AI, 그대로 따라 만들어요') + f'''<main id="main">
 <section class="mast"><div class="wrap mast-in">
   <div class="mast-txt">
     <p class="eyebrow"><span class="dot-live"></span>미리봄 레시피 <span class="serif">Recipe</span> · No.{VOLUMES[0]['reel']}까지 업데이트</p>
@@ -327,7 +356,7 @@ def volume_page(v):
 </section>'''
     stat_k, stat_v = v['stat']
     items = [('prompts', '재료'), ('steps', '만드는 법')] + ([('full', '완성 레시피')] if v['template'] else [])
-    return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}assets/clips/{v["hero"]}.jpg', v['slug'] + '/') + f'''<main id="main">
+    return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}og/{v["slug"]}.jpg', v['slug'] + '/', og_alt=f"미리봄 레시피 No.{v['reel']} {v['title']}") + f'''<main id="main">
 {cover(v, base, [('재료부터 복사하기', '#prompts')] + ([('완성 레시피', '#full')] if v['template'] else []), [(n, '핵심 문장'), (len(v['groups']), '원작자'), (stat_v, stat_k)])}
 {toc(items)}
 <section class="wrap sec" id="prompts">{sec_h('재료', 'ingredients', '누르면 바로 복사돼요')}<div class="ings">{''.join(ing)}</div></section>
@@ -357,7 +386,7 @@ def tools_page(v):
     <a class="btn go" href="{url}" target="_blank" rel="noopener">{e(host)} 바로가기{ICON['ext']}</a>
   </div>
 </article>''')
-    return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}assets/clips/{v["hero"]}.jpg', v['slug'] + '/') + f'''<main id="main">
+    return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}og/{v["slug"]}.jpg', v['slug'] + '/', og_alt=f"미리봄 레시피 No.{v['reel']} {v['title']}") + f'''<main id="main">
 {cover(v, base, [('한눈에 보기', '#list'), ('하나씩 보기', '#t1')], [(n, '분야'), (n, '사이트'), ('26.10', '기준')])}
 {toc([('list', '한눈에 보기'), ('steps', '분야별 고수 픽')])}
 <section class="wrap sec" id="list">{sec_h('한눈에 보기', 'index', '누르면 설명으로 이동해요')}<div class="tidxs">{''.join(idx)}</div></section>
@@ -405,7 +434,7 @@ def guide_page(v):
     items = [('steps', v.get('steps_title', '만드는 법'))] + ([('prompts', '프롬프트')] if ps else []) + [('price', v.get('price_title', '가격')), ('tips', '꿀팁')]
     facts = v.get('facts', [('3', '단계'), ('~10', '분'), ('$2~', '15초 1개')])
     ctas = v.get('ctas', [('만드는 법 보기', '#s1'), ('가격·무료 방법', '#price')])
-    return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}assets/clips/{v["hero"]}.jpg', v['slug'] + '/') + f'''<main id="main">
+    return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}og/{v["slug"]}.jpg', v['slug'] + '/', og_alt=f"미리봄 레시피 No.{v['reel']} {v['title']}") + f'''<main id="main">
 {cover(v, base, ctas, facts)}
 {toc(items, checklist=len(v['steps']))}
 <section class="wrap sec" id="steps">{sec_h(v.get('steps_title', '만드는 법'), 'method', v.get('steps_sub', ''))}{''.join(steps)}</section>
@@ -445,6 +474,14 @@ if __name__ == '__main__':
         with open(os.path.join(d, 'index.html'), 'w') as f:
             f.write(tools_page(v) if t == 'tools' else (guide_page(v) if t == 'guide' else volume_page(v)))
     open(os.path.join(root, '.nojekyll'), 'w').close()
+    with open(os.path.join(root, 'site.webmanifest'), 'w') as f:
+        json.dump({"name": "미리봄 레시피", "short_name": "미리봄 레시피", "start_url": "/miribom-recipe/", "scope": "/miribom-recipe/", "display": "standalone",
+                   "background_color": "#0b0b0c", "theme_color": "#0b0b0c", "lang": "ko",
+                   "icons": [{"src": "icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+                             {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]}, f, ensure_ascii=False)
+    with open(os.path.join(root, 'robots.txt'), 'w') as f: f.write(f'User-agent: *\nAllow: /\nSitemap: {SITE}sitemap.xml\n')
+    with open(os.path.join(root, 'sitemap.xml'), 'w') as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(f'<url><loc>{SITE}{p}</loc></url>' for p in [''] + [v['slug'] + '/' for v in VOLUMES]) + '</urlset>\n')
     with open(os.path.join(root, '404.html'), 'w') as f:
         f.write(head('페이지를 찾을 수 없어요 | 미리봄 레시피', '', '/miribom-recipe/', 'recipe') + '<main id="main" class="wrap nf">' + miri(['melt'], 'm-melt m-nf') + '<p class="serif nf-big">404</p><h1>레시피를 찾을 수 없어요</h1><p>주소가 바뀌었거나 아직 올라오지 않은 레시피예요.</p><a class="btn solid" href="/miribom-recipe/">전체 레시피 보기</a></main>' + foot('/miribom-recipe/'))
     print('built', [v['slug'] for v in VOLUMES])

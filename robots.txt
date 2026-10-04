@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kytae.github.io/miribom-recipe/sitemap.xml
