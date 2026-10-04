@@ -2,6 +2,53 @@
 
 VOLUMES = [
     {
+        'slug': '19',
+        'reel': 19,
+        'type': 'guide',
+        'part': 'HOW TO',
+        'title': '손바닥 위 포켓베이비 만드는 법',
+        'short': '사진 한 장 + ChatGPT + Kling',
+        'lede': '조회수 수백만이 나오는 손바닥 위 아기 영상, 사진 한 장으로 만드는 법을 프롬프트까지 그대로 정리했어요. 2026년 10월 기준이에요.',
+        'hero': '19-hero',
+        'hero_shape': 'tall',
+        'hero_tag': 'IG @tasyajijavadze',
+        'facts': [('1장', '사진'), ('3', '단계'), ('무료', '720p 가능')],
+        'ctas': [('만드는 법 보기', '#s1'), ('Kling 설정값', '#price')],
+        'steps_title': '만드는 법',
+        'steps_sub': '사진 → 이미지 → 영상',
+        'groups': [],
+        'steps': [
+            ('19-1', 'IG @tasyajijavadze', 'ChatGPT로 손바닥 위 사진 만들기', [
+                '정면이고 얼굴이 또렷한 사진 1장 (혼자 나온 사진, 밝은 곳). 선글라스·모자·단체 사진·센 필터는 피하기',
+                'ChatGPT에 사진을 올리고 아래 프롬프트를 그대로 붙여넣기',
+                '"이 사진 속 아기와 똑같은 얼굴로 만들어줘. 눈·코·입의 위치와 비율, 턱선, 표정, 눈 크기, 볼살, 헤어라인은 바꾸지 마. 아기를 손바닥 위에 올라갈 만큼 작은 포켓사이즈로, 전신이 자연스럽게 서 있는 모습으로 만들어줘. 위에서 약 45~60도로 내려다보는 시점으로(정수리만 보이는 90도 시점은 X) 얼굴·몸·팔·다리가 다 보이게. 손바닥 전체가 보이고 아기는 손바닥 가운데에 서 있게. 배경은 흐린 실내, 스마트폰으로 찍은 것처럼 사실적인 사진으로."',
+                '얼굴이 달라지면 "얼굴은 원본 그대로"를 한 번 더 강조해서 다시 생성'], 'tall'),
+            ('19-2', 'IG @babychan_aibaby', '영상으로 움직이기 (이미지 → 영상)', [
+                'Kling 같은 영상 AI에서 이미지→영상을 고르고 STEP 1 사진 업로드',
+                '동작은 순서대로 문장으로: 예) 젖병을 물고 마시다가 활짝 웃기',
+                '영어 프롬프트 예시: "Keep the exact face from the image. A palm-sized tiny baby on an open palm, macro lens, shallow depth of field, realistic shadow under the feet. A fingertip gently boops its cheek and lifts away; the baby startles, pouts, then smiles. Camera and hand stay still. Photorealistic, no text."',
+                '얼굴은 말로 묘사하지 말고 사진에 맡기기 · 손과 카메라는 고정'], 'tall'),
+            ('19-3', 'IG @chiho_628', '춤추게 만들기 (Kling 모션 컨트롤)', [
+                'Kling → 비디오 생성 → 모션 컨트롤',
+                '이미지: STEP 1에서 만든 사진 / 동작 비디오: 따라 할 춤 영상',
+                "설정: 생성 파라미터 '이미지와 일치', 화질 720p, 수량 1 → 가입 때 받는 무료 크레딧 범위에서 생성",
+                '춤 영상은 직접 찍었거나 허락받은 영상이 안전해요'], 'tall'),
+            ('19-4', 'IG @larisa.global', '응용: 나도 미니미로', [
+                '셀카 1장 + 같은 프롬프트에서 "아기"만 "사람"으로',
+                '볼 콕 연출은 "boop"으로 — "pinch"라고 쓰면 볼이 늘어나요',
+                '콕 → 놀람 → 손 쳐내기 → 쓰다듬기 순서로 적으면 자연스러워요'], 'tall'),
+        ],
+        'price_title': 'Kling 설정값',
+        'price_it': 'settings',
+        'price_sub': '모션 컨트롤 기준',
+        'price': [('메뉴', '비디오 생성 → 모션 컨트롤'), ('이미지', 'STEP 1에서 만든 사진'), ('동작 비디오', '따라 할 춤 영상'), ('생성 파라미터', '이미지와 일치'), ('화질', '720p'), ('수량', '1')],
+        'alts': [('kling', 'Kling AI', '가입 때 무료 크레딧 지급 · 720p로 무료 생성 가능', 'https://klingai.com')],
+        'tips': ['3~5번은 다시 뽑을 각오로 — 처음부터 완벽하게 나오진 않아요', '720p로 먼저 테스트하고 마음에 들면 고화질로', '크기감이 무너지면 "palm-sized, macro lens, realistic shadow under the feet" 추가', '결과가 이상하면 한 번에 하나만 바꿔서 다시', "올릴 땐 인스타 'AI 정보' 라벨 켜기"],
+        'notes': ['아이 사진은 가족 동의 범위 안에서만 쓰고, 다른 사람 아이 사진으로는 만들지 마세요.', 'Kling 메뉴 이름·무료 크레딧은 바뀔 수 있어요(2026년 10월 기준).', '영상 출처: IG @tasyajijavadze · @babychan_aibaby · @chiho_628 · @larisa.global'],
+        'stat': ('', ''),
+        'template': False,
+    },
+    {
         'slug': '18',
         'reel': 18,
         'type': 'guide',
