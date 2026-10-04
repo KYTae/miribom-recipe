@@ -79,7 +79,7 @@ def og_home():
     d.text((72, y + 88), '그대로 따라', font=f, fill=PINK); w = d.textlength('그대로 따라 ', font=f)
     d.text((72 + w, y + 88), '만들어요', font=f, fill=INK)
     d.text((72, y + 210), '프롬프트 복사 · 단계별 따라하기 · 매주 업데이트', font=pf('Medium', 27), fill=DIM)
-    d.text((72, H - 64), 'kytae.github.io/miribom-recipe', font=pf('Medium', 22), fill=(117, 114, 122))
+    d.text((72, H - 64), 'recipe.mirispring.com', font=pf('Medium', 22), fill=(117, 114, 122))
     im.convert('RGB').save(os.path.join(ROOT, 'og/home.jpg'), quality=88)
 
 def og_recipe(v):

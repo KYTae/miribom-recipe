@@ -4,10 +4,12 @@ import html, os, re, json
 from data import VOLUMES, TEMPLATE
 from miri import MIRI
 
-SITE = 'https://kytae.github.io/miribom-recipe/'
+DOMAIN = 'recipe.mirispring.com'
+SITE = f'https://{DOMAIN}/'
+ROOT_PATH = '/'   # site is served from the domain root
 IG = 'https://www.instagram.com/ai.miribom/'
 YT = 'https://www.youtube.com/@ai.miribom'
-VER = '6'
+VER = '8'
 e = html.escape
 
 TYPE = {'guide': ('따라하기', 'HOW TO', 'guide'), 'tools': ('툴 추천', 'AI TOOLS', 'tools'), 'volume': ('프롬프트', 'PROMPT', 'prompt')}
@@ -114,7 +116,7 @@ def head(title, desc, base, page='home', og_img=None, url='', og_title=None, og_
 def foot(base):
     return f'''<footer class="foot"><div class="wrap">
   <div class="foot-top">
-    <div class="foot-miri">{miri(['sit'], 'm-sit')}</div>
+    <div class="foot-miri">{miri(['sit', 'sit2', 'sit3'], 'm-sit')}</div>
     <img src="{base}assets/logo.svg" alt="" width="40" height="58">
     <p class="foot-big">남들보다 먼저 보는 AI 소식,<br><a href="{IG}" target="_blank" rel="noopener">{ICON['ig']}@ai.miribom</a></p>
     <p class="foot-sub">새 레시피는 인스타그램 릴스에 먼저 올라와요. 릴스 댓글에 키워드를 남기면 이 페이지 링크를 DM으로 보내드려요.</p>
@@ -223,7 +225,7 @@ def index_page():
   </div>
   <div class="stage" aria-label="미리봄 캐릭터 미리">
     <div class="stage-grid" aria-hidden="true"></div>
-    <p class="bubble" aria-live="off"><span class="tip">안녕하세요, 미리예요!</span></p>
+    <p class="bubble" aria-live="off"><span class="bubble-t">안녕하세요, 미리예요!</span></p>
     <button class="miri-btn" type="button" aria-label="미리 누르기">
       <span class="miri-drop"><span class="miri-bob">{miri(HERO_POSES, 'm-hero', vb='2 17 60 44')}</span></span>
       <span class="miri-shadow" aria-hidden="true"></span>
@@ -242,7 +244,7 @@ def index_page():
 
 <section class="wrap latest" aria-label="최신 레시피">
   <div class="sec-h"><h2>최신 레시피</h2><span class="serif">latest</span></div>
-  <ul class="cards one">{card(VOLUMES[0], base, feat=True)}</ul>
+  <div class="feat-wrap"><span class="feat-miri" aria-hidden="true">{miri(['sit', 'sit2', 'sit3'], 'm-sit m-tiny')}</span><ul class="cards one">{card(VOLUMES[0], base, feat=True)}</ul></div>
 </section>
 
 <section class="wrap all" id="search" aria-label="전체 레시피">
@@ -475,8 +477,9 @@ if __name__ == '__main__':
         with open(os.path.join(d, 'index.html'), 'w') as f:
             f.write(tools_page(v) if t == 'tools' else (guide_page(v) if t == 'guide' else volume_page(v)))
     open(os.path.join(root, '.nojekyll'), 'w').close()
+    with open(os.path.join(root, 'CNAME'), 'w') as f: f.write(DOMAIN + '\n')
     with open(os.path.join(root, 'site.webmanifest'), 'w') as f:
-        json.dump({"name": "미리봄 레시피", "short_name": "미리봄 레시피", "start_url": "/miribom-recipe/", "scope": "/miribom-recipe/", "display": "standalone",
+        json.dump({"name": "미리봄 레시피", "short_name": "미리봄 레시피", "start_url": ROOT_PATH, "scope": ROOT_PATH, "display": "standalone",
                    "background_color": "#0b0b0c", "theme_color": "#0b0b0c", "lang": "ko",
                    "icons": [{"src": "icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
                              {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]}, f, ensure_ascii=False)
@@ -484,5 +487,5 @@ if __name__ == '__main__':
     with open(os.path.join(root, 'sitemap.xml'), 'w') as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(f'<url><loc>{SITE}{p}</loc></url>' for p in [''] + [v['slug'] + '/' for v in VOLUMES]) + '</urlset>\n')
     with open(os.path.join(root, '404.html'), 'w') as f:
-        f.write(head('페이지를 찾을 수 없어요 | 미리봄 레시피', '', '/miribom-recipe/', 'recipe') + '<main id="main" class="wrap nf">' + miri(['melt'], 'm-melt m-nf') + '<p class="serif nf-big">404</p><h1>레시피를 찾을 수 없어요</h1><p>주소가 바뀌었거나 아직 올라오지 않은 레시피예요.</p><a class="btn solid" href="/miribom-recipe/">전체 레시피 보기</a></main>' + foot('/miribom-recipe/'))
+        f.write(head('페이지를 찾을 수 없어요 | 미리봄 레시피', '', ROOT_PATH, 'recipe') + '<main id="main" class="wrap nf">' + miri(['melt'], 'm-melt m-nf') + '<p class="serif nf-big">404</p><h1>레시피를 찾을 수 없어요</h1><p>주소가 바뀌었거나 아직 올라오지 않은 레시피예요.</p><a class="btn solid" href="' + ROOT_PATH + '">전체 레시피 보기</a></main>' + foot(ROOT_PATH))
     print('built', [v['slug'] for v in VOLUMES])

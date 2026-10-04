@@ -105,7 +105,7 @@ def path_of(sel):
 
 def hexc(c): return "#%02x%02x%02x" % tuple(int(v) for v in c)
 
-def pose(spec, t=0.0, eyesets=("idle", "blink", "happy"), fx=None):
+def pose(spec, t=0.0, eyesets=("idle", "blink", "happy", "look"), fx=None):
     base, al = grid(spec, t, None)
     for col, pts in (FX(fx) if fx else []):
         for x, y in pts:
@@ -136,7 +136,7 @@ POSES = {
     "wave2": (("wave", {}), 0.42),
     "cheer": (("cheer", {}), 0.0),
     "cheer2": (("cheer", {}), 0.11),
-    "sit": (("sit", {}), 0.0),
+    "sit": (("sit", {}), 0.2618), "sit2": (("sit", {}), 0.0), "sit3": (("sit", {}), -0.2618),
     "melt": (("melt", {}), 0.0),
     "hop": (("hop", {}), 0.0),
     "point": (("point", {"ang": -35}), 0.0),
