@@ -9,7 +9,7 @@ SITE = f'https://{DOMAIN}/'
 ROOT_PATH = '/'   # site is served from the domain root
 IG = 'https://www.instagram.com/ai.miribom/'
 YT = 'https://www.youtube.com/@ai.miribom'
-VER = '10'
+VER = '11'
 e = html.escape
 
 TYPE = {'guide': ('따라하기', 'HOW TO', 'guide'), 'tools': ('툴 추천', 'AI TOOLS', 'tools'), 'volume': ('프롬프트', 'PROMPT', 'prompt')}
@@ -162,6 +162,8 @@ def prompts_in(v):
     if t == 'volume':
         for g in v['groups']:
             for it in g['items']: out.append(it[3])
+    if t == 'tools':
+        out += [s for s in v.get('starters', []) if s]
     if t == 'guide':
         for st in v['steps']:
             for p in st[3]:
@@ -171,6 +173,9 @@ def prompts_in(v):
                 q = quoted(p)
                 if q: out.append(q)
         for lab, txt in (v.get('easy') or {}).get('prompts', []): out.append(txt)
+    for g in v.get('packs', []):
+        for it in g['items']:
+            if it[1] not in out: out.append(it[1])
     return out
 
 
@@ -277,6 +282,7 @@ def index_page():
 
 # ---------- recipe page parts ----------
 def cover(v, base, ctas, facts):
+    facts = [((f'{len(prompts_in(v))}개' if '프롬프트' in str(b) and str(a).endswith('개') else a), b) for a, b in facts]
     t = vtype(v); lab = TYPE[t]
     shape = v.get('hero_shape', 'tall')
     fact = ''.join(f'<li><b>{e(str(a))}</b><span>{e(b)}</span></li>' for a, b in facts)
@@ -338,6 +344,11 @@ def notes_html(lines):
     return '<ul class="notes wrap">' + ''.join(f'<li>{e(x)}</li>' for x in lines) + '</ul>'
 
 
+def fab_tools(v):
+    n = len([s for s in v['starters'] if s])
+    return f'''<div class="fab" aria-hidden="false"><a class="fab-btn" href="#t1">{ICON['copy']}<span>도구별 프롬프트 {n}개 보기</span></a></div>'''
+
+
 def fab(v):
     ps = prompts_in(v)
     if not ps: return ''
@@ -374,13 +385,19 @@ def volume_page(v):
   <p class="tip">팁: 01번처럼 첫 장면을 이미지로 먼저 만들어 참조로 넣으면 결과가 더 안정돼요.</p>
 </section>'''
     stat_k, stat_v = v['stat']
-    items = [('prompts', '재료'), ('steps', '만드는 법')] + ([('full', '완성 레시피')] if v['template'] else [])
+    extra = guide_extras(v, base)
+    items = ([('start', '사용법')] if v.get('prep') else []) + [('prompts', '재료'), ('steps', '만드는 법')] + ([('full', '완성 레시피')] if v['template'] else []) \
+        + ([('pack', '보너스')] if v.get('packs') else []) + ([('faq', '문제 해결')] if v.get('faq') else [])
     return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}og/{v["slug"]}.jpg', v['slug'] + '/', og_alt=f"미리봄 레시피 No.{v['reel']} {v['title']}") + f'''<main id="main">
 {cover(v, base, [('재료부터 복사하기', '#prompts')] + ([('완성 레시피', '#full')] if v['template'] else []), [(n, '핵심 문장'), (len(v['groups']), '원작자'), (stat_v, stat_k)])}
 {toc(items)}
+{extra['start']}
 <section class="wrap sec" id="prompts">{sec_h('재료', 'ingredients', '누르면 바로 복사돼요')}<div class="ings">{''.join(ing)}</div></section>
 <section class="wrap sec" id="steps">{sec_h('만드는 법', 'method', '원작 영상과 함께 보기')}{''.join(steps)}</section>
 {full}
+{packs_html(v, 'pack', v.get('pack_title')) if v.get('packs') else ''}
+{extra['faq']}
+{extra['gloss']}
 {notes_html(['같은 문장을 넣어도 결과는 매번 달라요. 여러 번 돌려보고 고르세요.', '영상 AI는 서비스마다 유료 크레딧이 필요할 수 있어요.', '영상과 문장의 출처는 모두 원작자에게 있어요. 프롬프트 전문은 원작자 게시물에서 볼 수 있어요.'])}
 {share_band(v)}
 {more(v, base)}
@@ -402,19 +419,25 @@ def tools_page(v):
     <h3>{e(pro)}</h3>
     <div class="vs"><span class="lab">초보</span><span>{e(beg)}</span></div>
     <div class="vs pro"><span class="lab">고수</span><span>{e(why)}</span></div>
+    {prompt_block(v['starters'][i], '바로 써볼 첫 프롬프트') if v.get('starters') and v['starters'][i] else ''}
+    {f'<p class="tool-how">{e(v["hows"][i])}</p>' if v.get('hows') and v['hows'][i] else ''}
     <a class="btn go" href="{url}" target="_blank" rel="noopener">{e(host)} 바로가기{ICON['ext']}</a>
   </div>
 </article>''')
+    extra = guide_extras(v, base)
     return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}og/{v["slug"]}.jpg', v['slug'] + '/', og_alt=f"미리봄 레시피 No.{v['reel']} {v['title']}") + f'''<main id="main">
-{cover(v, base, [('한눈에 보기', '#list'), ('하나씩 보기', '#t1')], [(n, '분야'), (n, '사이트'), ('26.10', '기준')])}
-{toc([('list', '한눈에 보기'), ('steps', '분야별 고수 픽')])}
+{cover(v, base, [('한눈에 보기', '#list'), ('하나씩 보기', '#t1')], v.get('facts') or [(n, '분야'), (n, '사이트'), ('26.10', '기준')])}
+{toc([('start', '어디부터')] * bool(v.get('prep')) + [('list', '한눈에 보기'), ('steps', '분야별 고수 픽')] + [('faq', '문제 해결')] * bool(v.get('faq')))}
+{extra['start']}
 <section class="wrap sec" id="list">{sec_h('한눈에 보기', 'index', '누르면 설명으로 이동해요')}<div class="tidxs">{''.join(idx)}</div></section>
-<section class="wrap sec" id="steps">{sec_h('분야별 고수 픽', 'picks', '공식 영상과 함께 보기')}{''.join(rows)}</section>
+<section class="wrap sec" id="steps">{sec_h('분야별 고수 픽', 'picks', '공식 영상 + 바로 써볼 프롬프트')}{''.join(rows)}</section>
+{extra['faq']}
+{extra['gloss']}
 {notes_html(['2026년 10월 기준이에요. 기능과 요금제는 자주 바뀌니 공식 사이트에서 확인하세요.', '"초보" 칸은 틀렸다는 뜻이 아니라, 대부분 처음 쓰는 기본 선택지라는 뜻이에요.', '영상은 각 회사 공식 계정과 크리에이터가 올린 영상이에요. 출처는 영상 위에 표시했어요.'])}
 {share_band(v)}
 {more(v, base)}
 </main>
-''' + foot(base)
+''' + (fab_tools(v) if v.get('starters') else '') + foot(base)
 
 
 def guide_point(p):
@@ -457,12 +480,14 @@ def guide_page(v):
     tips = ''.join(f'<li><span>{i+1}</span><p>{e(t)}</p></li>' for i, t in enumerate(v['tips']))
     ps = prompts_in(v)
     prompts_sec = ''
-    if ps:
+    if v.get('packs'):
+        prompts_sec = packs_html(v)
+    elif ps:
         blocks = ''.join(prompt_block(t, f'{i + 1}. {lab}') for i, (lab, t) in enumerate(prompt_labels(v)))
         prompts_sec = f'<section class="wrap sec" id="prompts">{sec_h("프롬프트 모아보기", "copy & paste", "단계에 나온 프롬프트를 한곳에 모았어요")}{blocks}</section>'
     extra = guide_extras(v, base)
-    items = ([('start', '시작 전')] if v.get('prep') else []) + ([('routes', '방법 비교')] if v.get('routes') else []) + [('steps', v.get('steps_title', '만드는 법'))] \
-        + ([('prompts', '프롬프트')] if ps else []) + [('price', v.get('price_title', '가격'))] + ([('faq', '문제 해결')] if v.get('faq') else []) + [('tips', '꿀팁')]
+    items = ([('start', '시작 전')] if v.get('prep') else []) + ([('routes', '방법 비교')] if v.get('routes') else []) + ([('prompts', '프롬프트')] if v.get('packs') else []) + [('steps', v.get('steps_title', '만드는 법'))] \
+        + ([('prompts', '프롬프트')] if ps and not v.get('packs') else []) + [('price', v.get('price_title', '가격'))] + ([('faq', '문제 해결')] if v.get('faq') else []) + [('tips', '꿀팁')]
     facts = v.get('facts', [('3', '단계'), ('~10', '분'), ('$2~', '15초 1개')])
     ctas = v.get('ctas', [('만드는 법 보기', '#s1'), ('가격·무료 방법', '#price')])
     return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}og/{v["slug"]}.jpg', v['slug'] + '/', og_alt=f"미리봄 레시피 No.{v['reel']} {v['title']}") + f'''<main id="main">
@@ -470,9 +495,10 @@ def guide_page(v):
 {toc(items, checklist=len(v['steps']))}
 {extra['start']}
 {extra['routes']}
+{prompts_sec if v.get('packs') else ''}
 <section class="wrap sec" id="steps">{sec_h(v.get('steps_title', '만드는 법'), 'method', v.get('steps_sub', ''))}{''.join(steps)}</section>
 {extra['easy']}
-{prompts_sec}
+{'' if v.get('packs') else prompts_sec}
 <section class="wrap sec" id="price">{sec_h(v.get('price_title', '가격'), v.get('price_it', 'price'), v.get('price_sub', ''))}
   <div class="table">{rows}</div>
   {f'<h3 class="sub3">무료로 해보려면</h3><div class="alts">{alts}</div>' if alts else ''}
@@ -487,6 +513,23 @@ def guide_page(v):
 ''' + fab(v) + foot(base)
 
 
+def sub_p(g):
+    return f'<p class="pk-sub">{e(g["sub"])}</p>' if g.get('sub') else ''
+
+
+def packs_html(v, sid='prompts', head_title=None):
+    groups = ''
+    n = 0
+    for g in v['packs']:
+        cards = ''
+        for it in g['items']:
+            n += 1
+            lab, txt = it[0], it[1]; note = it[2] if len(it) > 2 else ''
+            cards += f'''<div class="prompt pk"><div class="prompt-h"><span><em>{n:02d}</em>{e(lab)}</span><button class="copy" type="button">{ICON['copy']}<span>복사</span></button></div><pre><code>{e(txt)}</code></pre>{f'<p class="pk-note">{e(note)}</p>' if note else ''}</div>'''
+        groups += f'<div class="pk-group"><h3 class="pk-h">{e(g["title"])}</h3>{sub_p(g)}<div class="pk-grid">{cards}</div></div>'
+    return f'<section class="wrap sec" id="{sid}">{sec_h(head_title or f"프롬프트 {n}개", "prompt pack", "누르면 바로 복사돼요 · 상황별로 골라 쓰세요")}{groups}</section>'
+
+
 def guide_extras(v, base):
     """optional beginner-friendly sections for guide recipes (how-it-works, prep, route comparison, easy way, FAQ, glossary)"""
     out = {'start': '', 'routes': '', 'easy': '', 'faq': '', 'gloss': ''}
@@ -499,7 +542,7 @@ def guide_extras(v, base):
             fsum = f'<p class="flow-sum">{e(v["flow_sum"])}</p>' if v.get('flow_sum') else ''
             flow = f'<div class="flow-box"><p class="flow-h">이렇게 작동해요</p><ol class="flow">{"".join(nodes)}</ol>{fsum}</div>'
         prep = ''.join(f'<li><b>{e(t)}</b><span>{e(d)}</span></li>' for t, d in v.get('prep', []))
-        out['start'] = f'''<section class="wrap sec" id="start">{sec_h('시작 전에', 'before you start', '처음이라면 여기부터 읽어보세요')}{flow}<h3 class="sub3">준비물</h3><ul class="prep">{prep}</ul></section>'''
+        out['start'] = f'''<section class="wrap sec" id="start">{sec_h(v.get('start_title', '시작 전에'), v.get('start_it', 'before you start'), v.get('start_sub', '처음이라면 여기부터 읽어보세요'))}{flow}{f'<h3 class="sub3">{e(v.get("prep_title", "준비물"))}</h3><ul class="prep">{prep}</ul>' if prep else ''}</section>'''
     if v.get('routes'):
         cards = ''
         for r in v['routes']:

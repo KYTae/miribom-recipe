@@ -315,8 +315,8 @@ mark { background: none; color: var(--pink); }
 .facts { list-style: none; padding: 0; margin: 22px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid var(--line); }
 .facts li { padding: 14px 4px 14px 0; display: flex; flex-direction: column; gap: 2px; }
 .facts li + li { padding-left: 14px; border-left: 1px solid var(--line); }
-.facts b { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.1; color: var(--ink); }
-.facts span { font-size: 12.5px; color: var(--dim); }
+.facts b { font-family: var(--sans); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; color: var(--ink); font-variant-numeric: tabular-nums; }
+.facts span { font-size: 13px; color: var(--dim); line-height: 1.4; }
 .ctas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 .cover-media { position: relative; margin: 0; border-radius: calc(var(--r) + 4px); overflow: hidden; background: var(--surface); width: 100%; box-shadow: 0 30px 80px -40px rgba(255, 59, 160, .35); }
 .cover-media.tall { aspect-ratio: 4 / 5; }
@@ -563,3 +563,17 @@ mark { background: none; color: var(--pink); }
 .gloss div + div { border-top: 1px solid var(--line); }
 @media (min-width: 720px) { .gloss div { grid-template-columns: 220px 1fr; gap: 16px; } }
 .gloss dt { font-weight: 800; font-size: 15px; } .gloss dd { margin: 0; color: var(--ink-2); font-size: 14.5px; line-height: 1.6; }
+
+/* prompt pack */
+.pk-group + .pk-group { margin-top: 34px; }
+.pk-h { margin: 0; font-size: var(--fs-h3); letter-spacing: -0.02em; }
+.pk-sub { margin: 4px 0 0; color: var(--dim); font-size: var(--fs-sm); }
+.pk-grid { display: grid; gap: 10px; margin-top: 12px; }
+@media (min-width: 900px) { .pk-grid { grid-template-columns: 1fr 1fr; } }
+.prompt.pk { margin-top: 0; display: flex; flex-direction: column; }
+.prompt.pk .prompt-h > span { color: var(--ink); font-size: 14px; font-weight: 700; }
+.prompt.pk .prompt-h em { font-style: normal; font-family: var(--mono); color: var(--pink-2); margin-right: 8px; font-size: 12.5px; }
+.prompt.pk pre { font-size: 13.5px; max-height: 230px; overflow: auto; }
+.pk-note { margin: auto 0 0; padding: 10px 16px; border-top: 1px solid var(--line); color: var(--mint); font-size: 13px; }
+.tool-how { margin: 12px 0 0; padding: 12px 14px; border-radius: var(--r-sm); background: var(--surface); color: var(--ink-2); font-size: 14.5px; line-height: 1.6; }
+.tool-how::before { content: "사용 팁 "; color: var(--mint); font-weight: 800; }
