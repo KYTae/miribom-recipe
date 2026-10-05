@@ -83,7 +83,7 @@ def og_home():
     im.convert('RGB').save(os.path.join(ROOT, 'og/home.jpg'), quality=88)
 
 def og_recipe(v):
-    W, H = 1200, 630; t = v.get('type', 'volume')
+    W, H = 1200, 630; t = {'pack': 'volume', 'how': 'guide', 'kit': 'tools'}.get(v.get('type', 'volume'), v.get('type', 'volume'))
     im = Image.new('RGBA', (W, H), BG + (255,)); glow(im, 1100, 80, 380, PINK, 55)
     src = Image.open(os.path.join(ROOT, 'assets/clips', v['hero'] + '.jpg')).convert('RGB')
     mw, mh = 430, 496; mx, my = W - 48 - mw, 86
@@ -109,8 +109,9 @@ def og_recipe(v):
     for ln in wrap(d, v['short'], pf('Medium', 27), maxw)[:2]:
         d.text((64, ty + 18), ln, font=pf('Medium', 27), fill=DIM); ty += 40
     unit = {'tools': '사이트', 'guide': '단계', 'volume': '프롬프트'}[t]
-    n = len(v['tools']) if t == 'tools' else (len(v['steps']) if t == 'guide' else sum(len(g['items']) for g in v['groups']))
-    cta = {'guide': f'{n}단계 바로 따라 하기 →', 'tools': f'사이트 {n}개 바로 보기 →', 'volume': f'프롬프트 {n}개 바로 복사 →'}[t]
+    from build import count as _count
+    n = _count(v)
+    cta = {'guide': f'{n}단계 바로 따라 하기 →', 'tools': (f'툴 {n}개 가격 한눈에 →' if v.get('type') == 'kit' else f'사이트 {n}개 바로 보기 →'), 'volume': f'프롬프트 {n}개 바로 복사 →'}[t]
     cw = d.textlength(cta, font=pf('Bold', 24)) + 56
     d.rounded_rectangle([64, H - 112, 64 + cw, H - 56], radius=28, fill=PINK)
     d.text((64 + cw / 2, H - 84), cta, font=pf('Bold', 24), fill=(255, 255, 255), anchor='mm')

@@ -9,10 +9,11 @@ SITE = f'https://{DOMAIN}/'
 ROOT_PATH = '/'   # site is served from the domain root
 IG = 'https://www.instagram.com/ai.miribom/'
 YT = 'https://www.youtube.com/@ai.miribom'
-VER = '13'
+VER = '14'
 e = html.escape
 
-TYPE = {'guide': ('따라하기', 'HOW TO', 'guide'), 'tools': ('툴 추천', 'AI TOOLS', 'tools'), 'volume': ('프롬프트', 'PROMPT', 'prompt')}
+TYPE = {'guide': ('따라하기', 'HOW TO', 'guide'), 'tools': ('툴 추천', 'AI TOOLS', 'tools'), 'volume': ('프롬프트', 'PROMPT', 'prompt'),
+        'pack': ('프롬프트', 'PROMPT', 'prompt'), 'how': ('따라하기', 'HOW TO', 'guide'), 'kit': ('툴 추천', 'AI TOOLS', 'tools')}
 def vtype(v): return v.get('type', 'volume')
 
 FONTS = ('<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>'
@@ -145,15 +146,18 @@ def count(v):
     t = vtype(v)
     if t == 'tools': return len(v['tools'])
     if t == 'guide': return len(v['steps'])
+    if t == 'pack': return len(prompts_in(v))
+    if t == 'how': return len(v['steps'])
+    if t == 'kit': return sum(len(sec['tools']) for sec in v['sections'])
     return sum(len(g['items']) for g in v['groups'])
 
 
-def unit(v): return {'tools': '사이트', 'guide': '단계', 'volume': '프롬프트'}[vtype(v)]
+def unit(v): return {'tools': '사이트', 'guide': '단계', 'volume': '프롬프트', 'pack': '프롬프트', 'how': '단계', 'kit': '툴'}[vtype(v)]
 
 
 def count_label(v):
     n = count(v); t = vtype(v)
-    return f'{n}단계' if t == 'guide' else f'{unit(v)} {n}개'
+    return f'{n}단계' if t in ('guide', 'how') else f'{unit(v)} {n}개'
 
 
 def prompts_in(v):
@@ -164,8 +168,10 @@ def prompts_in(v):
             for it in g['items']: out.append(it[3])
     if t == 'tools':
         out += [s for s in v.get('starters', []) if s]
-    if t == 'guide':
-        for st in v['steps']:
+    if t == 'kit':
+        out += [tl['starter'] for sec in v['sections'] for tl in sec['tools'] if tl.get('starter')]
+    if t in ('guide', 'pack', 'how'):
+        for st in v.get('steps', []):
             for p in st[3]:
                 if isinstance(p, tuple):
                     if p[0] == 'prompt': out.append(p[2])
@@ -197,6 +203,7 @@ def quoted(s):
 
 def tag_line(v):
     t = vtype(v)
+    if t in ('pack', 'kit', 'how'): return v.get('hero_tag', '')
     if t == 'volume': return 'X ' + v['groups'][0]['who']
     if t == 'tools': return v['tools'][0][6]
     return v.get('hero_tag', '')
@@ -208,6 +215,8 @@ def keywords(v):
     if t == 'tools': bits += [x[2] + ' ' + x[0] for x in v['tools']]
     if t == 'guide': bits += [s[2] for s in v['steps']]
     if t == 'volume': bits += [it[2] for g in v['groups'] for it in g['items']] + [g['tool'] for g in v['groups']]
+    if t in ('pack', 'how'): bits += [it[0] for g in v.get('packs', []) for it in g['items']] + [st[2] for st in v.get('steps', [])]
+    if t == 'kit': bits += [tl['name'] + ' ' + sec['label'] for sec in v['sections'] for tl in sec['tools']]
     return ' '.join(bits).lower()
 
 
@@ -232,8 +241,8 @@ def index_page():
     base = ''
     n_prompt = sum(len(prompts_in(v)) for v in VOLUMES)
     chips = ''.join(f'<button type="button" class="chip{" on" if k == "all" else ""}" data-filter="{k}" aria-pressed="{"true" if k == "all" else "false"}">{n}<b>{c}</b></button>'
-                    for k, n, c in [('all', '전체', len(VOLUMES)), ('guide', '따라하기', sum(vtype(v) == 'guide' for v in VOLUMES)),
-                                    ('prompt', '프롬프트', sum(vtype(v) == 'volume' for v in VOLUMES)), ('tools', '툴 추천', sum(vtype(v) == 'tools' for v in VOLUMES))])
+                    for k, n, c in [('all', '전체', len(VOLUMES)), ('guide', '따라하기', sum(vtype(v) in ('guide', 'how') for v in VOLUMES)),
+                                    ('prompt', '프롬프트', sum(vtype(v) in ('volume', 'pack') for v in VOLUMES)), ('tools', '툴 추천', sum(vtype(v) in ('tools', 'kit') for v in VOLUMES))])
     cards = ''.join(card(v, base, idx=i) for i, v in enumerate(VOLUMES))
     return head('미리봄 레시피', '미리봄 릴스에서 소개한 AI 영상·이미지 만드는 법과 프롬프트를 편마다 정리했어요. 누르면 바로 복사돼요.', base, og_title='미리봄 레시피 — 릴스에서 본 그 AI, 그대로 따라 만들어요', og_alt='미리봄 레시피: 릴스에서 본 그 AI, 그대로 따라 만들어요') + f'''<main id="main">
 <section class="mast"><div class="wrap mast-in">
@@ -522,6 +531,12 @@ def packs_html(v, sid='prompts', head_title=None):
     n = 0
     for g in v['packs']:
         cards = ''
+        if g.get('chips'):
+            for it in g['items']:
+                n += 1
+                cards += f'<button class="ing" type="button" aria-label="{e(it[0])} 복사"><span class="n">{n:02d}</span><span class="ing-t"><small>{e(it[2])}</small><code>{e(it[1].strip())}</code></span><span class="c">{ICON["copy"]}<em>복사</em></span></button>'
+            groups += f'<div class="pk-group"><h3 class="pk-h">{e(g["title"])}</h3>{sub_p(g)}<div class="ings">{cards}</div></div>'
+            continue
         for it in g['items']:
             n += 1
             lab, txt = it[0], it[1]; note = it[2] if len(it) > 2 else ''
@@ -563,6 +578,120 @@ def guide_extras(v, base):
     return out
 
 
+def solo_steps(v, sid='steps'):
+    """text-only numbered steps (guide_point bullets), optional clip per step"""
+    out = []
+    for i, st in enumerate(v.get('steps', [])):
+        clip, cred, ttl, pts = st[:4]
+        shape = st[4] if len(st) > 4 and st[4] else 'wide'
+        badge = st[5] if len(st) > 5 else ''
+        lis = ''.join(guide_point(x) for x in pts)
+        fig = f'<figure class="step-media {shape}">{video(clip, "../", label=ttl)}<figcaption class="tag">{e(cred)}</figcaption></figure>' if clip else ''
+        out.append(f'''<article class="step{' rev' if i % 2 else ''}{'' if clip else ' solo'}" id="s{i+1}">
+  {fig}
+  <div class="step-txt">
+    <div class="step-no"><span class="serif">{i+1:02d}</span><span class="pill">STEP {i+1}</span>{f'<span class="pill opt">{e(badge)}</span>' if badge else ''}</div>
+    <h3>{e(ttl)}</h3>
+    <ul class="pts">{lis}</ul>
+  </div>
+</article>''')
+    if not out: return ''
+    return f'<section class="wrap sec" id="{sid}">{sec_h(v.get("steps_title", "이렇게 따라 하세요"), "method", v.get("steps_sub", ""))}{"".join(out)}</section>'
+
+
+def source_html(v):
+    srcs = v.get('sources', [])
+    if not srcs: return ''
+    rows = ''.join(f'<div class="src"><div><b>{e(w)}</b><span>{e(d)}</span></div><a href="{u}" target="_blank" rel="noopener">원문 보기{ICON["ext"]}</a></div>' for w, d, u in srcs)
+    return f'<section class="wrap sec" id="source">{sec_h("원작·출처", "source", "릴스에 나온 영상과 글의 원본이에요")}{rows}</section>'
+
+
+def tips_html(v):
+    if not v.get('tips'): return ''
+    tips = ''.join(f'<li><span>{i+1}</span><p>{e(t)}</p></li>' for i, t in enumerate(v['tips']))
+    return f'<section class="wrap sec" id="tips">{sec_h("꿀팁", "tips")}<ol class="tips">{tips}</ol></section>'
+
+
+def pack_page(v):
+    """prompt pack recipe: how-to-use + prompt packs + optional steps"""
+    base = '../'
+    extra = guide_extras(v, base)
+    ps = prompts_in(v)
+    steps = solo_steps(v)
+    items = ([('start', '사용법')] if v.get('prep') or v.get('flow') else []) + ([('steps', v.get('steps_toc', '따라 하기'))] if steps and v.get('steps_first') else []) \
+        + [('prompts', '프롬프트')] + ([('steps', v.get('steps_toc', '따라 하기'))] if steps and not v.get('steps_first') else []) \
+        + ([('faq', '문제 해결')] if v.get('faq') else []) + ([('tips', '꿀팁')] if v.get('tips') else []) + ([('source', '원작')] if v.get('sources') else [])
+    facts = v.get('facts') or [(f'{len(ps)}개', '복사용 프롬프트'), ('무료', '로 시작'), ('26.10', '기준')]
+    ctas = v.get('ctas') or [('프롬프트 바로 복사', '#prompts'), ('사용법 보기', '#start')]
+    if v.get('packs'):
+        packs = packs_html(v, 'prompts', v.get('pack_title'))
+    else:
+        blocks = ''.join(prompt_block(t, f'{i + 1}. {lab}') for i, (lab, t) in enumerate(prompt_labels(v)))
+        packs = f'<section class="wrap sec" id="prompts">{sec_h("프롬프트 모아보기", "copy & paste", "단계에 나온 프롬프트를 한곳에 모았어요")}{blocks}</section>' if blocks else ''
+    return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}og/{v["slug"]}.jpg', v['slug'] + '/', og_alt=f"미리봄 레시피 No.{v['reel']} {v['title']}") + f'''<main id="main">
+{cover(v, base, ctas, facts)}
+{toc(items)}
+{extra['start']}
+{extra['routes']}
+{steps if v.get('steps_first') else ''}
+{packs}
+{'' if v.get('steps_first') else steps}
+{extra['easy']}
+{extra['faq']}
+{tips_html(v)}
+{extra['gloss']}
+{source_html(v)}
+{notes_html(v.get('notes', ['결과는 매번 조금씩 달라요. 마음에 들 때까지 이어서 고쳐 달라고 해보세요.', '서비스 이름·메뉴·요금은 2026년 10월 기준이에요.']))}
+{share_band(v)}
+{more(v, base)}
+</main>
+''' + fab(v) + foot(base)
+
+
+def kit_page(v):
+    """toolkit: price overview table + section cards (official clip + 3 tools each)"""
+    base = '../'
+    extra = guide_extras(v, base)
+    rows, secs, k = [], [], 0
+    for si, sec in enumerate(v['sections']):
+        cards = ''
+        for tl in sec['tools']:
+            k += 1
+            host = tl['url'].replace('https://', '').replace('www.', '').split('/')[0]
+            badge = f'<span class="kfree{" good" if tl.get("good") else ""}">{e(tl["free"])}</span>'
+            rows.append(f'''<a class="krow" href="#k{k}"><img src="{base}assets/logos/{tl['logo']}.png" alt="" width="40" height="40" loading="lazy"><span class="krow-t"><small>{e(sec['label'])}</small><b>{e(tl['name'])}</b></span><span class="krow-f">{badge}</span><span class="krow-p">{e(tl['price'])}</span></a>''')
+            starter = prompt_block(tl['starter'], tl.get('starter_label', '바로 써볼 첫 프롬프트')) if tl.get('starter') else ''
+            how = f'<p class="tool-how">{e(tl["how"])}</p>' if tl.get('how') else ''
+            cards += f'''<div class="ktool" id="k{k}">
+  <div class="ktool-h"><img src="{base}assets/logos/{tl['logo']}.png" alt="" width="52" height="52" loading="lazy"><div><b>{e(tl['name'])}</b><span>{e(tl['use'])}</span></div></div>
+  <dl class="kmeta"><div><dt>무료</dt><dd>{badge}</dd></div><div><dt>유료</dt><dd><b>{e(tl['price'])}</b> <small>{e(tl.get('price_note', ''))}</small></dd></div></dl>
+  {starter}{how}
+  <a class="btn go" href="{tl['url']}" target="_blank" rel="noopener">{e(host)} 바로가기{ICON['ext']}</a>
+</div>'''
+        secs.append(f'''<article class="ksec" id="sec{si+1}">
+  <div class="ksec-h"><figure class="step-media tall ksec-media">{video(sec['clip'], base, label=sec['label'])}<figcaption class="tag">{e(sec['cred'])}</figcaption></figure>
+  <div><div class="step-no"><span class="serif">{si+1:02d}</span><span class="pill">{e(sec['label'])}</span></div><h3>{e(sec['title'])}</h3><p>{e(sec['desc'])}</p></div></div>
+  <div class="ktools">{cards}</div>
+</article>''')
+    n = k
+    facts = v.get('facts') or [(n, '툴'), (len(v['sections']), '업무'), (v.get('asof', '26.10'), '가격 기준')]
+    items = ([('start', '어디부터')] if v.get('prep') else []) + [('list', '가격 한눈에'), ('steps', '업무별 자세히')] + ([('faq', '문제 해결')] if v.get('faq') else []) + ([('tips', '꿀팁')] if v.get('tips') else [])
+    return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}og/{v["slug"]}.jpg', v['slug'] + '/', og_alt=f"미리봄 레시피 No.{v['reel']} {v['title']}") + f'''<main id="main">
+{cover(v, base, [('가격 한눈에 보기', '#list'), ('업무별로 보기', '#sec1')], facts)}
+{toc(items)}
+{extra['start']}
+<section class="wrap sec" id="list">{sec_h('가격 한눈에', 'price list', v.get('list_sub', '개인 요금제 · 월 결제 기준 · 누르면 자세히'))}<div class="krows">{''.join(rows)}</div><p class="kasof">가격 확인: {e(v.get('asof_full', '2026년 10월'))} · 부가세·환율·프로모션에 따라 달라질 수 있어요</p></section>
+<section class="wrap sec" id="steps">{sec_h('업무별 자세히', 'by task', '공식 영상 + 바로 써볼 프롬프트')}{''.join(secs)}</section>
+{extra['faq']}
+{tips_html(v)}
+{extra['gloss']}
+{notes_html(v.get('notes', []))}
+{share_band(v)}
+{more(v, base)}
+</main>
+''' + fab(v) + foot(base)
+
+
 def tpl_html():
     out = []
     for line in TEMPLATE.split('\n'):
@@ -584,7 +713,7 @@ if __name__ == '__main__':
         d = os.path.join(root, v['slug']); os.makedirs(d, exist_ok=True)
         t = vtype(v)
         with open(os.path.join(d, 'index.html'), 'w') as f:
-            f.write(tools_page(v) if t == 'tools' else (guide_page(v) if t == 'guide' else volume_page(v)))
+            f.write({'tools': tools_page, 'guide': guide_page, 'pack': pack_page, 'how': pack_page, 'kit': kit_page}.get(t, volume_page)(v))
     open(os.path.join(root, '.nojekyll'), 'w').close()
     with open(os.path.join(root, 'CNAME'), 'w') as f: f.write(DOMAIN + '\n')
     with open(os.path.join(root, 'site.webmanifest'), 'w') as f:

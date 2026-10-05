@@ -570,3 +570,9 @@ Maintain consistent identity, clothing, hairstyle, and appearance throughout the
 
 [AVOID]
 No stabilization. No cinematic camera moves. No modern color grading."""
+
+
+# --- added 2026-10-05: No.20 toolkit + No.1–13 back catalogue ---
+from data_kit20 import V20
+from data_older import OLDER
+VOLUMES = [V20] + VOLUMES + OLDER
