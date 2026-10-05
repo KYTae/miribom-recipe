@@ -9,7 +9,7 @@ SITE = f'https://{DOMAIN}/'
 ROOT_PATH = '/'   # site is served from the domain root
 IG = 'https://www.instagram.com/ai.miribom/'
 YT = 'https://www.youtube.com/@ai.miribom'
-VER = '11'
+VER = '12'
 e = html.escape
 
 TYPE = {'guide': ('따라하기', 'HOW TO', 'guide'), 'tools': ('툴 추천', 'AI TOOLS', 'tools'), 'volume': ('프롬프트', 'PROMPT', 'prompt')}
@@ -35,7 +35,7 @@ ICON = {
 }
 
 
-HERO_POSES = ['idle', 'wave', 'wave2', 'mega', 'mega2', 'qmark', 'bulb', 'bulb2', 'cam', 'cam2', 'bang', 'mag', 'arrow', 'cheer', 'cheer2', 'heart', 'heart2', 'ball']
+HERO_POSES = ['idle', 'wave', 'wave2', 'mega', 'mega2', 'stir', 'stir2', 'qmark', 'copy', 'reporter', 'flip', 'flip2', 'bulb', 'bulb2', 'surf', 'surf2', 'check', 'cam', 'cam2', 'taste', 'bang', 'laptop', 'laptop2', 'play', 'magx', 'pour', 'pour2', 'anchor', 'surprise', 'arrow', 'star', 'ball', 'sleepy', 'sleepy2', 'bubble', 'cheer', 'cheer2', 'hearts', 'hearts2']
 UPDATED = '2026.10.06'
 
 

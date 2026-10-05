@@ -213,14 +213,30 @@
     var SCENES = [
       { p: ['wave', 'wave2'], ms: 300, eyes: 'happy', t: '안녕하세요, 미리예요!' },
       { p: ['mega', 'mega2'], ms: 380, badge: '속보!', t: '새 레시피가 매주 올라와요!' },
+      { p: ['stir', 'stir2'], ms: 420, t: '오늘의 프롬프트, 보글보글 끓이는 중' },
       { p: ['qmark'], anim: 'tilt', badge: '?', t: '오늘은 뭘 만들어볼까요?' },
-      { p: ['bulb', 'bulb2'], ms: 520, t: '프롬프트는 누르면 바로 복사돼요' },
+      { p: ['copy'], anim: 'shake', t: '누르면 바로 복사! 붙여넣기만 하면 돼요' },
+      { p: ['reporter'], t: '새 AI 소식, 제가 먼저 취재해요' },
+      { p: ['flip', 'flip2'], ms: 450, t: '프롬프트 한 장 뒤집기!' },
+      { p: ['bulb', 'bulb2'], ms: 520, t: '아하! 이런 방법이 있었네요' },
+      { p: ['surf', 'surf2'], ms: 500, eyes: 'happy', t: '요즘 AI 트렌드, 같이 타요!' },
+      { p: ['check'], anim: 'shake', t: '따라 한 단계는 체크해두면 기억돼요' },
       { p: ['cam', 'cam', 'cam', 'cam2'], ms: 260, t: '원작 영상과 출처까지 같이 정리했어요' },
+      { p: ['taste'], eyes: 'happy', t: '음~ 이 프롬프트 맛있다!' },
       { p: ['bang'], anim: 'shake', t: '새 AI 기능은 나오자마자 정리해요' },
-      { p: ['mag'], t: '검색창에 툴 이름을 넣어보세요' },
+      { p: ['laptop', 'laptop2'], ms: 160, t: '레시피 열심히 정리 중…' },
+      { p: ['play'], anim: 'tilt', t: '영상 보면서 그대로 따라 해요' },
+      { p: ['magx'], anim: 'tilt', t: '검색창에 툴 이름을 넣어보세요' },
+      { p: ['pour', 'pour2'], ms: 360, t: '설정값은 계량컵처럼 정확하게' },
+      { p: ['anchor'], t: '오늘의 AI 뉴스, 미리가 전해드려요' },
+      { p: ['surprise'], anim: 'shake', t: '이게 된다고?!' },
       { p: ['arrow'], anim: 'shake', t: '릴스 댓글에 키워드 → DM으로 링크가 와요' },
-      { p: ['cheer', 'cheer2'], ms: 260, eyes: 'happy', t: '따라하기 단계는 체크해두면 기억돼요' },
-      { p: ['heart', 'heart2'], ms: 480, eyes: 'happy', badge: '♥', t: '도움이 됐다면 친구에게 공유해 주세요' }
+      { p: ['star'], anim: 'tilt', t: '마음에 들면 저장해두세요' },
+      { p: ['ball'], anim: 'roll', t: '데굴데굴~ 다음 레시피로!' },
+      { p: ['sleepy', 'sleepy2'], ms: 900, eyes: 'blink', t: '밤새 AI 뉴스 보느라… 쿨쿨' },
+      { p: ['bubble'], anim: 'tilt', t: '궁금한 건 인스타 DM으로 물어보세요' },
+      { p: ['cheer', 'cheer2'], ms: 260, eyes: 'happy', t: '오늘도 하나 만들어봐요!' },
+      { p: ['hearts', 'hearts2'], ms: 450, eyes: 'happy', t: '도움이 됐다면 친구에게 공유해 주세요' }
     ];
     var groups = {};
     $$('.pz', hero).forEach(function (g) { var k = (g.getAttribute('class').match(/pz-(\S+)/) || [])[1]; if (k) groups[k] = g; });
@@ -248,7 +264,7 @@
       si = (n + SCENES.length) % SCENES.length; var sc = SCENES[si]; fi = 0;
       // morph: squash through a ball, then pop into the new form
       show('ball'); hero.removeAttribute('data-eyes');
-      bob.classList.remove('poof', 'hop', 'a-tilt', 'a-shake'); void bob.offsetWidth; bob.classList.add(cls || 'poof'); puff();
+      bob.classList.remove('poof', 'hop', 'a-tilt', 'a-shake', 'a-roll'); void bob.offsetWidth; bob.classList.add(cls || 'poof'); puff();
       morphT = setTimeout(function () {
         show(sc.p[0]);
         if (sc.eyes) hero.setAttribute('data-eyes', sc.eyes); else hero.removeAttribute('data-eyes');

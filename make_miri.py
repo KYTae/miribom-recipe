@@ -36,12 +36,48 @@ def body_mask(spec, t):
         E([14, 16, 34, 38]); E([10.5, 24.5, 16.5, 30.5]); E([31.5, 24.5, 37.5, 30.5])
     if kind == "arrow":     # arrow pointing right: shaft (face) + head
         Rr([3, 21, 27, 33], 3); Pg([(25, 11), (45, 27), (25, 43)])
+    def blob(y0=16, y1=38): E([14, y0, 34, y1])
+    def legs(y0=36): L([19.5, y0, 19.5, 41.5], 1.6); L([28.5, y0, 28.5, 41.5], 1.6)
+    def arm(sh, ang, Ln, w=2.4):
+        tx, ty = R.arm_tip(ang, Ln, sh); L([sh[0], sh[1], tx, ty], w); E([tx - 2.1, ty - 2.1, tx + 2.1, ty + 2.1]); return tx, ty
+    if kind == "arms":      # generic body with posed arms (props are drawn as FX)
+        if spec[1].get("nolegs"): E([14, 19, 34, 41])
+        else: blob(); legs()
+        if "ra" in spec[1]: arm(R.SHOULDER_R, spec[1]["ra"], spec[1].get("rl", 12))
+        if "la" in spec[1]: arm(R.SHOULDER_L, spec[1]["la"], spec[1].get("ll", 12))
+    if kind == "sleepy":    # squashed, sitting, drowsy
+        E([12, 21, 36, 42])
+    if kind == "shy":       # hands up covering the eyes
+        blob(); legs(); L([R.SHOULDER_L[0], R.SHOULDER_L[1], 19, 27], 2.2); L([R.SHOULDER_R[0], R.SHOULDER_R[1], 29, 27], 2.2)
+    if kind == "copy":      # front card = body (back card is FX)
+        Rr([7, 18, 31, 42], 3)
+    if kind == "check":     # the body IS a thick check mark
+        L([7, 26, 17, 37], 8.5); L([17, 37, 40, 12], 8.5); E([3, 22, 11, 30]); E([36, 8, 44, 16]); E([12, 32, 22, 42])
+    if kind == "play":      # the body IS a play triangle
+        Pg([(11, 6), (11, 44), (44, 25)])
+    if kind == "star":
+        cx, cy = 24, 27; pts = []
+        for k in range(10):
+            rr = 17 if k % 2 == 0 else 7.5; a = math.radians(-90 + k * 36)
+            pts.append((cx + rr * math.cos(a), cy + rr * math.sin(a)))
+        Pg(pts)
+    if kind == "bubble":
+        Rr([5, 11, 43, 34], 7); Pg([(13, 32), (22, 32), (11, 42)])
+    if kind == "surfer":    # no arms, very short stubby legs standing on the board
+        dy = spec[1].get("dy", 0)
+        E([14, 17 + dy, 34, 38 + dy]); L([20, 37 + dy, 20, 40.5], 2.2); L([28, 37 + dy, 28, 40.5], 2.2)
+    if kind == "magx":      # magnifying glass: lens = face, thick handle, no legs
+        E([7, 7, 35, 35]); L([30, 30, 42, 42], 5.5)
     return np.array(im) > 127
-CUSTOM = {"mega", "cam", "bulb", "heart", "phone", "qmark", "arrow", "peek"}
+CUSTOM = {"surfer", "magx", "mega", "cam", "bulb", "heart", "phone", "qmark", "arrow", "peek", "arms", "sleepy", "shy", "copy", "check", "play", "star", "bubble"}
 R.body_mask = body_mask
 R.FACE.update({"mega": ((10, 26, 5), (9, 19)), "cam": ((15, 28, 5), (31, 14)), "bulb": ((24, 24, 6), (24, 13)),
                "heart": ((24, 25, 6), (24, 19)), "phone": ((24, 14, 6), (24, 6)),
-               "qmark": ((24, 9, 6), (24, 4)), "arrow": ((13, 25, 5), (12, 19)), "peek": ((24, 22, 6), (24, 15))})
+               "qmark": ((24, 9, 6), (24, 4)), "arrow": ((13, 25, 5), (12, 19)), "peek": ((24, 22, 6), (24, 15)),
+               "arms": ((24, 24, 6), (24, 16)), "sleepy": ((24, 29, 6), (24, 21)), "shy": ((24, 24, 6), (24, 16)),
+               "copy": ((19, 27, 6), (19, 18)), "check": ((29, 23, 5), (40, 6)), "play": ((21, 24, 6), (14, 8)),
+               "star": ((24, 26, 5), (24, 9)), "bubble": ((24, 18, 6), (24, 11)),
+               "magx": ((21, 20, 6), (21, 5)), "surfer": ((24, 25, 6), (24, 17))})
 
 def g(x, y): return x + R.OX, y + R.OY   # 48-grid -> 64-grid
 WHITE = (255, 255, 255); LIGHT = (255, 160, 210); GOLD = (255, 214, 90); GLASS = (34, 22, 44); DARK = (28, 8, 20); PD = (200, 30, 120)
@@ -84,6 +120,93 @@ def FX(name):
         return [(LIGHT, {g(9, 14), g(8, 13), g(10, 13), g(40, 14), g(39, 13), g(41, 13)})]
     return []
 PINKC = R.P
+METAL = (58, 58, 68); METAL2 = (120, 120, 132); PAPER = (240, 238, 232); SKY = (120, 184, 255)
+def G(x, y): return (x + R.OX, y + R.OY)
+def heart_px(x, y, col):
+    pat = [".##.##.", "#######", "#######", ".#####.", "..###..", "...#..."]
+    return (col, {(x + i, y + j) for j, row in enumerate(pat) for i, ch in enumerate(row) if ch == "#"})
+def z_px(x, y, n, col):
+    pats = {3: ["###", "..#", ".#.", "#..", "###"], 4: ["####", "...#", "..#.", ".#..", "####"]}
+    return (col, {(x + i, y + j) for j, row in enumerate(pats[n]) for i, ch in enumerate(row) if ch == "#"})
+def PROP(name):
+    """props drawn in front of the body: list of (color, draw-fn(ImageDraw)) — outlined automatically"""
+    hand = lambda ang, Ln, sh=R.SHOULDER_R: G(*R.arm_tip(ang, Ln, sh))
+    out = []
+    if name in ("stir", "stir2"):
+        hx, hy = hand(20 if name == "stir" else 40, 9)
+        out.append((METAL2, lambda d, hx=hx, hy=hy: d.line([hx, hy - 4, G(40, 36)[0], G(40, 36)[1]], width=1)))
+        out.append((METAL, lambda d: d.rectangle([G(31, 34)[0], G(31, 34)[1], G(47, 42)[0], G(47, 42)[1]])))
+        out.append((METAL2, lambda d: d.rectangle([G(30, 33)[0], G(30, 33)[1], G(48, 34)[0], G(48, 34)[1]])))
+    if name in ("flip", "flip2"):
+        hx, hy = hand(-5, 12)
+        out.append((METAL, lambda d, hx=hx, hy=hy: d.ellipse([hx + 1, hy - 1, hx + 13, hy + 2])))
+        py = hy - (6 if name == "flip" else 13)
+        out.append((PAPER, lambda d, hx=hx, py=py: d.rectangle([hx + 4, py, hx + 9, py + 3])))
+        out.append((PD, lambda d, hx=hx, py=py: d.line([hx + 5, py + 1, hx + 8, py + 1], width=1)))
+    if name == "taste":
+        hx, hy = hand(-50, 10)
+        out.append((METAL2, lambda d, hx=hx, hy=hy: d.line([hx, hy, hx + 4, hy + 7], width=1)))
+        out.append((METAL, lambda d, hx=hx, hy=hy: d.ellipse([hx - 6, hy - 2, hx - 1, hy + 2])))
+    if name in ("pour", "pour2"):
+        hx, hy = hand(-40, 11)
+        out.append((PAPER, lambda d, hx=hx, hy=hy: d.polygon([(hx - 1, hy - 4), (hx + 6, hy - 6), (hx + 8, hy + 1), (hx + 1, hy + 3)])))
+        out.append((SKY, lambda d, hx=hx, hy=hy: d.line([hx + 1, hy - 3, hx + 6, hy - 5], width=1)))
+        for k in range(2 if name == "pour" else 3):
+            out.append((LIGHT, lambda d, hx=hx, hy=hy, k=k: d.point((hx + 9, hy + 4 + k * 3))))
+    if name == "shy":
+        for (x, y) in ((19.5, 26.5), (28.5, 26.5)):
+            out.append((PINKC, lambda d, x=x, y=y: d.ellipse([G(x - 2.6, y - 2.6)[0], G(x - 2.6, y - 2.6)[1], G(x + 2.6, y + 2.6)[0], G(x + 2.6, y + 2.6)[1]])))
+    if name == "reporter":
+        lx, ly = hand(150, 9, R.SHOULDER_L)
+        out.append((PAPER, lambda d, lx=lx, ly=ly: d.rectangle([lx - 7, ly - 8, lx + 1, ly + 3])))
+        out.append((METAL2, lambda d, lx=lx, ly=ly: [d.line([lx - 5, ly - 5 + 3 * k, lx - 1, ly - 5 + 3 * k], width=1) for k in range(3)]))
+        rx, ry = hand(-20, 9)
+        out.append((METAL, lambda d, rx=rx, ry=ry: d.line([rx, ry + 1, rx + 3, ry - 6], width=1)))
+    if name == "anchor":
+        out.append((METAL, lambda d: d.rectangle([G(4, 32)[0], G(4, 32)[1], G(44, 42)[0], G(44, 42)[1]])))
+        out.append((PD, lambda d: d.rectangle([G(4, 32)[0], G(4, 32)[1], G(44, 33)[0], G(44, 33)[1]])))
+        out.append((METAL2, lambda d: d.line([G(39, 31)[0], G(39, 31)[1], G(37, 25)[0], G(37, 25)[1]], width=1)))
+        out.append((METAL, lambda d: d.ellipse([G(35, 22)[0], G(35, 22)[1], G(38, 25)[0], G(38, 25)[1]])))
+    if name in ("laptop", "laptop2"):
+        out.append((METAL, lambda d: d.rectangle([G(14, 29)[0], G(14, 29)[1], G(34, 38)[0], G(34, 38)[1]])))
+        out.append((METAL2, lambda d: d.rectangle([G(11, 38)[0], G(11, 38)[1], G(37, 40)[0], G(37, 40)[1]])))
+        out.append((PD, lambda d: d.point(G(24, 33))))
+    if name in ("surf", "surf2"):
+        dy = 0 if name == "surf" else 1
+        out.append((PAPER, lambda d, dy=dy: d.ellipse([G(5, 41 + dy)[0], G(5, 41 + dy)[1], G(43, 44 + dy)[0], G(43, 44 + dy)[1]])))
+        out.append((SKY, lambda d, dy=dy: [d.arc([G(-2 + 12 * k, 43 - dy)[0], G(-2 + 12 * k, 43 - dy)[1], G(10 + 12 * k, 50 - dy)[0], G(10 + 12 * k, 50 - dy)[1]], 180, 360, width=2) for k in range(5)]))
+    return out
+def PIX(name):
+    """extra free pixels (no outline): hearts, zzz, check mark, play triangle, dots, back card"""
+    if name in ("sleepy", "sleepy2"):
+        return [z_px(*G(35, 12), 3, PAPER)] + ([z_px(*G(39, 5), 4, PAPER)] if name == "sleepy2" else [])
+    if name in ("hearts", "hearts2"):
+        return [heart_px(*G(37, 10 if name == "hearts" else 7), LIGHT), heart_px(*G(42, 18 if name == "hearts" else 14), PINKC)]
+    if name == "check":
+        pts = set()
+        for (x0, y0, x1, y1) in ((15, 30, 21, 36), (21, 36, 33, 23)):
+            n = 24
+            for k in range(n + 1):
+                x = x0 + (x1 - x0) * k / n; y = y0 + (y1 - y0) * k / n
+                for ox in (0, 1):
+                    for oy in (0, 1): pts.add(G(int(round(x)) + ox, int(round(y)) + oy))
+        return [(WHITE, pts)]
+    if name == "play":
+        pts = set()
+        for y in range(21, 37):
+            half = (36 - y) if y > 28.5 else (y - 21)
+            for x in range(19, 19 + int(half * 1.5) + 1): pts.add(G(x, y))
+        return [(WHITE, pts)]
+    if name == "bubble":
+        return [(WHITE, {G(x + dx, 26 + dy) for x in (16, 23, 30) for dx in (0, 1) for dy in (0, 1)})]
+    if name == "copy":
+        return [(PD, {G(x, y) for x in range(15, 41) for y in range(10, 34) if (x in (15, 16, 39, 40) or y in (10, 11)) and not (x < 31 and y >= 18)})]
+    if name == "magx":
+        rim = ring(*G(21, 21), 11.2, 14.2)
+        return [(PD, rim), (WHITE, {G(13, 14), G(14, 13), G(13, 15), G(15, 12)})]
+    if name == "surprise":
+        return [(WHITE, {G(37 + dx, y) for y in range(2, 8) for dx in (0, 1)} | {G(37 + dx, 9 + dy) for dx in (0, 1) for dy in (0, 1)})]
+    return []
 
 OUTL = (28, 8, 20)
 
@@ -114,11 +237,33 @@ def path_of(sel):
 
 def hexc(c): return "#%02x%02x%02x" % tuple(int(v) for v in c)
 
+class _Fill:
+    """ImageDraw proxy that always paints with value 255"""
+    def __init__(self, d): self.d = d
+    def rectangle(self, xy, **k): self.d.rectangle(xy, fill=255)
+    def ellipse(self, xy, **k): self.d.ellipse(xy, fill=255)
+    def polygon(self, xy, **k): self.d.polygon(xy, fill=255)
+    def line(self, xy, width=1, **k): self.d.line(xy, fill=255, width=width)
+    def point(self, xy, **k): self.d.point(xy, fill=255)
+    def arc(self, xy, a0, a1, width=1, **k): self.d.arc(xy, a0, a1, fill=255, width=width)
+
+def decorate(px, al, fx):
+    if not fx: return
+    for col, pts in FX(fx):
+        for x, y in pts:
+            if 0 <= x < 64 and 0 <= y < 64: px[y, x] = col; al[y, x] = 1
+    for col, fn in PROP(fx):
+        im = Image.new("L", (64, 64), 0); fn(_Fill(ImageDraw.Draw(im))); m = np.array(im) > 0
+        ol = ndimage.binary_dilation(m, iterations=1) & ~m
+        if col != PINKC: ol &= (al == 0)      # pink props (hands) keep a full outline so they read on the body
+        px[ol] = OUTL; al[ol] = 1; px[m] = col; al[m] = 1
+    for col, pts in PIX(fx):
+        for x, y in pts:
+            if 0 <= x < 64 and 0 <= y < 64: px[y, x] = col; al[y, x] = 1
+
 def pose(spec, t=0.0, eyesets=("idle", "blink", "happy", "look"), fx=None):
     base, al = grid(spec, t, None)
-    for col, pts in (FX(fx) if fx else []):
-        for x, y in pts:
-            if 0 <= x < 64 and 0 <= y < 64: base[y, x] = col; al[y, x] = 1
+    decorate(base, al, fx)
     layers = []
     colors = {}
     for y in range(64):
@@ -131,9 +276,7 @@ def pose(spec, t=0.0, eyesets=("idle", "blink", "happy", "look"), fx=None):
     faces = []
     for e in eyesets:
         p2, a2 = grid(spec, t, e)
-        for col, pts in (FX(fx) if fx else []):
-            for x, y in pts:
-                if 0 <= x < 64 and 0 <= y < 64: p2[y, x] = col; a2[y, x] = 1
+        decorate(p2, a2, fx)
         diff = np.any(p2 != base, axis=2) & (a2 > 0)
         faces.append(f'<path class="e e-{e}" fill="#140c12" d="{path_of(diff)}"/>')
     ys, xs = np.nonzero(al)
@@ -163,6 +306,24 @@ POSES.update({
     "tall": (("tall", {}), 0.0, None),
     "qmark": (("qmark", {}), 0.0, None), "bang": (("bang", {}), 0.0, None), "arrow": (("arrow", {}), 0.0, None),
     "edge": (("peek", {}), 0.0, None),
+    # chef
+    "stir": (("arms", {"ra": 20, "rl": 9, "la": 110, "ll": 9}), 0.0, "stir"), "stir2": (("arms", {"ra": 40, "rl": 9, "la": 110, "ll": 9}), 0.0, "stir2"),
+    "flip": (("arms", {"ra": -5, "rl": 12, "la": 110, "ll": 9}), 0.0, "flip"), "flip2": (("arms", {"ra": -5, "rl": 12, "la": 110, "ll": 9}), 0.0, "flip2"),
+    "taste": (("arms", {"ra": -50, "rl": 10, "la": 110, "ll": 9}), 0.0, "taste"),
+    "pour": (("arms", {"ra": -40, "rl": 11, "la": 110, "ll": 9}), 0.0, "pour"), "pour2": (("arms", {"ra": -40, "rl": 11, "la": 110, "ll": 9}), 0.0, "pour2"),
+    # icon transforms (legless)
+    "copy": (("copy", {}), 0.0, "copy"), "check": (("check", {}), 0.0, None), "play": (("play", {}), 0.0, None),
+    "star": (("star", {}), 0.0, None), "bubble": (("bubble", {}), 0.0, "bubble"),
+    # magazine jobs
+    "reporter": (("arms", {"la": 150, "ll": 9, "ra": -20, "rl": 9}), 0.0, "reporter"),
+    "anchor": (("arms", {"ra": 125, "rl": 7, "la": 55, "ll": 7}), 0.0, "anchor"),
+    "laptop": (("type", {}), 0.0, "laptop"), "laptop2": (("type", {}), 0.07, "laptop2"),
+    "surf": (("surfer", {}), 0.0, "surf"), "surf2": (("surfer", {"dy": 1}), 0.0, "surf2"),
+    "magx": (("magx", {}), 0.0, "magx"),
+    # emotions
+    "sleepy": (("sleepy", {}), 0.0, "sleepy"), "sleepy2": (("sleepy", {}), 0.0, "sleepy2"),
+    "hearts": (("wave", {}), 0.12, "hearts"), "hearts2": (("wave", {}), 0.42, "hearts2"),
+    "surprise": (("tall", {}), 0.0, "surprise"),
 })
 out = {k: pose(v[0], v[1], fx=(v[2] if len(v) > 2 else None)) for k, v in POSES.items()}
 with open("/home/claude/site/miri.py", "w") as f:
