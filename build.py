@@ -9,7 +9,7 @@ SITE = f'https://{DOMAIN}/'
 ROOT_PATH = '/'   # site is served from the domain root
 IG = 'https://www.instagram.com/ai.miribom/'
 YT = 'https://www.youtube.com/@ai.miribom'
-VER = '9'
+VER = '10'
 e = html.escape
 
 TYPE = {'guide': ('따라하기', 'HOW TO', 'guide'), 'tools': ('툴 추천', 'AI TOOLS', 'tools'), 'volume': ('프롬프트', 'PROMPT', 'prompt')}
@@ -35,7 +35,8 @@ ICON = {
 }
 
 
-HERO_POSES = ['idle', 'wave', 'wave2', 'mega', 'mega2', 'bulb', 'bulb2', 'cam', 'cam2', 'mag', 'point', 'cheer', 'cheer2', 'heart', 'heart2', 'tall', 'ball']
+HERO_POSES = ['idle', 'wave', 'wave2', 'mega', 'mega2', 'qmark', 'bulb', 'bulb2', 'cam', 'cam2', 'bang', 'mag', 'arrow', 'cheer', 'cheer2', 'heart', 'heart2', 'ball']
+UPDATED = '2026.10.06'
 
 
 def miri(poses, cls='', vb=None, label=''):
@@ -164,8 +165,23 @@ def prompts_in(v):
     if t == 'guide':
         for st in v['steps']:
             for p in st[3]:
+                if isinstance(p, tuple):
+                    if p[0] == 'prompt': out.append(p[2])
+                    continue
                 q = quoted(p)
                 if q: out.append(q)
+        for lab, txt in (v.get('easy') or {}).get('prompts', []): out.append(txt)
+    return out
+
+
+def prompt_labels(v):
+    """(label, text) pairs in page order for the '프롬프트 모아보기' section"""
+    out = []
+    for st in v['steps']:
+        for p in st[3]:
+            if isinstance(p, tuple) and p[0] == 'prompt': out.append((f"STEP {v['steps'].index(st) + 1} · {p[1]}", p[2]))
+            elif isinstance(p, str) and quoted(p): out.append((f"STEP {v['steps'].index(st) + 1}", quoted(p)))
+    for lab, txt in (v.get('easy') or {}).get('prompts', []): out.append((f'쉬운 방법 · {lab}', txt))
     return out
 
 
@@ -217,7 +233,7 @@ def index_page():
     return head('미리봄 레시피', '미리봄 릴스에서 소개한 AI 영상·이미지 만드는 법과 프롬프트를 편마다 정리했어요. 누르면 바로 복사돼요.', base, og_title='미리봄 레시피 — 릴스에서 본 그 AI, 그대로 따라 만들어요', og_alt='미리봄 레시피: 릴스에서 본 그 AI, 그대로 따라 만들어요') + f'''<main id="main">
 <section class="mast"><div class="wrap mast-in">
   <div class="mast-txt">
-    <p class="eyebrow"><span class="dot-live"></span>미리봄 레시피 <span class="serif">Recipe</span> · No.{VOLUMES[0]['reel']}까지 업데이트</p>
+    <p class="eyebrow"><span class="eb-icon">{miri(['idle'], 'm-eb', vb='20 28 24 20')}</span><b>미리봄 레시피</b><span class="eb-rule" aria-hidden="true"></span><span class="eb-meta">ISSUE No.{VOLUMES[0]['reel']} · {UPDATED}</span></p>
     <h1 class="mast-h">릴스에서 본 그 AI,<br><mark>그대로 따라</mark> 만들어요</h1>
     <p class="mast-lede">미리봄 릴스에 나온 영상·이미지 제작법을 편마다 정리했어요. 프롬프트는 누르면 복사되고, 단계는 체크하며 따라가면 돼요.</p>
     <div class="mast-cta"><a class="btn solid" href="{VOLUMES[0]['slug']}/">최신 레시피 No.{VOLUMES[0]['reel']} 보기{ICON['next']}</a><a class="btn" href="#search" data-focus-search>{ICON['search']}레시피 찾기</a></div>
@@ -244,7 +260,7 @@ def index_page():
 
 <section class="wrap latest" aria-label="최신 레시피">
   <div class="sec-h"><h2>최신 레시피</h2><span class="serif">latest</span></div>
-  <div class="feat-wrap"><span class="feat-miri" aria-hidden="true">{miri(['sit', 'sit2', 'sit3'], 'm-sit m-tiny')}</span><ul class="cards one">{card(VOLUMES[0], base, feat=True)}</ul></div>
+  <div class="feat-wrap"><span class="feat-miri" aria-hidden="true">{miri(['edge'], 'm-tiny m-edge', vb='16 27 32 20')}</span><ul class="cards one">{card(VOLUMES[0], base, feat=True)}</ul></div>
 </section>
 
 <section class="wrap all" id="search" aria-label="전체 레시피">
@@ -402,6 +418,14 @@ def tools_page(v):
 
 
 def guide_point(p):
+    if isinstance(p, tuple):
+        kind = p[0]
+        if kind == 'prompt': return f'<li class="has-prompt">{prompt_block(p[2], p[1])}</li>'
+        if kind == 'tip': return f'<li class="pt-note tip"><b>TIP</b><span>{e(p[1])}</span></li>'
+        if kind == 'warn': return f'<li class="pt-note warn"><b>주의</b><span>{e(p[1])}</span></li>'
+        if kind == 'good': return f'<li class="pt-list good"><b>{e(p[1])}</b><ul>' + ''.join(f'<li>{e(x)}</li>' for x in p[2]) + '</ul></li>'
+        if kind == 'bad': return f'<li class="pt-list bad"><b>{e(p[1])}</b><ul>' + ''.join(f'<li>{e(x)}</li>' for x in p[2]) + '</ul></li>'
+        if kind == 'do': return '<li class="pt-do"><ol>' + ''.join(f'<li><i>{k + 1}</i><span>{e(x)}</span></li>' for k, x in enumerate(p[1])) + '</ol></li>'
     q = quoted(p)
     if q:
         before = p[:p.find('"')].strip().rstrip(':').strip()
@@ -415,12 +439,14 @@ def guide_page(v):
     steps = []
     for i, st in enumerate(v['steps']):
         clip, cred, ttl, pts = st[:4]
-        shape = st[4] if len(st) > 4 else ('stack' if '17-3' in clip else 'tall')
+        shape = st[4] if len(st) > 4 and st[4] else ('stack' if clip and '17-3' in clip else 'tall')
+        badge = st[5] if len(st) > 5 else ''
         lis = ''.join(guide_point(x) for x in pts)
-        steps.append(f'''<article class="step{' rev' if i % 2 else ''}" id="s{i+1}">
-  <figure class="step-media {shape}">{video(clip, base, label=ttl)}<figcaption class="tag">{e(cred)}</figcaption></figure>
+        fig = f'<figure class="step-media {shape}">{video(clip, base, label=ttl)}<figcaption class="tag">{e(cred)}</figcaption></figure>' if clip else ''
+        steps.append(f'''<article class="step{' rev' if i % 2 else ''}{'' if clip else ' solo'}" id="s{i+1}">
+  {fig}
   <div class="step-txt">
-    <div class="step-no"><span class="serif">{i+1:02d}</span><span class="pill">STEP {i+1}</span></div>
+    <div class="step-no"><span class="serif">{i+1:02d}</span><span class="pill">STEP {i+1}</span>{f'<span class="pill opt">{e(badge)}</span>' if badge else ''}</div>
     <h3>{e(ttl)}</h3>
     <ul class="pts">{lis}</ul>
     <button class="done-btn" type="button" data-step="{i}" aria-pressed="false">{ICON['check']}<span>이 단계 했어요</span></button>
@@ -432,26 +458,66 @@ def guide_page(v):
     ps = prompts_in(v)
     prompts_sec = ''
     if ps:
-        blocks = ''.join(prompt_block(p, f'프롬프트 {i+1}') for i, p in enumerate(ps))
+        blocks = ''.join(prompt_block(t, f'{i + 1}. {lab}') for i, (lab, t) in enumerate(prompt_labels(v)))
         prompts_sec = f'<section class="wrap sec" id="prompts">{sec_h("프롬프트 모아보기", "copy & paste", "단계에 나온 프롬프트를 한곳에 모았어요")}{blocks}</section>'
-    items = [('steps', v.get('steps_title', '만드는 법'))] + ([('prompts', '프롬프트')] if ps else []) + [('price', v.get('price_title', '가격')), ('tips', '꿀팁')]
+    extra = guide_extras(v, base)
+    items = ([('start', '시작 전')] if v.get('prep') else []) + ([('routes', '방법 비교')] if v.get('routes') else []) + [('steps', v.get('steps_title', '만드는 법'))] \
+        + ([('prompts', '프롬프트')] if ps else []) + [('price', v.get('price_title', '가격'))] + ([('faq', '문제 해결')] if v.get('faq') else []) + [('tips', '꿀팁')]
     facts = v.get('facts', [('3', '단계'), ('~10', '분'), ('$2~', '15초 1개')])
     ctas = v.get('ctas', [('만드는 법 보기', '#s1'), ('가격·무료 방법', '#price')])
     return head(f"{v['title']} | 미리봄 레시피", v['lede'], base, 'recipe', f'{SITE}og/{v["slug"]}.jpg', v['slug'] + '/', og_alt=f"미리봄 레시피 No.{v['reel']} {v['title']}") + f'''<main id="main">
 {cover(v, base, ctas, facts)}
 {toc(items, checklist=len(v['steps']))}
+{extra['start']}
+{extra['routes']}
 <section class="wrap sec" id="steps">{sec_h(v.get('steps_title', '만드는 법'), 'method', v.get('steps_sub', ''))}{''.join(steps)}</section>
+{extra['easy']}
 {prompts_sec}
 <section class="wrap sec" id="price">{sec_h(v.get('price_title', '가격'), v.get('price_it', 'price'), v.get('price_sub', ''))}
   <div class="table">{rows}</div>
   {f'<h3 class="sub3">무료로 해보려면</h3><div class="alts">{alts}</div>' if alts else ''}
 </section>
+{extra['faq']}
 <section class="wrap sec" id="tips">{sec_h('꿀팁', 'tips')}<ol class="tips">{tips}</ol></section>
+{extra['gloss']}
 {notes_html(v['notes'])}
 {share_band(v)}
 {more(v, base)}
 </main>
 ''' + fab(v) + foot(base)
+
+
+def guide_extras(v, base):
+    """optional beginner-friendly sections for guide recipes (how-it-works, prep, route comparison, easy way, FAQ, glossary)"""
+    out = {'start': '', 'routes': '', 'easy': '', 'faq': '', 'gloss': ''}
+    if v.get('prep') or v.get('flow'):
+        flow = ''
+        if v.get('flow'):
+            nodes = []
+            for k, (t, s) in enumerate(v['flow']):
+                nodes.append(f'<li><i>{k + 1}</i><b>{e(t)}</b><small>{e(s)}</small></li>')
+            fsum = f'<p class="flow-sum">{e(v["flow_sum"])}</p>' if v.get('flow_sum') else ''
+            flow = f'<div class="flow-box"><p class="flow-h">이렇게 작동해요</p><ol class="flow">{"".join(nodes)}</ol>{fsum}</div>'
+        prep = ''.join(f'<li><b>{e(t)}</b><span>{e(d)}</span></li>' for t, d in v.get('prep', []))
+        out['start'] = f'''<section class="wrap sec" id="start">{sec_h('시작 전에', 'before you start', '처음이라면 여기부터 읽어보세요')}{flow}<h3 class="sub3">준비물</h3><ul class="prep">{prep}</ul></section>'''
+    if v.get('routes'):
+        cards = ''
+        for r in v['routes']:
+            rows = ''.join(f'<div><dt>{e(a)}</dt><dd>{e(b)}</dd></div>' for a, b in r['rows'])
+            cards += f'''<article class="route{' rec' if r.get('rec') else ''}"><div class="route-h"><span class="pill{' t-guide' if r.get('rec') else ''}">{e(r['tag'])}</span><h3>{e(r['name'])}</h3><p>{e(r['who'])}</p></div><dl>{rows}</dl><a class="route-go" href="{r['go']}">{e(r.get('go_label', '이 방법으로 하기'))}{ICON['next']}</a></article>'''
+        out['routes'] = f'<section class="wrap sec" id="routes">{sec_h("어떤 방법으로 할까요?", "pick a route", v.get("routes_sub", "처음이면 추천 방법부터"))}<div class="routes">{cards}</div></section>'
+    ez = v.get('easy')
+    if ez:
+        pts = ''.join(f'<li>{e(x)}</li>' for x in ez.get('pts', []))
+        prs = ''.join(prompt_block(t, lab) for lab, t in ez.get('prompts', []))
+        out['easy'] = f'<section class="wrap sec" id="easy">{sec_h(ez["title"], "easy way", ez.get("sub", ""))}<div class="easy"><ul class="pts">{pts}</ul>{prs}</div></section>'
+    if v.get('faq'):
+        qa = ''.join(f'<details class="qa"><summary><span>Q</span>{e(q)}</summary><div><span>A</span><p>{e(a)}</p></div></details>' for q, a in v['faq'])
+        out['faq'] = f'<section class="wrap sec" id="faq">{sec_h("이럴 땐 이렇게", "troubleshooting", "자주 막히는 부분을 모았어요")}<div class="faq">{qa}</div></section>'
+    if v.get('glossary'):
+        gl = ''.join(f'<div><dt>{e(t)}</dt><dd>{e(d)}</dd></div>' for t, d in v['glossary'])
+        out['gloss'] = f'<section class="wrap sec" id="gloss">{sec_h("용어 풀이", "glossary", "처음 보는 단어가 있다면")}<dl class="gloss">{gl}</dl></section>'
+    return out
 
 
 def tpl_html():

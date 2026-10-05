@@ -28,11 +28,20 @@ def body_mask(spec, t):
         E([9, 16, 26, 33]); E([22, 16, 39, 33]); Pg([(10, 27), (38, 27), (24, 42)])
     if kind == "phone":
         Rr([14, 6, 34, 40], 3); L([19, 39, 19, 42], 1.6); L([29, 39, 29, 42], 1.6)
+    if kind == "qmark":     # question mark: thick hook (face on top) + stem + dot, no legs
+        E([11, 6, 37, 30]); E([19, 14, 29, 22], 0)
+        d.rectangle(S([10, 18, 24, 31]), fill=0)            # open the lower-left of the hook
+        Rr([21, 26, 28, 34], 2); E([21, 36, 28, 43])
+    if kind == "peek":      # hands resting on an edge (body hidden below)
+        E([14, 16, 34, 38]); E([10.5, 24.5, 16.5, 30.5]); E([31.5, 24.5, 37.5, 30.5])
+    if kind == "arrow":     # arrow pointing right: shaft (face) + head
+        Rr([3, 21, 27, 33], 3); Pg([(25, 11), (45, 27), (25, 43)])
     return np.array(im) > 127
-CUSTOM = {"mega", "cam", "bulb", "heart", "phone"}
+CUSTOM = {"mega", "cam", "bulb", "heart", "phone", "qmark", "arrow", "peek"}
 R.body_mask = body_mask
 R.FACE.update({"mega": ((10, 26, 5), (9, 19)), "cam": ((15, 28, 5), (31, 14)), "bulb": ((24, 24, 6), (24, 13)),
-               "heart": ((24, 25, 6), (24, 19)), "phone": ((24, 14, 6), (24, 6))})
+               "heart": ((24, 25, 6), (24, 19)), "phone": ((24, 14, 6), (24, 6)),
+               "qmark": ((24, 9, 6), (24, 4)), "arrow": ((13, 25, 5), (12, 19)), "peek": ((24, 22, 6), (24, 15))})
 
 def g(x, y): return x + R.OX, y + R.OY   # 48-grid -> 64-grid
 WHITE = (255, 255, 255); LIGHT = (255, 160, 210); GOLD = (255, 214, 90); GLASS = (34, 22, 44); DARK = (28, 8, 20); PD = (200, 30, 120)
@@ -152,6 +161,8 @@ POSES.update({
     "phone": (("phone", {}), 0.0, "phone"),
     "clap": (("clap", {}), 0.0, None), "clap2": (("clap", {}), 0.17, None),
     "tall": (("tall", {}), 0.0, None),
+    "qmark": (("qmark", {}), 0.0, None), "bang": (("bang", {}), 0.0, None), "arrow": (("arrow", {}), 0.0, None),
+    "edge": (("peek", {}), 0.0, None),
 })
 out = {k: pose(v[0], v[1], fx=(v[2] if len(v) > 2 else None)) for k, v in POSES.items()}
 with open("/home/claude/site/miri.py", "w") as f:

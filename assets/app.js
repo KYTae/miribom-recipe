@@ -213,16 +213,18 @@
     var SCENES = [
       { p: ['wave', 'wave2'], ms: 300, eyes: 'happy', t: '안녕하세요, 미리예요!' },
       { p: ['mega', 'mega2'], ms: 380, badge: '속보!', t: '새 레시피가 매주 올라와요!' },
+      { p: ['qmark'], anim: 'tilt', badge: '?', t: '오늘은 뭘 만들어볼까요?' },
       { p: ['bulb', 'bulb2'], ms: 520, t: '프롬프트는 누르면 바로 복사돼요' },
       { p: ['cam', 'cam', 'cam', 'cam2'], ms: 260, t: '원작 영상과 출처까지 같이 정리했어요' },
+      { p: ['bang'], anim: 'shake', t: '새 AI 기능은 나오자마자 정리해요' },
       { p: ['mag'], t: '검색창에 툴 이름을 넣어보세요' },
-      { p: ['point'], t: '릴스 댓글에 키워드 → DM으로 링크가 와요' },
+      { p: ['arrow'], anim: 'shake', t: '릴스 댓글에 키워드 → DM으로 링크가 와요' },
       { p: ['cheer', 'cheer2'], ms: 260, eyes: 'happy', t: '따라하기 단계는 체크해두면 기억돼요' },
       { p: ['heart', 'heart2'], ms: 480, eyes: 'happy', badge: '♥', t: '도움이 됐다면 친구에게 공유해 주세요' }
     ];
     var groups = {};
     $$('.pz', hero).forEach(function (g) { var k = (g.getAttribute('class').match(/pz-(\S+)/) || [])[1]; if (k) groups[k] = g; });
-    var bob = $('.miri-bob'), badge = $('.shout'), cur = null, si = -1, fi = 0, frameT, sceneT, morphT, sayT, badgeT, lastTap = 0;
+    var bob = $('.miri-bob'), badge = $('.shout'), cur = null, si = -1, fi = 0, frameT, sceneT, morphT, sayT, badgeT, animT, lastTap = 0;
     var show = function (k) { if (cur) cur.classList.remove('on'); cur = groups[k] || groups.idle; cur.classList.add('on'); };
     var say = function (txt) {
       if (!tipEl) return;
@@ -242,14 +244,15 @@
     var play = function (n, cls) {
       // cancel everything from the previous scene so timers never stack up (rapid taps used to leave
       // several frame intervals running at once → poses flickering forever)
-      clearInterval(frameT); clearTimeout(sceneT); clearTimeout(morphT); clearTimeout(badgeT);
+      clearInterval(frameT); clearTimeout(sceneT); clearTimeout(morphT); clearTimeout(badgeT); clearTimeout(animT);
       si = (n + SCENES.length) % SCENES.length; var sc = SCENES[si]; fi = 0;
       // morph: squash through a ball, then pop into the new form
       show('ball'); hero.removeAttribute('data-eyes');
-      bob.classList.remove('poof', 'hop'); void bob.offsetWidth; bob.classList.add(cls || 'poof'); puff();
+      bob.classList.remove('poof', 'hop', 'a-tilt', 'a-shake'); void bob.offsetWidth; bob.classList.add(cls || 'poof'); puff();
       morphT = setTimeout(function () {
         show(sc.p[0]);
         if (sc.eyes) hero.setAttribute('data-eyes', sc.eyes); else hero.removeAttribute('data-eyes');
+        if (sc.anim && !reduce) animT = setTimeout(function () { bob.classList.remove('poof', 'hop'); bob.classList.add('a-' + sc.anim); }, 420);
         if (sc.p.length > 1) frameT = setInterval(function () { fi = (fi + 1) % sc.p.length; show(sc.p[fi]); }, sc.ms || 300);
       }, 140);
       say(sc.t);
