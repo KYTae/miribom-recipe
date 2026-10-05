@@ -9,7 +9,7 @@ SITE = f'https://{DOMAIN}/'
 ROOT_PATH = '/'   # site is served from the domain root
 IG = 'https://www.instagram.com/ai.miribom/'
 YT = 'https://www.youtube.com/@ai.miribom'
-VER = '12'
+VER = '13'
 e = html.escape
 
 TYPE = {'guide': ('따라하기', 'HOW TO', 'guide'), 'tools': ('툴 추천', 'AI TOOLS', 'tools'), 'volume': ('프롬프트', 'PROMPT', 'prompt')}
@@ -238,7 +238,7 @@ def index_page():
     return head('미리봄 레시피', '미리봄 릴스에서 소개한 AI 영상·이미지 만드는 법과 프롬프트를 편마다 정리했어요. 누르면 바로 복사돼요.', base, og_title='미리봄 레시피 — 릴스에서 본 그 AI, 그대로 따라 만들어요', og_alt='미리봄 레시피: 릴스에서 본 그 AI, 그대로 따라 만들어요') + f'''<main id="main">
 <section class="mast"><div class="wrap mast-in">
   <div class="mast-txt">
-    <p class="eyebrow"><span class="eb-icon">{miri(['idle'], 'm-eb', vb='20 28 24 20')}</span><b>미리봄 레시피</b><span class="eb-rule" aria-hidden="true"></span><span class="eb-meta">ISSUE No.{VOLUMES[0]['reel']} · {UPDATED}</span></p>
+    <p class="eyebrow"><span class="eb-icon">{miri(['magx'], 'm-eb', vb='13 17 41 45')}</span><b>미리봄 레시피</b><span class="eb-rule" aria-hidden="true"></span><span class="eb-meta">ISSUE No.{VOLUMES[0]['reel']}</span></p>
     <h1 class="mast-h">릴스에서 본 그 AI,<br><mark>그대로 따라</mark> 만들어요</h1>
     <p class="mast-lede">미리봄 릴스에 나온 영상·이미지 제작법을 편마다 정리했어요. 프롬프트는 누르면 복사되고, 단계는 체크하며 따라가면 돼요.</p>
     <div class="mast-cta"><a class="btn solid" href="{VOLUMES[0]['slug']}/">최신 레시피 No.{VOLUMES[0]['reel']} 보기{ICON['next']}</a><a class="btn" href="#search" data-focus-search>{ICON['search']}레시피 찾기</a></div>
