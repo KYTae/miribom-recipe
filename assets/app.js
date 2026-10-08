@@ -314,7 +314,7 @@
       if (cur === 'text') {
         var task = val(f, 'task'); if (!task) { out.textContent = '“무엇을 해달라고 할까요?” 칸을 먼저 채워주세요.'; return; }
         var role = val(f, 'role'), who = val(f, 'who'), ctx = val(f, 'ctx'), rules = lines(val(f, 'rules')), fmt = val(f, 'fmt');
-        if (role) t += '너는 ' + role + '야.\n';
+        if (role) { var lc = role.charCodeAt(role.length - 1); var jong = lc >= 0xAC00 && lc <= 0xD7A3 && (lc - 0xAC00) % 28 > 0; t += '너는 ' + role + (jong ? '이야' : '야') + '.\n'; }
         t += task.replace(/[.。]?$/, '') + '.\n';
         if (who) t += '\n[읽는 사람 / 쓰는 곳]\n' + who + '\n';
         if (ctx) t += '\n[내 상황·재료]\n' + ctx + '\n';
@@ -379,4 +379,87 @@ tip.textContent = '팁: 처음엔 5초로 테스트하세요. 영상 AI는 영�
       document.querySelectorAll('.gl-sec').forEach(function (s) { s.hidden = !s.querySelector('.gl-list > div:not([hidden])'); });
     });
   }
+})();
+
+/* ---------- 2026-10-09: 미리봄 드롭다운 — 모든 <select>를 우리 디자인으로 ---------- */
+(function () {
+  var CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  var CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  var openOne = null, uid = 0;
+  function close(dd, focusBtn) {
+    if (!dd || !dd.classList.contains('open')) return;
+    dd.classList.remove('open'); dd.classList.add('closing');
+    dd._btn.setAttribute('aria-expanded', 'false');
+    setTimeout(function () { dd.classList.remove('closing'); }, 220);
+    if (openOne === dd) openOne = null;
+    if (focusBtn) dd._btn.focus();
+  }
+  function open(dd) {
+    if (openOne && openOne !== dd) close(openOne);
+    var r = dd.getBoundingClientRect(), below = innerHeight - r.bottom;
+    var need = Math.min(dd._list.scrollHeight + 14, 294) + 12; dd.classList.toggle('up', below < need && r.top > below);
+    dd.classList.add('open'); dd._btn.setAttribute('aria-expanded', 'true'); openOne = dd;
+    var cur = dd._list.querySelector('[aria-selected="true"]') || dd._list.firstChild;
+    setActive(dd, cur);
+  }
+  function setActive(dd, li) {
+    dd._list.querySelectorAll('.dd-opt.act').forEach(function (x) { x.classList.remove('act'); });
+    if (li) { li.classList.add('act'); dd._list.setAttribute('aria-activedescendant', li.id); var L = dd._list, t = li.offsetTop, b = t + li.offsetHeight; if (t < L.scrollTop) L.scrollTop = t; else if (b > L.scrollTop + L.clientHeight) L.scrollTop = b - L.clientHeight; }
+  }
+  function pick(dd, li) {
+    var sel = dd._sel; sel.value = li.getAttribute('data-v');
+    sync(dd); sel.dispatchEvent(new Event('change', { bubbles: true })); sel.dispatchEvent(new Event('input', { bubbles: true }));
+    close(dd, true);
+  }
+  function sync(dd) {
+    var sel = dd._sel, o = sel.options[sel.selectedIndex];
+    dd._val.textContent = o ? o.text : '';
+    dd._btn.classList.toggle('is-empty', !sel.value);
+    dd._list.querySelectorAll('.dd-opt').forEach(function (li) { li.setAttribute('aria-selected', li.getAttribute('data-v') === sel.value ? 'true' : 'false'); });
+  }
+  function enhance(sel) {
+    if (sel._dd || sel.multiple) return;
+    var id = 'dd' + (++uid);
+    var dd = document.createElement('div'); dd.className = 'dd';
+    var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'dd-btn';
+    btn.setAttribute('aria-haspopup', 'listbox'); btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', id);
+    var lab = sel.closest('.mk-f') && sel.closest('.mk-f').querySelector('label');
+    if (lab) btn.setAttribute('aria-label', lab.childNodes[0].textContent.trim());
+    var val = document.createElement('span'); val.className = 'dd-val';
+    btn.appendChild(val); btn.insertAdjacentHTML('beforeend', '<span class="dd-chev">' + CHEV + '</span>');
+    var pop = document.createElement('div'); pop.className = 'dd-pop';
+    var list = document.createElement('ul'); list.className = 'dd-list'; list.id = id; list.setAttribute('role', 'listbox'); list.tabIndex = -1;
+    Array.prototype.forEach.call(sel.options, function (o, i) {
+      var li = document.createElement('li'); li.className = 'dd-opt'; li.id = id + '-' + i; li.setAttribute('role', 'option');
+      li.setAttribute('data-v', o.value); li.style.setProperty('--k', i);
+      li.innerHTML = '<span class="dd-t"></span><span class="dd-ck">' + CHECK + '</span>';
+      li.firstChild.textContent = o.text; list.appendChild(li);
+    });
+    pop.appendChild(list); dd.appendChild(btn); dd.appendChild(pop);
+    sel.parentNode.insertBefore(dd, sel.nextSibling);
+    sel.classList.add('dd-native'); sel.tabIndex = -1; sel.setAttribute('aria-hidden', 'true');
+    sel._dd = dd; dd._sel = sel; dd._btn = btn; dd._list = list; dd._val = val;
+    sync(dd);
+    sel.addEventListener('change', function () { sync(dd); });
+    btn.addEventListener('click', function () { dd.classList.contains('open') ? close(dd) : open(dd); });
+    list.addEventListener('click', function (ev) { var li = ev.target.closest('.dd-opt'); if (li) pick(dd, li); });
+    list.addEventListener('mousemove', function (ev) { var li = ev.target.closest('.dd-opt'); if (li && !li.classList.contains('act')) setActive(dd, li); });
+    btn.addEventListener('keydown', function (ev) {
+      var k = ev.key, isOpen = dd.classList.contains('open');
+      var opts = Array.prototype.slice.call(list.children), act = list.querySelector('.act'), i = opts.indexOf(act);
+      if (k === 'ArrowDown' || k === 'ArrowUp') {
+        ev.preventDefault(); if (!isOpen) { open(dd); return; }
+        i = k === 'ArrowDown' ? Math.min(opts.length - 1, i + 1) : Math.max(0, i - 1); setActive(dd, opts[i]);
+      } else if (k === 'Enter' || k === ' ') {
+        if (isOpen && act) { ev.preventDefault(); pick(dd, act); }
+      } else if (k === 'Escape') { if (isOpen) { ev.preventDefault(); close(dd); } }
+      else if (k === 'Tab') close(dd);
+      else if (k === 'Home' || k === 'End') { if (isOpen) { ev.preventDefault(); setActive(dd, opts[k === 'Home' ? 0 : opts.length - 1]); } }
+    });
+  }
+  document.addEventListener('click', function (ev) { if (openOne && !openOne.contains(ev.target)) close(openOne); });
+  window.addEventListener('resize', function () { if (openOne) close(openOne); });
+  function all() { document.querySelectorAll('select').forEach(enhance); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', all); else all();
+  window.miriDropdowns = all;
 })();
