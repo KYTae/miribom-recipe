@@ -388,19 +388,20 @@ tip.textContent = '팁: 처음엔 5초로 테스트하세요. 영상 AI는 영�
   var openOne = null, uid = 0;
   function close(dd, focusBtn) {
     if (!dd || !dd.classList.contains('open')) return;
-    dd.classList.remove('open'); dd.classList.add('closing');
-    dd._btn.setAttribute('aria-expanded', 'false');
-    setTimeout(function () { dd.classList.remove('closing'); }, 220);
+    dd.classList.add('anim'); clearTimeout(dd._t); dd._t = setTimeout(function () { dd.classList.remove('anim'); }, 200);
+    dd.classList.remove('open'); dd._btn.setAttribute('aria-expanded', 'false');
+    var a = dd._list.querySelector('.act'); if (a) a.classList.remove('act');
     if (openOne === dd) openOne = null;
     if (focusBtn) dd._btn.focus();
   }
   function open(dd) {
     if (openOne && openOne !== dd) close(openOne);
     var r = dd.getBoundingClientRect(), below = innerHeight - r.bottom;
-    var need = Math.min(dd._list.scrollHeight + 14, 294) + 12; dd.classList.toggle('up', below < need && r.top > below);
+    var need = Math.min(dd._list.scrollHeight + 14, 334) + 12; dd.classList.toggle('up', below < need && r.top > below);
+    dd.classList.add('anim'); clearTimeout(dd._t); dd._t = setTimeout(function () { dd.classList.remove('anim'); }, 260);
     dd.classList.add('open'); dd._btn.setAttribute('aria-expanded', 'true'); openOne = dd;
-    var cur = dd._list.querySelector('[aria-selected="true"]') || dd._list.firstChild;
-    setActive(dd, cur);
+    var cur = dd._list.querySelector('[aria-selected="true"]');
+    if (cur) { var L = dd._list; L.scrollTop = Math.max(0, cur.offsetTop - L.clientHeight / 2 + cur.offsetHeight / 2); }
   }
   function setActive(dd, li) {
     dd._list.querySelectorAll('.dd-opt.act').forEach(function (x) { x.classList.remove('act'); });
@@ -443,10 +444,10 @@ tip.textContent = '팁: 처음엔 5초로 테스트하세요. 영상 AI는 영�
     sel.addEventListener('change', function () { sync(dd); });
     btn.addEventListener('click', function () { dd.classList.contains('open') ? close(dd) : open(dd); });
     list.addEventListener('click', function (ev) { var li = ev.target.closest('.dd-opt'); if (li) pick(dd, li); });
-    list.addEventListener('mousemove', function (ev) { var li = ev.target.closest('.dd-opt'); if (li && !li.classList.contains('act')) setActive(dd, li); });
+    list.addEventListener('mouseenter', function () { var a = list.querySelector('.act'); if (a) a.classList.remove('act'); });
     btn.addEventListener('keydown', function (ev) {
       var k = ev.key, isOpen = dd.classList.contains('open');
-      var opts = Array.prototype.slice.call(list.children), act = list.querySelector('.act'), i = opts.indexOf(act);
+      var opts = Array.prototype.slice.call(list.children), act = list.querySelector('.act'), i = opts.indexOf(act); if (i < 0) i = opts.indexOf(list.querySelector('[aria-selected="true"]'));
       if (k === 'ArrowDown' || k === 'ArrowUp') {
         ev.preventDefault(); if (!isOpen) { open(dd); return; }
         i = k === 'ArrowDown' ? Math.min(opts.length - 1, i + 1) : Math.max(0, i - 1); setActive(dd, opts[i]);
