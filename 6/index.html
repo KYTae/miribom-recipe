@@ -31,9 +31,11 @@
 <link rel="icon" href="../icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="manifest" href="../site.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="미리봄 레시피" href="https://recipe.mirispring.com/feed.xml">
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=17">
+<link rel="stylesheet" href="../assets/style.css?v=18">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "AI한테 5분 말하고 잤더니 아침에 뮤비가 완성", "description": "노래 한 곡으로 AI 뮤직비디오 맡기기", "inLanguage": "ko-KR", "image": "https://recipe.mirispring.com/og/6.jpg", "url": "https://recipe.mirispring.com/6/", "mainEntityOfPage": "https://recipe.mirispring.com/6/", "dateModified": "2026-10-09", "keywords": "AI 뮤직비디오 가사 영상 리릭 비디오 Claude 밤새 작업", "author": {"@type": "Organization", "name": "미리봄 AI 매거진", "url": "https://recipe.mirispring.com/"}, "publisher": {"@type": "Organization", "name": "미리봄 AI 매거진", "logo": {"@type": "ImageObject", "url": "https://recipe.mirispring.com/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "미리봄 레시피", "item": "https://recipe.mirispring.com/"}, {"@type": "ListItem", "position": 2, "name": "No.6 AI한테 5분 말하고 잤더니 아침에 뮤비가 완성", "item": "https://recipe.mirispring.com/6/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "아무 노래나 써도 돼요?", "acceptedAnswer": {"@type": "Answer", "text": "저작권이 있는 노래로 만든 영상을 공개하면 문제가 될 수 있어요. 내가 만든 곡(예: AI 작곡)이나 허락받은 곡을 쓰세요."}}, {"@type": "Question", "name": "화면 왼쪽 위 P(doom) 숫자는 뭐예요?", "acceptedAnswer": {"@type": "Answer", "text": "\"AI가 인류에 재앙이 될 확률\"을 뜻하는 AI 업계 밈이에요. 영상이 진행될수록 숫자가 올라가는 연출이에요."}}, {"@type": "Question", "name": "노래가 없어요", "acceptedAnswer": {"@type": "Answer", "text": "Suno 같은 노래 생성 AI로 1~2분 노래를 먼저 만들어보세요. 가사도 같이 만들어줘요."}}, {"@type": "Question", "name": "가사 타이밍은 어떻게 알아요?", "acceptedAnswer": {"@type": "Answer", "text": "노래를 들으며 줄마다 시작 시간을 적거나, Suno에서 만든 노래라면 가사 영상을 함께 받아 Claude에게 보여주면 돼요."}}, {"@type": "Question", "name": "더 자세한 방법이 있어요?", "acceptedAnswer": {"@type": "Answer", "text": "26번 레시피에 원작자 프롬프트 전문과 3가지 방법을 훨씬 자세히 정리했어요."}}]}, {"@type": "HowTo", "name": "AI한테 5분 말하고 잤더니 아침에 뮤비가 완성", "description": "노래 한 곡으로 AI 뮤직비디오 맡기기", "step": [{"@type": "HowToStep", "position": 1, "name": "가사에 시간 붙이기", "url": "https://recipe.mirispring.com/6/#s1"}, {"@type": "HowToStep", "position": 2, "name": "웹 챗봇에 가사 영상 요청", "url": "https://recipe.mirispring.com/6/#s2"}, {"@type": "HowToStep", "position": 3, "name": "원작 방식: 코딩 AI에 밤새 맡기기", "url": "https://recipe.mirispring.com/6/#s3"}]}]}</script>
 </head>
 <body class="p-recipe">
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -60,7 +62,17 @@
     <figure class="cover-media wide"><video src="../assets/clips/06-hero.mp4" poster="../assets/clips/06-hero.jpg" muted loop playsinline autoplay preload="metadata" aria-label="AI한테 5분 말하고 잤더니 아침에 뮤비가 완성 예시 영상"></video><figcaption class="tag">X @donaldjewkes · 원곡 @slimer48484</figcaption></figure>
   </div>
 </section>
-<nav class="toc" aria-label="이 페이지 목차"><div class="wrap toc-in"><div class="toc-links"><a href="#start">사용법</a><a href="#steps">따라 하기</a><a href="#prompts">프롬프트</a><a href="#faq">문제 해결</a><a href="#source">원작</a></div></div></nav>
+<nav class="toc" aria-label="이 페이지 목차"><div class="wrap toc-in"><div class="toc-links"><a href="#start">사용법</a><a href="#steps">따라 하기</a><a href="#prompts">프롬프트</a><a href="#faq">문제 해결</a><a href="#tips">꿀팁</a><a href="#source">원작</a></div></div></nav>
+<section class="wrap begin" aria-label="처음 쓰는 법">
+  <div class="begin-h"><span class="begin-badge">처음이라면</span><b>이 페이지는 이렇게 쓰세요</b></div>
+  <ol class="begin-steps">
+    <li><i>1</i><div><b>복사 버튼 누르기</b><small>프롬프트 오른쪽 위 <em>복사</em>를 누르면 통째로 복사돼요</small></div></li>
+    <li><i>2</i><div><b>AI에 붙여넣기</b><small>아래 사이트 중 하나를 열고 입력창에 붙여넣어요</small></div></li>
+    <li><i>3</i><div><b>[ ] 만 바꾸기</b><small>대괄호 부분을 내 상황으로 바꾸고 보내면 끝</small></div></li>
+  </ol>
+  <div class="paste-row"><span>이 레시피를 붙여넣을 곳</span><div class="paste-chips"><a class="paste-chip" href="https://claude.ai" target="_blank" rel="noopener"><b>Claude</b><small>대화·문서·미리보기 (무료로 시작)</small></a><a class="paste-chip" href="https://claude.com/product/claude-code" target="_blank" rel="noopener"><b>Claude Code</b><small>내 컴퓨터에서 파일 만들고 실행 (유료 요금제)</small></a><a class="paste-chip" href="https://suno.com" target="_blank" rel="noopener"><b>Suno</b><small>노래 만들기 (무료로 시작)</small></a></div></div>
+  <div class="begin-links"><a href="../start/">AI가 처음이라면 5분 가이드<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a><a href="../maker/">내 프롬프트 직접 만들기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a><a href="../glossary/">모르는 단어 찾기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a></div>
+</section>
 <section class="wrap sec" id="start"><div class="sec-h"><h2>어떻게 만든 거예요?</h2><span class="serif">how it works</span><p>원작자가 밝힌 과정</p></div><div class="flow-box"><p class="flow-h">이렇게 작동해요</p><ol class="flow"><li><i>1</i><b>5분 설명</b><small>말로 요청</small></li><li><i>2</i><b>가사 해석·연출</b><small>AI가 장면 기획</small></li><li><i>3</i><b>그림 + 코드</b><small>캐릭터는 이미지 AI, 움직임은 코드</small></li><li><i>4</i><b>12시간 뒤 완성</b><small>혼자 작업</small></li></ol><p class="flow-sum">원작자는 참고 자료 폴더와 음향·이미지 AI 도구를 미리 연결해 두고, &quot;같은 노래로 가사를 가장 잘 표현하는 새 뮤비를 만들어줘&quot;라고만 요청했어요. 나머지는 Claude가 스스로 했어요.</p></div><h3 class="sub3">준비물</h3><ul class="prep"><li><b>노래 파일</b><span>내가 만든 곡 또는 사용 허락을 받은 곡</span></li><li><b>가사와 타이밍</b><span>가사 줄마다 시작 시간(초)</span></li><li><b>쉬운 방법</b><span>Claude.ai·ChatGPT 무료 웹</span></li><li><b>원작 방식</b><span>Claude Code 같은 코딩 AI + 이미지 AI (유료)</span></li></ul></section>
 <section class="wrap sec" id="routes"><div class="sec-h"><h2>어떤 방법으로 할까요?</h2><span class="serif">pick a route</span><p>처음이면 추천 방법부터</p></div><div class="routes"><article class="route rec"><div class="route-h"><span class="pill t-guide">추천</span><h3>가사 영상 (리릭 비디오)</h3><p>처음이라면, 무료로</p></div><dl><div><dt>도구</dt><dd>웹 챗봇</dd></div><div><dt>결과</dt><dd>브라우저에서 재생되는 가사 애니메이션</dd></div><div><dt>시간</dt><dd>30분 안팎</dd></div></dl><a class="route-go" href="#s1">쉬운 방법 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a></article><article class="route"><div class="route-h"><span class="pill">원작 방식</span><h3>밤새 맡기는 뮤비</h3><p>코딩 AI를 써봤다면</p></div><dl><div><dt>도구</dt><dd>Claude Code + 이미지 AI</dd></div><div><dt>결과</dt><dd>MP4 뮤직비디오</dd></div><div><dt>시간</dt><dd>몇 시간~하룻밤</dd></div></dl><a class="route-go" href="#s3">원작 방식 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a></article></div></section>
 <section class="wrap sec" id="steps"><div class="sec-h"><h2>따라 하는 법</h2><span class="serif">method</span></div><article class="step solo" id="s1">
@@ -98,9 +110,9 @@
 [시간 + 가사 붙여넣기]</code></pre></div><div class="prompt"><div class="prompt-h"><span>3. STEP 3 · 긴 작업 요청</span><button class="copy" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg><span>복사</span></button></div><pre><code>In this folder there is a song (song.mp3), its lyrics with timestamps (lyrics.txt) and reference images (refs/). Create a brand-new music video for this song that expresses the lyrics as well as possible. Plan scenes per lyric line, design a consistent character, animate everything with code, and render a 1080p MP4 synced to the audio. Work autonomously, check your own output, and keep improving until it looks finished.</code></pre></div></section>
 
 
-<section class="wrap sec" id="faq"><div class="sec-h"><h2>이럴 땐 이렇게</h2><span class="serif">troubleshooting</span><p>자주 막히는 부분을 모았어요</p></div><div class="faq"><details class="qa"><summary><span>Q</span>아무 노래나 써도 돼요?</summary><div><span>A</span><p>저작권이 있는 노래로 만든 영상을 공개하면 문제가 될 수 있어요. 내가 만든 곡(예: AI 작곡)이나 허락받은 곡을 쓰세요.</p></div></details><details class="qa"><summary><span>Q</span>화면 왼쪽 위 P(doom) 숫자는 뭐예요?</summary><div><span>A</span><p>&quot;AI가 인류에 재앙이 될 확률&quot;을 뜻하는 AI 업계 밈이에요. 영상이 진행될수록 숫자가 올라가는 연출이에요.</p></div></details></div></section>
-
-<section class="wrap sec" id="gloss"><div class="sec-h"><h2>용어 풀이</h2><span class="serif">glossary</span><p>처음 보는 단어가 있다면</p></div><dl class="gloss"><div><dt>리릭 비디오</dt><dd>가사가 화면에 나오는 음악 영상</dd></div><div><dt>렌더링</dt><dd>코드로 만든 애니메이션을 영상 파일로 뽑는 것</dd></div><div><dt>P(doom)</dt><dd>AI가 재앙이 될 확률을 가리키는 업계 밈</dd></div></dl></section>
+<section class="wrap sec" id="faq"><div class="sec-h"><h2>이럴 땐 이렇게</h2><span class="serif">troubleshooting</span><p>자주 막히는 부분을 모았어요</p></div><div class="faq"><details class="qa"><summary><span>Q</span>아무 노래나 써도 돼요?</summary><div><span>A</span><p>저작권이 있는 노래로 만든 영상을 공개하면 문제가 될 수 있어요. 내가 만든 곡(예: AI 작곡)이나 허락받은 곡을 쓰세요.</p></div></details><details class="qa"><summary><span>Q</span>화면 왼쪽 위 P(doom) 숫자는 뭐예요?</summary><div><span>A</span><p>&quot;AI가 인류에 재앙이 될 확률&quot;을 뜻하는 AI 업계 밈이에요. 영상이 진행될수록 숫자가 올라가는 연출이에요.</p></div></details><details class="qa"><summary><span>Q</span>노래가 없어요</summary><div><span>A</span><p>Suno 같은 노래 생성 AI로 1~2분 노래를 먼저 만들어보세요. 가사도 같이 만들어줘요.</p></div></details><details class="qa"><summary><span>Q</span>가사 타이밍은 어떻게 알아요?</summary><div><span>A</span><p>노래를 들으며 줄마다 시작 시간을 적거나, Suno에서 만든 노래라면 가사 영상을 함께 받아 Claude에게 보여주면 돼요.</p></div></details><details class="qa"><summary><span>Q</span>더 자세한 방법이 있어요?</summary><div><span>A</span><p>26번 레시피에 원작자 프롬프트 전문과 3가지 방법을 훨씬 자세히 정리했어요.</p></div></details></div></section>
+<section class="wrap sec" id="tips"><div class="sec-h"><h2>꿀팁</h2><span class="serif">tips</span></div><ol class="tips"><li><span>1</span><p>처음엔 노래 앞부분 30초만으로 해보세요. 짧을수록 빨리 확인하고 고칠 수 있어요.</p></li><li><span>2</span><p>가사 줄마다 [0:12] 같은 시간을 붙여주면 화면 타이밍이 훨씬 정확해져요.</p></li><li><span>3</span><p>&quot;후렴은 글자를 크게, 박자마다 튀어나오게&quot;처럼 구간별로 원하는 느낌을 적어주세요.</p></li></ol></section>
+<section class="wrap sec" id="gloss"><div class="sec-h"><h2>용어 풀이</h2><span class="serif">glossary</span><p>처음 보는 단어가 있다면</p></div><dl class="gloss"><div><dt>리릭 비디오</dt><dd>가사가 화면에 나오는 음악 영상</dd></div><div><dt>렌더링</dt><dd>코드로 만든 애니메이션을 영상 파일로 뽑는 것</dd></div><div><dt>P(doom)</dt><dd>AI가 재앙이 될 확률을 가리키는 업계 밈</dd></div><div><dt>타임스탬프</dt><dd>&quot;0:12 첫 줄&quot;처럼 가사마다 붙이는 시간 표시.</dd></div></dl></section>
 <section class="wrap sec" id="source"><div class="sec-h"><h2>원작·출처</h2><span class="serif">source</span><p>릴스에 나온 영상과 글의 원본이에요</p></div><div class="src"><div><b>X @donaldjewkes</b><span>Claude가 밤새 만든 뮤직비디오</span></div><a href="https://x.com/donaldjewkes/status/2102801274173587569" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div><div class="src"><div><b>X @slimer48484</b><span>원곡 &#x27;Claude-Pop&#x27;</span></div><a href="https://x.com/slimer48484/status/2097752569212756134" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div></section>
 <ul class="notes wrap"><li>원작 과정은 원작자가 X에 밝힌 내용이에요.</li><li>노래·가사 저작권을 꼭 확인하세요.</li></ul>
 <section class="wrap share-band" aria-label="공유">
@@ -109,18 +121,8 @@
 </section>
 <section class="wrap sec more" aria-label="다른 레시피">
   <div class="pns"><a class="pn prev" href="../5/"><small><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>이전 레시피 · No.5</small><b>AI 고수들이 몰래 쓰는 비밀코드 30가지</b></a><a class="pn next" href="../7/"><small>다음 레시피 · No.7<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></small><b>AI한테 3만5천 원 줬더니 렌즈 실험실이 생겼어요</b></a></div>
-  <div class="sec-h"><h2>다른 레시피</h2><span class="serif">more recipes</span></div>
-  <ul class="cards rail"><li class="card std" data-type="guide" data-kw="게임 개발자들 이거 보면 긴장할걸요 — claude로 게임 만드는 법 웹 3d 게임 · 다크소울풍 액션 rpg · 로블록스 대전 게임 — 바로 쓰는 프롬프트 3종(한국어·영어)과 연결 순서 claude opus 5.5로 만든 게임 영상들이 x에서 줄줄이 터졌어요. 설치 없이 웹에서 도시를 날아다니는 3d 게임(조회 183만), 보스전까지 있는 다크소울풍 액션 rpg(60만), 필살기 연출까지 있는 로블록스 대전 게임(46만). 셋 다 사람이 코드를 짠 게 아니라, 무엇을 만들지 말로 설명하고 결과를 보면서 고쳐 나갔어요. 처음 해보는 사람도 그대로 따라 할 수 있게 준비물, 연결 순서, 프롬프트 전문을 정리했어요. 따라하기 웹 3d 게임 (영어) 액션 rpg (영어) 로블록스 대전 게임 (영어) 조작감 렉 그래픽 난이도 첫 화면 저장 방법 a · 웹 3d 게임 (스파이더맨 방식) 방법 c · 다크소울풍 액션 rpg (보스전) 방법 b · 로블록스 대전 게임 (스튜디오 연결) 마무리 · 해보고 말로 고치기" style="--i:0">
-  <a href="../27/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/27-hero.mp4" poster="../assets/clips/27-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>27</span><span class="new">NEW</span></div>
-    <div class="card-body">
-      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>4단계</span></div>
-      <h3>게임 개발자들 이거 보면 긴장할걸요 — Claude로 게임 만드는 법</h3>
-      <p>웹 3D 게임 · 다크소울풍 액션 RPG · 로블록스 대전 게임 — 바로 쓰는 프롬프트 3종(한국어·영어)과 연결 순서</p>
-      
-    </div>
-  </a>
-</li><li class="card std" data-type="guide" data-kw="claude가 혼자 만든 뮤비, 이거 진짜예요? — 만드는 법 노래 한 곡 + 프롬프트 하나로 claude가 뮤직비디오를 끝까지 — 3가지 방법과 실제 프롬프트 전문 한 사람은 claude에게 틱톡을 보여주고 200달러를 쥐여줬고, 9시간 뒤 틱톡 피드를 통째로 패러디한 뮤직비디오를 받았어요(조회 361만). 원조는 &quot;컴퓨터에 5분 말하고 잤더니 claude가 12시간 일했다&quot;는 영상(조회 391만)이에요. 같은 노래로 레트로 애니, 다크 타이포, 종이 질감 버전까지 줄줄이 나왔어요. 원작자들이 공개한 프롬프트 전문과 도구 조합을, 처음 해보는 사람도 따라 할 수 있게 단계별로 풀어 정리했어요. 따라하기 원조 프롬프트 (영어) 가사 크게 첫 3초 얼굴 고정 세로로 싱크 점검 방법 a · 노래 + claude만으로 만들기 방법 b ① 원조 프롬프트로 지시하기 방법 b ② 캐릭터·장면 만들고 덧그리기 방법 c · 클립 만들고 편집은 claude에게 응용 · 틱톡을 보여주고 맡기기 (200달러, 9시간)" style="--i:1">
+  <div class="sec-h"><h2>이것도 같이 보면 좋아요</h2><span class="serif">related</span><p>비슷한 도구·주제의 레시피예요</p></div>
+  <ul class="cards rail"><li class="card std" data-type="guide" data-kw="claude가 혼자 만든 뮤비, 이거 진짜예요? — 만드는 법 노래 한 곡 + 프롬프트 하나로 claude가 뮤직비디오를 끝까지 — 3가지 방법과 실제 프롬프트 전문 한 사람은 claude에게 틱톡을 보여주고 200달러를 쥐여줬고, 9시간 뒤 틱톡 피드를 통째로 패러디한 뮤직비디오를 받았어요(조회 361만). 원조는 &quot;컴퓨터에 5분 말하고 잤더니 claude가 12시간 일했다&quot;는 영상(조회 391만)이에요. 같은 노래로 레트로 애니, 다크 타이포, 종이 질감 버전까지 줄줄이 나왔어요. 원작자들이 공개한 프롬프트 전문과 도구 조합을, 처음 해보는 사람도 따라 할 수 있게 단계별로 풀어 정리했어요. 따라하기 원조 프롬프트 (영어) 가사 크게 첫 3초 얼굴 고정 세로로 싱크 점검 방법 a · 노래 + claude만으로 만들기 방법 b ① 원조 프롬프트로 지시하기 방법 b ② 캐릭터·장면 만들고 덧그리기 방법 c · 클립 만들고 편집은 claude에게 응용 · 틱톡을 보여주고 맡기기 (200달러, 9시간)" style="--i:0">
   <a href="../26/">
     <div class="card-media"><video data-lazy data-src="../assets/clips/26-hero.mp4" poster="../assets/clips/26-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>26</span></div>
     <div class="card-body">
@@ -130,7 +132,7 @@
       
     </div>
   </a>
-</li><li class="card std" data-type="guide" data-kw="모션팀이 3주 걸릴 영상, opus 5.5는 15분 한 문장 쇼릴 프롬프트 + 평범하게 안 나오는 4단계 (레퍼런스 · remotion · 21st.dev · 스토리보드) claude opus 5.5는 영상을 &quot;그리는&quot; 대신 영상을 만드는 코드를 써요. 그래서 한 문장으로도 모션그래픽 쇼릴이 나오고, 1,500만 명이 본 서양 문명사 영상도 이렇게 만들어졌어요. 그런데 한 줄만 쓰면 다들 비슷한 결과가 나와요. 원작자들이 공개한 프롬프트와, 결과를 확 바꾸는 4단계 워크플로를 정리했어요. 따라하기 1,500만 조회 다큐 애니 배틀 내 영상 다시 편집 특이점 영상 한 문장으로 쇼릴 뽑기 (가장 쉬워요) ① 레퍼런스 영상 고르고 ② 렌더 도구 연결 ③ 진짜 ui 부품 쓰고 ④ 스토리보드 3개 먼저" style="--i:2">
+</li><li class="card std" data-type="guide" data-kw="모션팀이 3주 걸릴 영상, opus 5.5는 15분 한 문장 쇼릴 프롬프트 + 평범하게 안 나오는 4단계 (레퍼런스 · remotion · 21st.dev · 스토리보드) claude opus 5.5는 영상을 &quot;그리는&quot; 대신 영상을 만드는 코드를 써요. 그래서 한 문장으로도 모션그래픽 쇼릴이 나오고, 1,500만 명이 본 서양 문명사 영상도 이렇게 만들어졌어요. 그런데 한 줄만 쓰면 다들 비슷한 결과가 나와요. 원작자들이 공개한 프롬프트와, 결과를 확 바꾸는 4단계 워크플로를 정리했어요. 따라하기 1,500만 조회 다큐 애니 배틀 내 영상 다시 편집 특이점 영상 한 문장으로 쇼릴 뽑기 (가장 쉬워요) ① 레퍼런스 영상 고르고 ② 렌더 도구 연결 ③ 진짜 ui 부품 쓰고 ④ 스토리보드 3개 먼저" style="--i:1">
   <a href="../25/">
     <div class="card-media"><video data-lazy data-src="../assets/clips/25-hero.mp4" poster="../assets/clips/25-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>25</span></div>
     <div class="card-body">
@@ -140,33 +142,43 @@
       
     </div>
   </a>
-</li><li class="card std" data-type="guide" data-kw="편집 1년 배워도 못 하던 걸, 프롬프트 한 줄로 펜으로 가리키면 실사가 2d 만화로 — 영상 프롬프트 · claude + 애프터이펙트 펜으로 가리키기만 했는데 버스가 만화로 바뀌고, 도로가 만화 바다가 돼요. 예전엔 애프터이펙트로 며칠 걸리던 &quot;실사 + 2d 애니&quot; 합성을 이제 영상 ai 프롬프트 한 줄로 만들어요. 원작자들이 공개한 프롬프트 전문과, claude로 애프터이펙트를 직접 움직이는 방법까지 정리했어요. 따라하기 출근길 카페 반려동물 하늘 마무리 매직펜 프롬프트 (가장 화려해요) doodle overlay 프롬프트 (짧고 쉬워요) 고수: claude로 애프터이펙트 직접 움직이기" style="--i:3">
-  <a href="../24/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/24-hero.mp4" poster="../assets/clips/24-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>24</span></div>
+</li><li class="card std" data-type="guide" data-kw="게임 개발자들 이거 보면 긴장할걸요 — claude로 게임 만드는 법 웹 3d 게임 · 다크소울풍 액션 rpg · 로블록스 대전 게임 — 바로 쓰는 프롬프트 3종(한국어·영어)과 연결 순서 claude opus 5.5로 만든 게임 영상들이 x에서 줄줄이 터졌어요. 설치 없이 웹에서 도시를 날아다니는 3d 게임(조회 183만), 보스전까지 있는 다크소울풍 액션 rpg(60만), 필살기 연출까지 있는 로블록스 대전 게임(46만). 셋 다 사람이 코드를 짠 게 아니라, 무엇을 만들지 말로 설명하고 결과를 보면서 고쳐 나갔어요. 처음 해보는 사람도 그대로 따라 할 수 있게 준비물, 연결 순서, 프롬프트 전문을 정리했어요. 따라하기 웹 3d 게임 (영어) 액션 rpg (영어) 로블록스 대전 게임 (영어) 조작감 렉 그래픽 난이도 첫 화면 저장 방법 a · 웹 3d 게임 (스파이더맨 방식) 방법 c · 다크소울풍 액션 rpg (보스전) 방법 b · 로블록스 대전 게임 (스튜디오 연결) 마무리 · 해보고 말로 고치기" style="--i:2">
+  <a href="../27/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/27-hero.mp4" poster="../assets/clips/27-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>27</span><span class="new">NEW</span></div>
     <div class="card-body">
-      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>3단계</span></div>
-      <h3>편집 1년 배워도 못 하던 걸, 프롬프트 한 줄로</h3>
-      <p>펜으로 가리키면 실사가 2D 만화로 — 영상 프롬프트 · Claude + 애프터이펙트</p>
+      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>4단계</span></div>
+      <h3>게임 개발자들 이거 보면 긴장할걸요 — Claude로 게임 만드는 법</h3>
+      <p>웹 3D 게임 · 다크소울풍 액션 RPG · 로블록스 대전 게임 — 바로 쓰는 프롬프트 3종(한국어·영어)과 연결 순서</p>
       
     </div>
   </a>
-</li><li class="card std" data-type="guide" data-kw="팔로워 21.9만 ai 인플루언서, 만드는 법 3단계 얼굴 기준 시트 → 같은 얼굴로 새 장소 → 영상으로 꾸준히 틱톡의 한 ai 캐릭터는 영상 7개로 팔로워 21.9만, 조회수 4,960만을 찍었어요. 비결은 화려한 기술보다 &quot;같은 얼굴을 계속 유지하는 것&quot;이에요. 해외 크리에이터들이 공개한 과정을 3단계로 정리하고, 바로 붙여 쓰는 프롬프트를 넣었어요. 따라하기 브랜드 제품 넣기 내 상품·제휴 링크 캐릭터를 서비스로 판매 광고 영상 템플릿 문의 답장 얼굴 기준 시트 만들기 같은 얼굴로 새 장소 만들기 영상으로 만들고 꾸준히 올리기" style="--i:4">
-  <a href="../23/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/23-hero.mp4" poster="../assets/clips/23-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>23</span></div>
+</li><li class="card std" data-type="guide" data-kw="이 프롬프트 한 줄이면 모션 디자이너 쇼릴 완성 claude code로 15초 모션 그래픽 영상 만들기 타이포, 3d, 전환 효과까지 ai가 코드로 짜서 영상으로 뽑았어요. 같은 프롬프트를 넣어도 매번 다른 작품이 나와서 해외에서 너도나도 따라 하는 중이에요. 내 브랜드 영상으로 바꾸는 법까지 정리했어요. 따라하기 내 브랜드 쇼릴 제품 출시 티저 유튜브 인트로 숫자 강조 인포그래픽 claude code 설치하고 폴더 열기 프롬프트 붙여넣기 mp4로 받고 고치기" style="--i:3">
+  <a href="../10/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/10-hero.mp4" poster="../assets/clips/10-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>10</span></div>
     <div class="card-body">
       <div class="card-kick"><span class="pill t-guide">따라하기</span><span>3단계</span></div>
-      <h3>팔로워 21.9만 AI 인플루언서, 만드는 법 3단계</h3>
-      <p>얼굴 기준 시트 → 같은 얼굴로 새 장소 → 영상으로 꾸준히</p>
+      <h3>이 프롬프트 한 줄이면 모션 디자이너 쇼릴 완성</h3>
+      <p>Claude Code로 15초 모션 그래픽 영상 만들기</p>
       
     </div>
   </a>
-</li><li class="card std" data-type="prompt" data-kw="초보 vs 고수, 이미지 프롬프트 5가지 (+보너스 5) 사진 한 장·단어 하나로 광고컷, 퍼스널컬러, 수채화, 3d 지도까지 초보는 &quot;수채화로 바꿔줘&quot; 한 줄, 고수는 종이·여백·글씨까지 정해줘요. 해외 크리에이터들이 실제로 쓰고 결과까지 공개한 고수 프롬프트를 릴스 5개 + 보너스 5개로 모았어요. 내 사진을 올리거나 [ ] 부분만 바꿔서 그대로 붙여넣으세요. 프롬프트 셀카 → 퍼스널컬러 진단표 사진 → 미니멀 수채화 엽서 폰 사진 → 광고컷 보정 나라 이름 → 3d 미니어처 지도 도시 이름 → 미니멀 여행 포스터 셀카 → 셔츠색 어울림 분석표 사진 → 위 사진·아래 수채화 일러스트 여행 사진 → 건축 콜라주 포스터 제품 → 광고 콘티 8컷 코드 한 줄 → 같은 화풍 복사 (midjourney)" style="--i:5">
-  <a href="../22/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/22-hero.mp4" poster="../assets/clips/22-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>22</span></div>
+</li><li class="card std" data-type="guide" data-kw="ai한테 3만5천 원 줬더니 렌즈 실험실이 생겼어요 설명 대신 &quot;체험판&quot;을 만들어 달라고 하기 &quot;카메라 초점 원리 설명해줘&quot;라고 했더니 설명 글이 아니라 직접 만지는 3d 렌즈 실험실이 나왔어요. 요청 한 번, 1시간 26분, 약 3만5천 원. 모르는 원리를 체험판으로 배우는 방법을 무료 버전부터 정리했어요. 따라하기 블랙홀 중력렌즈 자동차 엔진 4행정 복리 계산 체험 심장 혈액 순환 웹 챗봇에 &quot;체험판&quot;으로 요청하기 하나씩 고쳐서 키우기 크게 만들기: 코딩 ai에 맡기기" style="--i:4">
+  <a href="../7/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/07-hero.mp4" poster="../assets/clips/07-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>7</span></div>
     <div class="card-body">
-      <div class="card-kick"><span class="pill t-prompt">프롬프트</span><span>프롬프트 10개</span></div>
-      <h3>초보 vs 고수, 이미지 프롬프트 5가지 (+보너스 5)</h3>
-      <p>사진 한 장·단어 하나로 광고컷, 퍼스널컬러, 수채화, 3D 지도까지</p>
+      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>3단계</span></div>
+      <h3>AI한테 3만5천 원 줬더니 렌즈 실험실이 생겼어요</h3>
+      <p>설명 대신 &quot;체험판&quot;을 만들어 달라고 하기</p>
+      
+    </div>
+  </a>
+</li><li class="card std" data-type="guide" data-kw="ai로 앱 만들 때 이거 안 붙이면 손해 디자인 스킬 + 실제 앱 레퍼런스로 진짜 앱처럼 같은 프롬프트, 같은 ai인데 한쪽만 회원가입·온보딩·결제 화면까지 진짜 앱처럼 나왔어요. 차이는 &quot;디자인 규칙&quot;과 &quot;실제 앱 레퍼런스&quot;를 붙였느냐예요. 유료 없이 따라 하는 방법도 넣었어요. 따라하기 가계부 앱 습관 앱 예약 앱 디자인 스킬 설치하기 (무료) (선택) appllama mcp 연결하기 원작자 프롬프트 넣기 무료 방법: 스크린샷으로 규칙 뽑기" style="--i:5">
+  <a href="../12/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/12-hero.mp4" poster="../assets/clips/12-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>12</span></div>
+    <div class="card-body">
+      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>4단계</span></div>
+      <h3>AI로 앱 만들 때 이거 안 붙이면 손해</h3>
+      <p>디자인 스킬 + 실제 앱 레퍼런스로 진짜 앱처럼</p>
       
     </div>
   </a>
@@ -186,6 +198,6 @@
 </div></footer>
 <button class="totop" type="button" aria-label="맨 위로"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>
 <div class="toast" role="status" aria-live="polite"><svg class="miri m-toast" viewBox="20 34 24 25" shape-rendering="crispEdges" aria-hidden="true"><g class="pz pz-ball"><path fill="#1c0814" d="M29 35h3v1h-3zM33 35h3v1h-3zM28 36h1v1h-1zM32 36h1v1h-1zM36 36h1v1h-1zM28 37h1v1h-1zM32 37h1v1h-1zM36 37h1v1h-1zM27 38h2v1h-2zM35 38h2v1h-2zM25 39h2v1h-2zM37 39h2v1h-2zM24 40h1v1h-1zM39 40h1v1h-1zM23 41h1v1h-1zM40 41h1v1h-1zM23 42h1v1h-1zM40 42h1v1h-1zM22 43h1v1h-1zM41 43h1v1h-1zM22 44h1v1h-1zM41 44h1v1h-1zM21 45h1v1h-1zM42 45h1v1h-1zM21 46h1v1h-1zM42 46h1v1h-1zM21 47h1v1h-1zM42 47h1v1h-1zM21 48h1v1h-1zM42 48h1v1h-1zM21 49h1v1h-1zM42 49h1v1h-1zM21 50h1v1h-1zM42 50h1v1h-1zM22 51h1v1h-1zM41 51h1v1h-1zM22 52h1v1h-1zM41 52h1v1h-1zM23 53h1v1h-1zM40 53h1v1h-1zM23 54h1v1h-1zM40 54h1v1h-1zM24 55h1v1h-1zM39 55h1v1h-1zM25 56h2v1h-2zM37 56h2v1h-2zM27 57h2v1h-2zM35 57h2v1h-2zM29 58h6v1h-6z"/><path fill="#c81e78" d="M29 36h3v1h-3zM33 36h3v1h-3zM29 37h3v1h-3zM33 37h3v1h-3zM30 38h1v1h-1zM34 38h1v1h-1z"/><path fill="#ff3ba0" d="M29 38h1v1h-1zM31 38h3v1h-3zM27 39h10v1h-10zM25 40h14v1h-14zM24 41h16v1h-16zM24 42h16v1h-16zM23 43h18v1h-18zM23 44h18v1h-18zM22 45h20v1h-20zM22 46h20v1h-20zM22 47h20v1h-20zM22 48h20v1h-20zM22 49h20v1h-20zM22 50h20v1h-20zM23 51h18v1h-18zM23 52h18v1h-18zM24 53h16v1h-16zM24 54h16v1h-16zM25 55h14v1h-14zM27 56h10v1h-10zM29 57h6v1h-6z"/><path class="e e-idle" fill="#140c12" d="M28 46h1v1h-1zM35 46h1v1h-1zM28 47h1v1h-1zM35 47h1v1h-1zM28 48h1v1h-1zM35 48h1v1h-1z"/><path class="e e-blink" fill="#140c12" d="M27 48h2v1h-2zM34 48h2v1h-2z"/><path class="e e-happy" fill="#140c12" d="M28 46h1v1h-1zM35 46h1v1h-1zM27 47h1v1h-1zM29 47h1v1h-1zM34 47h1v1h-1zM36 47h1v1h-1z"/><path class="e e-look" fill="#140c12" d="M29 46h1v1h-1zM36 46h1v1h-1zM29 47h1v1h-1zM36 47h1v1h-1zM29 48h1v1h-1zM36 48h1v1h-1z"/></g></svg><span class="toast-t"></span></div>
-<script src="../assets/app.js?v=17" defer></script>
+<script src="../assets/app.js?v=18" defer></script>
 </body>
 </html>

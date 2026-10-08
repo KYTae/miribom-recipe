@@ -31,9 +31,11 @@
 <link rel="icon" href="../icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="manifest" href="../site.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="미리봄 레시피" href="https://recipe.mirispring.com/feed.xml">
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=17">
+<link rel="stylesheet" href="../assets/style.css?v=18">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "초보 vs 고수, 이미지 프롬프트 5가지 (+보너스 5)", "description": "사진 한 장·단어 하나로 광고컷, 퍼스널컬러, 수채화, 3D 지도까지", "inLanguage": "ko-KR", "image": "https://recipe.mirispring.com/og/22.jpg", "url": "https://recipe.mirispring.com/22/", "mainEntityOfPage": "https://recipe.mirispring.com/22/", "dateModified": "2026-10-09", "keywords": "이미지 프롬프트 퍼스널컬러 수채화 광고컷 3D 지도 여행 포스터 ChatGPT 이미지", "author": {"@type": "Organization", "name": "미리봄 AI 매거진", "url": "https://recipe.mirispring.com/"}, "publisher": {"@type": "Organization", "name": "미리봄 AI 매거진", "logo": {"@type": "ImageObject", "url": "https://recipe.mirispring.com/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "미리봄 레시피", "item": "https://recipe.mirispring.com/"}, {"@type": "ListItem", "position": 2, "name": "No.22 초보 vs 고수, 이미지 프롬프트 5가지 (+보너스 5)", "item": "https://recipe.mirispring.com/22/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "어디에 붙여넣어요?", "acceptedAnswer": {"@type": "Answer", "text": "ChatGPT(이미지 만들기)나 Gemini에 사진을 첨부하고 프롬프트를 붙여넣으면 돼요. 마지막 Midjourney 코드는 Midjourney에서만 돼요."}}, {"@type": "Question", "name": "영어 그대로 넣어야 해요?", "acceptedAnswer": {"@type": "Answer", "text": "그대로 넣는 게 가장 정확해요. [ ] 안만 한국어로 바꿔도 대부분 알아들어요."}}, {"@type": "Question", "name": "결과가 원작이랑 달라요", "acceptedAnswer": {"@type": "Answer", "text": "정상이에요. 같은 프롬프트도 매번 달라요. 2~3번 다시 뽑고, 마음에 드는 쪽을 골라 \"이 느낌으로 한 장 더\"라고 이어가세요."}}, {"@type": "Question", "name": "내 얼굴 사진 올려도 괜찮아요?", "acceptedAnswer": {"@type": "Answer", "text": "본인 사진은 괜찮아요. 다른 사람 사진은 허락 없이 쓰면 안 돼요. 회사 계정이 아니라면 개인정보 설정에서 학습 사용 여부도 확인해 보세요."}}]}]}</script>
 </head>
 <body class="p-recipe">
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -60,7 +62,17 @@
     <figure class="cover-media tall"><video src="../assets/clips/22-hero.mp4" poster="../assets/clips/22-hero.jpg" muted loop playsinline autoplay preload="metadata" aria-label="초보 vs 고수, 이미지 프롬프트 5가지 (+보너스 5) 예시 영상"></video><figcaption class="tag">미리봄 정리</figcaption></figure>
   </div>
 </section>
-<nav class="toc" aria-label="이 페이지 목차"><div class="wrap toc-in"><div class="toc-links"><a href="#start">사용법</a><a href="#prompts">프롬프트</a><a href="#tips">꿀팁</a><a href="#source">원작</a></div></div></nav>
+<nav class="toc" aria-label="이 페이지 목차"><div class="wrap toc-in"><div class="toc-links"><a href="#start">사용법</a><a href="#prompts">프롬프트</a><a href="#faq">문제 해결</a><a href="#tips">꿀팁</a><a href="#source">원작</a></div></div></nav>
+<section class="wrap begin" aria-label="처음 쓰는 법">
+  <div class="begin-h"><span class="begin-badge">처음이라면</span><b>이 페이지는 이렇게 쓰세요</b></div>
+  <ol class="begin-steps">
+    <li><i>1</i><div><b>복사 버튼 누르기</b><small>프롬프트 오른쪽 위 <em>복사</em>를 누르면 통째로 복사돼요</small></div></li>
+    <li><i>2</i><div><b>AI에 붙여넣기</b><small>아래 사이트 중 하나를 열고 입력창에 붙여넣어요</small></div></li>
+    <li><i>3</i><div><b>[ ] 만 바꾸기</b><small>대괄호 부분을 내 상황으로 바꾸고 보내면 끝</small></div></li>
+  </ol>
+  <div class="paste-row"><span>이 레시피를 붙여넣을 곳</span><div class="paste-chips"><a class="paste-chip" href="https://chatgpt.com" target="_blank" rel="noopener"><b>ChatGPT</b><small>대화·이미지 만들기 (무료로 시작)</small></a><a class="paste-chip" href="https://gemini.google.com" target="_blank" rel="noopener"><b>Gemini</b><small>구글 계정으로 바로 (무료로 시작)</small></a><a class="paste-chip" href="https://www.midjourney.com" target="_blank" rel="noopener"><b>Midjourney</b><small>고퀄리티 이미지 (유료)</small></a></div></div>
+  <div class="begin-links"><a href="../start/">AI가 처음이라면 5분 가이드<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a><a href="../maker/">내 프롬프트 직접 만들기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a><a href="../glossary/">모르는 단어 찾기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a></div>
+</section>
 <section class="wrap sec" id="start"><div class="sec-h"><h2>이렇게 쓰세요</h2><span class="serif">how to use</span><p>처음이어도 1분이면 돼요</p></div><div class="flow-box"><p class="flow-h">이렇게 작동해요</p><ol class="flow"><li><i>1</i><b>AI 열기</b><small>ChatGPT · Gemini</small></li><li><i>2</i><b>사진 올리기</b><small>사진 프롬프트만</small></li><li><i>3</i><b>프롬프트 붙여넣기</b><small>[ ]만 바꾸기</small></li><li><i>4</i><b>마음에 들 때까지</b><small>&quot;더 밝게&quot; 등 이어서</small></li></ol><p class="flow-sum">고수 프롬프트는 길지만 어렵지 않아요. 스타일·구도·색·하지 말 것까지 정해줘서, 같은 AI로도 결과가 확 달라져요. 영어 그대로 붙여넣어도 잘 돼요.</p></div><h3 class="sub3">쓰기 전에 꼭</h3><ul class="prep"><li><b>어디서 하나요</b><span>ChatGPT(이미지 생성)·Gemini에서 돼요. 보너스 마지막 1개만 Midjourney 전용이에요</span></li><li><b>사진은 본인 것만</b><span>다른 사람 얼굴 사진은 허락 없이 올리지 마세요</span></li><li><b>영어 프롬프트 그대로</b><span>번역하지 않아도 돼요. [ ] 부분만 바꾸면 끝</span></li><li><b>결과는 매번 달라요</b><span>같은 프롬프트도 조금씩 다르게 나와요. 2~3번 다시 만들어 보세요</span></li></ul></section>
 
 
@@ -237,9 +249,9 @@ STYLE:
 Ultra-realistic beverage advertising, crystal-clear liquid, realistic condensation, detailed texture, dynamic water splash, natural premium lighting, clean packaging, luxury commercial photography, 8K.</code></pre><p class="pk-note">원작은 코코넛워터예요. [PRODUCT]를 내 제품으로 바꾸고, 음료가 아니면 장면 1~8도 바꿔보세요 · X @Strength04_X</p></div><div class="prompt pk"><img class="pk-img" src="../assets/r22/10.jpg" alt="코드 한 줄 → 같은 화풍 복사 (Midjourney) 결과 예시" width="800" height="400" loading="lazy"><div class="prompt-h"><span><em>10</em>코드 한 줄 → 같은 화풍 복사 (Midjourney)</span><button class="copy" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg><span>복사</span></button></div><pre><code>a halftone black and white simple illustration of a [인물, 예: man in a coat] --ar 3:4 --sref 1589974576 --stylize 400</code></pre><p class="pk-note">--sref 숫자가 화풍을 고정하는 코드예요. 인물 묘사만 바꾸면 같은 그림체로 나와요 · X @areej_design</p></div></div></div></section>
 
 
-
+<section class="wrap sec" id="faq"><div class="sec-h"><h2>이럴 땐 이렇게</h2><span class="serif">troubleshooting</span><p>자주 막히는 부분을 모았어요</p></div><div class="faq"><details class="qa"><summary><span>Q</span>어디에 붙여넣어요?</summary><div><span>A</span><p>ChatGPT(이미지 만들기)나 Gemini에 사진을 첨부하고 프롬프트를 붙여넣으면 돼요. 마지막 Midjourney 코드는 Midjourney에서만 돼요.</p></div></details><details class="qa"><summary><span>Q</span>영어 그대로 넣어야 해요?</summary><div><span>A</span><p>그대로 넣는 게 가장 정확해요. [ ] 안만 한국어로 바꿔도 대부분 알아들어요.</p></div></details><details class="qa"><summary><span>Q</span>결과가 원작이랑 달라요</summary><div><span>A</span><p>정상이에요. 같은 프롬프트도 매번 달라요. 2~3번 다시 뽑고, 마음에 드는 쪽을 골라 &quot;이 느낌으로 한 장 더&quot;라고 이어가세요.</p></div></details><details class="qa"><summary><span>Q</span>내 얼굴 사진 올려도 괜찮아요?</summary><div><span>A</span><p>본인 사진은 괜찮아요. 다른 사람 사진은 허락 없이 쓰면 안 돼요. 회사 계정이 아니라면 개인정보 설정에서 학습 사용 여부도 확인해 보세요.</p></div></details></div></section>
 <section class="wrap sec" id="tips"><div class="sec-h"><h2>꿀팁</h2><span class="serif">tips</span></div><ol class="tips"><li><span>1</span><p>결과가 마음에 안 들면 처음부터 다시 쓰지 말고 &quot;배경만 더 밝게&quot;, &quot;글자 빼줘&quot;처럼 이어서 고쳐 달라고 하세요.</p></li><li><span>2</span><p>긴 프롬프트도 그대로 붙여넣으면 돼요. 스타일·색·하지 말 것을 정해줄수록 결과가 덜 뻔해져요.</p></li><li><span>3</span><p>사진을 올리는 프롬프트는 정면·밝은 사진일수록 결과가 좋아요.</p></li><li><span>4</span><p>얼굴이 나오는 결과물을 올릴 때는 본인 사진만 쓰세요.</p></li></ol></section>
-
+<section class="wrap sec" id="gloss"><div class="sec-h"><h2>용어 풀이</h2><span class="serif">glossary</span><p>처음 보는 단어가 있다면</p></div><dl class="gloss"><div><dt>퍼스널컬러</dt><dd>피부·눈·머리색에 어울리는 색 계열을 봄·여름·가을·겨울로 나눈 것.</dd></div><div><dt>미니어처(틸트시프트)</dt><dd>실제 장면을 장난감 모형처럼 보이게 만드는 연출.</dd></div><div><dt>스타일 코드(--sref)</dt><dd>Midjourney에서 같은 화풍을 다시 쓰게 해주는 숫자 코드.</dd></div><div><dt>콘티</dt><dd>광고·영상의 장면 순서를 그림 칸으로 정리한 것.</dd></div></dl></section>
 <section class="wrap sec" id="source"><div class="sec-h"><h2>원작·출처</h2><span class="serif">source</span><p>릴스에 나온 영상과 글의 원본이에요</p></div><div class="src"><div><b>X @dezainaz_ceo</b><span>폰 사진 → ChatGPT 보정</span></div><a href="https://x.com/dezainaz_ceo/status/2047172512551977162" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div><div class="src"><div><b>X @garenaguinaldox</b><span>셔츠색·헤어 분석</span></div><a href="https://x.com/garenaguinaldox/status/2047384051322081738" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div><div class="src"><div><b>X @AngryTomtweets</b><span>퍼스널컬러 진단표</span></div><a href="https://x.com/AngryTomtweets/status/2046674296559313170" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div><div class="src"><div><b>X @Alina_with_Ai</b><span>사진 → 수채화</span></div><a href="https://x.com/Alina_with_Ai/status/2096555280306000120" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div><div class="src"><div><b>X @KrishnaBio1</b><span>사진 → 수채 일러스트</span></div><a href="https://x.com/KrishnaBio1/status/2102911434443444266" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div><div class="src"><div><b>X @Naiknelofar788</b><span>건축 콜라주 포스터</span></div><a href="https://x.com/Naiknelofar788/status/2100067049288634730" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div><div class="src"><div><b>X @TechieBySA</b><span>3D 미니어처 지도</span></div><a href="https://x.com/TechieBySA/status/2090481131762114750" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div><div class="src"><div><b>X @MahnoorAi12</b><span>도시 여행 포스터</span></div><a href="https://x.com/MahnoorAi12/status/2091349007922778211" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div><div class="src"><div><b>X @Strength04_X</b><span>제품 광고 스토리보드</span></div><a href="https://x.com/Strength04_X/status/2094760813794111843" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div><div class="src"><div><b>X @areej_design</b><span>Midjourney 스타일 코드</span></div><a href="https://x.com/areej_design/status/2104278802683851083" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div></section>
 <ul class="notes wrap"><li>결과는 매번 조금씩 달라요. 마음에 들 때까지 이어서 고쳐 달라고 해보세요.</li><li>프롬프트 원문은 각 크리에이터의 공개 글에서 가져왔고, 4·9·10번은 쓰기 쉽게 [ ] 부분만 다듬었어요.</li><li>서비스 이름·메뉴는 2026년 10월 기준이에요.</li></ul>
 <section class="wrap share-band" aria-label="공유">
@@ -248,64 +260,64 @@ Ultra-realistic beverage advertising, crystal-clear liquid, realistic condensati
 </section>
 <section class="wrap sec more" aria-label="다른 레시피">
   <div class="pns"><a class="pn prev" href="../21/"><small><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>이전 레시피 · No.21</small><b>상사한테 칭찬받는 사람들이 몰래 쓰는 AI 문장 30</b></a><a class="pn next" href="../23/"><small>다음 레시피 · No.23<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></small><b>팔로워 21.9만 AI 인플루언서, 만드는 법 3단계</b></a></div>
-  <div class="sec-h"><h2>다른 레시피</h2><span class="serif">more recipes</span></div>
-  <ul class="cards rail"><li class="card std" data-type="guide" data-kw="게임 개발자들 이거 보면 긴장할걸요 — claude로 게임 만드는 법 웹 3d 게임 · 다크소울풍 액션 rpg · 로블록스 대전 게임 — 바로 쓰는 프롬프트 3종(한국어·영어)과 연결 순서 claude opus 5.5로 만든 게임 영상들이 x에서 줄줄이 터졌어요. 설치 없이 웹에서 도시를 날아다니는 3d 게임(조회 183만), 보스전까지 있는 다크소울풍 액션 rpg(60만), 필살기 연출까지 있는 로블록스 대전 게임(46만). 셋 다 사람이 코드를 짠 게 아니라, 무엇을 만들지 말로 설명하고 결과를 보면서 고쳐 나갔어요. 처음 해보는 사람도 그대로 따라 할 수 있게 준비물, 연결 순서, 프롬프트 전문을 정리했어요. 따라하기 웹 3d 게임 (영어) 액션 rpg (영어) 로블록스 대전 게임 (영어) 조작감 렉 그래픽 난이도 첫 화면 저장 방법 a · 웹 3d 게임 (스파이더맨 방식) 방법 c · 다크소울풍 액션 rpg (보스전) 방법 b · 로블록스 대전 게임 (스튜디오 연결) 마무리 · 해보고 말로 고치기" style="--i:0">
-  <a href="../27/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/27-hero.mp4" poster="../assets/clips/27-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>27</span><span class="new">NEW</span></div>
+  <div class="sec-h"><h2>이것도 같이 보면 좋아요</h2><span class="serif">related</span><p>비슷한 도구·주제의 레시피예요</p></div>
+  <ul class="cards rail"><li class="card std" data-type="prompt" data-kw="무료로 뽕뽑는 ai 사주 프롬프트 사주 8글자 표부터 나에게 맞는 장소까지 그냥 &quot;사주 봐줘&quot;라고 하면 누구에게나 맞는 말만 나와요. 조건 몇 줄을 넣으면 사주 8글자 표, 오행 비율, 근거 있는 성격, 월별 흐름, 나에게 맞는 장소까지 나와요. 프롬프트 기본 사주 + 나에게 맞는 장소 검산 먼저 직업·일 운 궁합 행운 아이템" style="--i:0">
+  <a href="../9/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/09-hero.mp4" poster="../assets/clips/09-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>9</span></div>
     <div class="card-body">
-      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>4단계</span></div>
-      <h3>게임 개발자들 이거 보면 긴장할걸요 — Claude로 게임 만드는 법</h3>
-      <p>웹 3D 게임 · 다크소울풍 액션 RPG · 로블록스 대전 게임 — 바로 쓰는 프롬프트 3종(한국어·영어)과 연결 순서</p>
+      <div class="card-kick"><span class="pill t-prompt">프롬프트</span><span>프롬프트 5개</span></div>
+      <h3>무료로 뽕뽑는 AI 사주 프롬프트</h3>
+      <p>사주 8글자 표부터 나에게 맞는 장소까지</p>
       
     </div>
   </a>
-</li><li class="card std" data-type="guide" data-kw="claude가 혼자 만든 뮤비, 이거 진짜예요? — 만드는 법 노래 한 곡 + 프롬프트 하나로 claude가 뮤직비디오를 끝까지 — 3가지 방법과 실제 프롬프트 전문 한 사람은 claude에게 틱톡을 보여주고 200달러를 쥐여줬고, 9시간 뒤 틱톡 피드를 통째로 패러디한 뮤직비디오를 받았어요(조회 361만). 원조는 &quot;컴퓨터에 5분 말하고 잤더니 claude가 12시간 일했다&quot;는 영상(조회 391만)이에요. 같은 노래로 레트로 애니, 다크 타이포, 종이 질감 버전까지 줄줄이 나왔어요. 원작자들이 공개한 프롬프트 전문과 도구 조합을, 처음 해보는 사람도 따라 할 수 있게 단계별로 풀어 정리했어요. 따라하기 원조 프롬프트 (영어) 가사 크게 첫 3초 얼굴 고정 세로로 싱크 점검 방법 a · 노래 + claude만으로 만들기 방법 b ① 원조 프롬프트로 지시하기 방법 b ② 캐릭터·장면 만들고 덧그리기 방법 c · 클립 만들고 편집은 claude에게 응용 · 틱톡을 보여주고 맡기기 (200달러, 9시간)" style="--i:1">
-  <a href="../26/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/26-hero.mp4" poster="../assets/clips/26-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>26</span></div>
+</li><li class="card std" data-type="prompt" data-kw="ai 고수들이 몰래 쓰는 비밀코드 30가지 질문 앞에 /코드 하나만 붙이기 질문 앞에 /코드 하나만 붙여도 답의 깊이와 형식이 달라져요. 공식 명령어는 아니지만, chatgpt·claude·gemini 모두 단어 뜻을 알아듣고 답에 반영해요. 프롬프트 /godmode /devil /10x /eli5 /table /ooda /scout /critique /improve /strategy /compare /proscons /brief /summarize /teacher /examples /outline /checklist /ghost /rewrite /tone /translate /email /report /pitch /brainstorm /artifacts /code /debug /motivate 뉴스 정리 발표 준비 기획서 검토 어려운 개념" style="--i:1">
+  <a href="../5/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/05-hero.mp4" poster="../assets/clips/05-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>5</span></div>
     <div class="card-body">
-      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>5단계</span></div>
-      <h3>Claude가 혼자 만든 뮤비, 이거 진짜예요? — 만드는 법</h3>
-      <p>노래 한 곡 + 프롬프트 하나로 Claude가 뮤직비디오를 끝까지 — 3가지 방법과 실제 프롬프트 전문</p>
+      <div class="card-kick"><span class="pill t-prompt">프롬프트</span><span>프롬프트 34개</span></div>
+      <h3>AI 고수들이 몰래 쓰는 비밀코드 30가지</h3>
+      <p>질문 앞에 /코드 하나만 붙이기</p>
       
     </div>
   </a>
-</li><li class="card std" data-type="guide" data-kw="모션팀이 3주 걸릴 영상, opus 5.5는 15분 한 문장 쇼릴 프롬프트 + 평범하게 안 나오는 4단계 (레퍼런스 · remotion · 21st.dev · 스토리보드) claude opus 5.5는 영상을 &quot;그리는&quot; 대신 영상을 만드는 코드를 써요. 그래서 한 문장으로도 모션그래픽 쇼릴이 나오고, 1,500만 명이 본 서양 문명사 영상도 이렇게 만들어졌어요. 그런데 한 줄만 쓰면 다들 비슷한 결과가 나와요. 원작자들이 공개한 프롬프트와, 결과를 확 바꾸는 4단계 워크플로를 정리했어요. 따라하기 1,500만 조회 다큐 애니 배틀 내 영상 다시 편집 특이점 영상 한 문장으로 쇼릴 뽑기 (가장 쉬워요) ① 레퍼런스 영상 고르고 ② 렌더 도구 연결 ③ 진짜 ui 부품 쓰고 ④ 스토리보드 3개 먼저" style="--i:2">
-  <a href="../25/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/25-hero.mp4" poster="../assets/clips/25-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>25</span></div>
+</li><li class="card std" data-type="prompt" data-kw="ai가 몰래 받는 지시문, 직접 써먹는 법 시스템 프롬프트 대신 &quot;내 지시문&quot; 넣기 chatgpt·claude 같은 ai는 내 질문을 읽기 전에 회사가 넣어둔 &quot;시스템 프롬프트&quot;부터 읽어요. 그건 못 바꾸지만, 설정에 &quot;내 지시문&quot;을 넣으면 모든 답이 내 취향에 맞춰져요. 복붙용 지시문과 넣는 위치를 정리했어요. 프롬프트 ① 핵심만 ② 직설적으로 ③ 맞장구 금지 ④ 형식 정하기 직장인용 공부용 글쓰기 코치 개발자용" style="--i:2">
+  <a href="../4/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/04-hero.mp4" poster="../assets/clips/04-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>4</span></div>
     <div class="card-body">
-      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>3단계</span></div>
-      <h3>모션팀이 3주 걸릴 영상, Opus 5.5는 15분</h3>
-      <p>한 문장 쇼릴 프롬프트 + 평범하게 안 나오는 4단계 (레퍼런스 · Remotion · 21st.dev · 스토리보드)</p>
+      <div class="card-kick"><span class="pill t-prompt">프롬프트</span><span>프롬프트 8개</span></div>
+      <h3>AI가 몰래 받는 지시문, 직접 써먹는 법</h3>
+      <p>시스템 프롬프트 대신 &quot;내 지시문&quot; 넣기</p>
       
     </div>
   </a>
-</li><li class="card std" data-type="guide" data-kw="편집 1년 배워도 못 하던 걸, 프롬프트 한 줄로 펜으로 가리키면 실사가 2d 만화로 — 영상 프롬프트 · claude + 애프터이펙트 펜으로 가리키기만 했는데 버스가 만화로 바뀌고, 도로가 만화 바다가 돼요. 예전엔 애프터이펙트로 며칠 걸리던 &quot;실사 + 2d 애니&quot; 합성을 이제 영상 ai 프롬프트 한 줄로 만들어요. 원작자들이 공개한 프롬프트 전문과, claude로 애프터이펙트를 직접 움직이는 방법까지 정리했어요. 따라하기 출근길 카페 반려동물 하늘 마무리 매직펜 프롬프트 (가장 화려해요) doodle overlay 프롬프트 (짧고 쉬워요) 고수: claude로 애프터이펙트 직접 움직이기" style="--i:3">
-  <a href="../24/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/24-hero.mp4" poster="../assets/clips/24-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>24</span></div>
-    <div class="card-body">
-      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>3단계</span></div>
-      <h3>편집 1년 배워도 못 하던 걸, 프롬프트 한 줄로</h3>
-      <p>펜으로 가리키면 실사가 2D 만화로 — 영상 프롬프트 · Claude + 애프터이펙트</p>
-      
-    </div>
-  </a>
-</li><li class="card std" data-type="guide" data-kw="팔로워 21.9만 ai 인플루언서, 만드는 법 3단계 얼굴 기준 시트 → 같은 얼굴로 새 장소 → 영상으로 꾸준히 틱톡의 한 ai 캐릭터는 영상 7개로 팔로워 21.9만, 조회수 4,960만을 찍었어요. 비결은 화려한 기술보다 &quot;같은 얼굴을 계속 유지하는 것&quot;이에요. 해외 크리에이터들이 공개한 과정을 3단계로 정리하고, 바로 붙여 쓰는 프롬프트를 넣었어요. 따라하기 브랜드 제품 넣기 내 상품·제휴 링크 캐릭터를 서비스로 판매 광고 영상 템플릿 문의 답장 얼굴 기준 시트 만들기 같은 얼굴로 새 장소 만들기 영상으로 만들고 꾸준히 올리기" style="--i:4">
-  <a href="../23/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/23-hero.mp4" poster="../assets/clips/23-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>23</span></div>
-    <div class="card-body">
-      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>3단계</span></div>
-      <h3>팔로워 21.9만 AI 인플루언서, 만드는 법 3단계</h3>
-      <p>얼굴 기준 시트 → 같은 얼굴로 새 장소 → 영상으로 꾸준히</p>
-      
-    </div>
-  </a>
-</li><li class="card std" data-type="prompt" data-kw="상사한테 칭찬받는 사람들이 몰래 쓰는 ai 문장 30 보고서·메일·회의·엑셀·기획·커리어 복붙 프롬프트 일 잘한다는 말 듣는 사람들은 ai에 &quot;잘 써줘&quot; 대신 형식과 순서를 정해서 시켜요. 직장인 업무 6가지에 바로 붙여 쓰는 문장 30개를 모았어요. [ ] 부분만 내 상황으로 바꾸세요. 프롬프트 결론부터 3줄 숫자로 바꾸기 예상 질문 대비 한 장 요약 약점 먼저 정중한 거절 일정 지연 보고 부드러운 독촉 영문 메일 톤 점검 회의록 정리 안건 짜기 1:1 준비 불참자 공유 30초 발언 수식 만들기 오류 고치기 변화 찾기 차트 고르기 피벗 정리 아이디어 20개 기획서 뼈대 경쟁사 비교표 고객 입장 발표 대본 업무 일지 평가 시즌 이력서 문장 4주 공부 계획 모르는 용어" style="--i:5">
+</li><li class="card std" data-type="prompt" data-kw="상사한테 칭찬받는 사람들이 몰래 쓰는 ai 문장 30 보고서·메일·회의·엑셀·기획·커리어 복붙 프롬프트 일 잘한다는 말 듣는 사람들은 ai에 &quot;잘 써줘&quot; 대신 형식과 순서를 정해서 시켜요. 직장인 업무 6가지에 바로 붙여 쓰는 문장 30개를 모았어요. [ ] 부분만 내 상황으로 바꾸세요. 프롬프트 결론부터 3줄 숫자로 바꾸기 예상 질문 대비 한 장 요약 약점 먼저 정중한 거절 일정 지연 보고 부드러운 독촉 영문 메일 톤 점검 회의록 정리 안건 짜기 1:1 준비 불참자 공유 30초 발언 수식 만들기 오류 고치기 변화 찾기 차트 고르기 피벗 정리 아이디어 20개 기획서 뼈대 경쟁사 비교표 고객 입장 발표 대본 업무 일지 평가 시즌 이력서 문장 4주 공부 계획 모르는 용어" style="--i:3">
   <a href="../21/">
     <div class="card-media"><video data-lazy data-src="../assets/clips/21-hero.mp4" poster="../assets/clips/21-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>21</span></div>
     <div class="card-body">
       <div class="card-kick"><span class="pill t-prompt">프롬프트</span><span>프롬프트 30개</span></div>
       <h3>상사한테 칭찬받는 사람들이 몰래 쓰는 AI 문장 30</h3>
       <p>보고서·메일·회의·엑셀·기획·커리어 복붙 프롬프트</p>
+      
+    </div>
+  </a>
+</li><li class="card std" data-type="prompt" data-kw="같은 프롬프트, gpt vs claude 직접 비교하는 법 내 업무로 두 ai를 공정하게 테스트하기 릴스에서 두 최신 모델에 같은 프롬프트를 넣은 비교 영상을 봤죠. 어느 쪽이 낫다는 정답은 없어요. 내 업무로 직접, 공정하게 비교하는 방법과 테스트용 프롬프트를 모았어요. 프롬프트 15초 모션 쇼릴 (원작 그대로) 글쓰기 요약·분석 코딩 추론 채점표 만들기 모델을 바꾸기 전에, 생각 깊이부터" style="--i:4">
+  <a href="../13/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/13-hero.mp4" poster="../assets/clips/13-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>13</span></div>
+    <div class="card-body">
+      <div class="card-kick"><span class="pill t-prompt">프롬프트</span><span>프롬프트 6개</span></div>
+      <h3>같은 프롬프트, GPT vs Claude 직접 비교하는 법</h3>
+      <p>내 업무로 두 AI를 공정하게 테스트하기</p>
+      
+    </div>
+  </a>
+</li><li class="card std" data-type="prompt" data-kw="초파리 뇌를 복사해서 로봇에 넣었더니 뇌 지도·가상 뇌를 ai로 쉽게 배워보기 과학자들이 공개한 초파리 신경세포 16만 6천여 개의 연결 지도로 &quot;가상 뇌&quot;를 만들고, 그 신호로 로봇을 걷게 한 실험이 화제가 됐어요. 어떤 실험인지, 그리고 ai로 이 원리를 직접 만져보며 배우는 방법을 정리했어요. 프롬프트 뉴런 신호 체험판 커넥톰 쉽게 설명 가상 벌레 로봇 시뮬레이션" style="--i:5">
+  <a href="../8/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/08-hero.mp4" poster="../assets/clips/08-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>8</span></div>
+    <div class="card-body">
+      <div class="card-kick"><span class="pill t-prompt">프롬프트</span><span>프롬프트 3개</span></div>
+      <h3>초파리 뇌를 복사해서 로봇에 넣었더니</h3>
+      <p>뇌 지도·가상 뇌를 AI로 쉽게 배워보기</p>
       
     </div>
   </a>
@@ -325,6 +337,6 @@ Ultra-realistic beverage advertising, crystal-clear liquid, realistic condensati
 </div></footer>
 <button class="totop" type="button" aria-label="맨 위로"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>
 <div class="toast" role="status" aria-live="polite"><svg class="miri m-toast" viewBox="20 34 24 25" shape-rendering="crispEdges" aria-hidden="true"><g class="pz pz-ball"><path fill="#1c0814" d="M29 35h3v1h-3zM33 35h3v1h-3zM28 36h1v1h-1zM32 36h1v1h-1zM36 36h1v1h-1zM28 37h1v1h-1zM32 37h1v1h-1zM36 37h1v1h-1zM27 38h2v1h-2zM35 38h2v1h-2zM25 39h2v1h-2zM37 39h2v1h-2zM24 40h1v1h-1zM39 40h1v1h-1zM23 41h1v1h-1zM40 41h1v1h-1zM23 42h1v1h-1zM40 42h1v1h-1zM22 43h1v1h-1zM41 43h1v1h-1zM22 44h1v1h-1zM41 44h1v1h-1zM21 45h1v1h-1zM42 45h1v1h-1zM21 46h1v1h-1zM42 46h1v1h-1zM21 47h1v1h-1zM42 47h1v1h-1zM21 48h1v1h-1zM42 48h1v1h-1zM21 49h1v1h-1zM42 49h1v1h-1zM21 50h1v1h-1zM42 50h1v1h-1zM22 51h1v1h-1zM41 51h1v1h-1zM22 52h1v1h-1zM41 52h1v1h-1zM23 53h1v1h-1zM40 53h1v1h-1zM23 54h1v1h-1zM40 54h1v1h-1zM24 55h1v1h-1zM39 55h1v1h-1zM25 56h2v1h-2zM37 56h2v1h-2zM27 57h2v1h-2zM35 57h2v1h-2zM29 58h6v1h-6z"/><path fill="#c81e78" d="M29 36h3v1h-3zM33 36h3v1h-3zM29 37h3v1h-3zM33 37h3v1h-3zM30 38h1v1h-1zM34 38h1v1h-1z"/><path fill="#ff3ba0" d="M29 38h1v1h-1zM31 38h3v1h-3zM27 39h10v1h-10zM25 40h14v1h-14zM24 41h16v1h-16zM24 42h16v1h-16zM23 43h18v1h-18zM23 44h18v1h-18zM22 45h20v1h-20zM22 46h20v1h-20zM22 47h20v1h-20zM22 48h20v1h-20zM22 49h20v1h-20zM22 50h20v1h-20zM23 51h18v1h-18zM23 52h18v1h-18zM24 53h16v1h-16zM24 54h16v1h-16zM25 55h14v1h-14zM27 56h10v1h-10zM29 57h6v1h-6z"/><path class="e e-idle" fill="#140c12" d="M28 46h1v1h-1zM35 46h1v1h-1zM28 47h1v1h-1zM35 47h1v1h-1zM28 48h1v1h-1zM35 48h1v1h-1z"/><path class="e e-blink" fill="#140c12" d="M27 48h2v1h-2zM34 48h2v1h-2z"/><path class="e e-happy" fill="#140c12" d="M28 46h1v1h-1zM35 46h1v1h-1zM27 47h1v1h-1zM29 47h1v1h-1zM34 47h1v1h-1zM36 47h1v1h-1z"/><path class="e e-look" fill="#140c12" d="M29 46h1v1h-1zM36 46h1v1h-1zM29 47h1v1h-1zM36 47h1v1h-1zM29 48h1v1h-1zM36 48h1v1h-1z"/></g></svg><span class="toast-t"></span></div>
-<script src="../assets/app.js?v=17" defer></script>
+<script src="../assets/app.js?v=18" defer></script>
 </body>
 </html>

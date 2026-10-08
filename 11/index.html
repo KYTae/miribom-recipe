@@ -31,9 +31,11 @@
 <link rel="icon" href="../icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="manifest" href="../site.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="미리봄 레시피" href="https://recipe.mirispring.com/feed.xml">
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=17">
+<link rel="stylesheet" href="../assets/style.css?v=18">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "고수들만 쓰는 AI 영상 프롬프트 형식", "description": "문장 대신 JSON 칸으로 나눠 쓰기", "inLanguage": "ko-KR", "image": "https://recipe.mirispring.com/og/11.jpg", "url": "https://recipe.mirispring.com/11/", "mainEntityOfPage": "https://recipe.mirispring.com/11/", "dateModified": "2026-10-09", "keywords": "JSON 프롬프트 AI 영상 프롬프트 형식 Seedance 카메라 조명 구도", "author": {"@type": "Organization", "name": "미리봄 AI 매거진", "url": "https://recipe.mirispring.com/"}, "publisher": {"@type": "Organization", "name": "미리봄 AI 매거진", "logo": {"@type": "ImageObject", "url": "https://recipe.mirispring.com/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "미리봄 레시피", "item": "https://recipe.mirispring.com/"}, {"@type": "ListItem", "position": 2, "name": "No.11 고수들만 쓰는 AI 영상 프롬프트 형식", "item": "https://recipe.mirispring.com/11/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "JSON 문법이 틀리면요?", "acceptedAnswer": {"@type": "Answer", "text": "괄호 { }, 따옴표 \" \", 쉼표만 지키면 돼요. 헷갈리면 챗봇에 \"이 JSON 문법 맞는지 확인해줘\"라고 하세요."}}, {"@type": "Question", "name": "일반 문장보다 무조건 좋아요?", "acceptedAnswer": {"@type": "Answer", "text": "아니에요. 일반 프롬프트도 좋은 결과가 나와요. 원하는 장면을 정확히, 여러 번 같은 톤으로 뽑고 싶을 때 JSON이 유리해요."}}, {"@type": "Question", "name": "카메라 움직임을 여러 개 넣으면요?", "acceptedAnswer": {"@type": "Answer", "text": "화면이 흔들리거나 어색해지기 쉬워요. 한 영상에 하나만 넣는 게 좋아요."}}, {"@type": "Question", "name": "모든 영상 AI가 JSON을 알아들어요?", "acceptedAnswer": {"@type": "Answer", "text": "대부분 글로 읽기 때문에 칸 이름과 값을 그대로 이해해요. 안 먹히면 같은 내용을 \"Subject: …, Camera: …\"처럼 줄글로 바꿔도 비슷한 효과가 나요."}}]}]}</script>
 </head>
 <body class="p-recipe">
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -52,7 +54,7 @@
     <div class="kicker"><span class="serif">No.11</span><span class="pill t-prompt">프롬프트</span><span>릴스 #11</span></div>
     <h1>고수들만 쓰는 AI 영상 프롬프트 형식</h1>
     <p class="lede">같은 AI 영상에 같은 아이디어를 넣었는데, 아래쪽은 프롬프트를 문장 대신 JSON 칸으로 나눠 썼어요. 조명·카메라·분위기를 칸마다 정해주면 원하는 장면을 더 정확하게 뽑을 수 있어요.</p>
-    <ul class="facts"><li><b>5개</b><span>복사용 프롬프트</span></li><li><b>무료</b><span>로 시작</span></li><li><b>26.10</b><span>기준</span></li></ul>
+    <ul class="facts"><li><b>6개</b><span>복사용 프롬프트</span></li><li><b>무료</b><span>로 시작</span></li><li><b>26.10</b><span>기준</span></li></ul>
     <div class="ctas"><a class="btn solid" href="#prompts">프롬프트 바로 복사</a><a class="btn" href="#start">사용법 보기</a></div>
   </div>
   <div class="cover-fig">
@@ -61,6 +63,16 @@
   </div>
 </section>
 <nav class="toc" aria-label="이 페이지 목차"><div class="wrap toc-in"><div class="toc-links"><a href="#start">사용법</a><a href="#prompts">프롬프트</a><a href="#faq">문제 해결</a><a href="#tips">꿀팁</a><a href="#source">원작</a></div></div></nav>
+<section class="wrap begin" aria-label="처음 쓰는 법">
+  <div class="begin-h"><span class="begin-badge">처음이라면</span><b>이 페이지는 이렇게 쓰세요</b></div>
+  <ol class="begin-steps">
+    <li><i>1</i><div><b>복사 버튼 누르기</b><small>프롬프트 오른쪽 위 <em>복사</em>를 누르면 통째로 복사돼요</small></div></li>
+    <li><i>2</i><div><b>AI에 붙여넣기</b><small>아래 사이트 중 하나를 열고 입력창에 붙여넣어요</small></div></li>
+    <li><i>3</i><div><b>[ ] 만 바꾸기</b><small>대괄호 부분을 내 상황으로 바꾸고 보내면 끝</small></div></li>
+  </ol>
+  <div class="paste-row"><span>이 레시피를 붙여넣을 곳</span><div class="paste-chips"><a class="paste-chip" href="https://higgsfield.ai" target="_blank" rel="noopener"><b>Higgsfield</b><small>여러 영상 모델을 한곳에서 (Seedance 포함)</small></a><a class="paste-chip" href="https://dreamina.capcut.com" target="_blank" rel="noopener"><b>Dreamina</b><small>Seedance 영상 모델 (바이트댄스)</small></a><a class="paste-chip" href="https://klingai.com" target="_blank" rel="noopener"><b>Kling</b><small>이미지→영상, 모션 컨트롤 (무료 크레딧)</small></a><a class="paste-chip" href="https://chatgpt.com" target="_blank" rel="noopener"><b>ChatGPT</b><small>대화·이미지 만들기 (무료로 시작)</small></a></div></div>
+  <div class="begin-links"><a href="../start/">AI가 처음이라면 5분 가이드<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a><a href="../maker/">내 프롬프트 직접 만들기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a><a href="../glossary/">모르는 단어 찾기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a></div>
+</section>
 <section class="wrap sec" id="start"><div class="sec-h"><h2>이렇게 쓰세요</h2><span class="serif">how to use</span><p>JSON이 처음이어도 괄호만 바꾸면 돼요</p></div><div class="flow-box"><p class="flow-h">이렇게 작동해요</p><ol class="flow"><li><i>1</i><b>아이디어 쓰기</b><small>평소 말로 한 줄</small></li><li><i>2</i><b>JSON으로 바꾸기</b><small>AI에게 변환 부탁</small></li><li><i>3</i><b>영상 AI에 넣기</b><small>Seedance 등</small></li><li><i>4</i><b>칸만 바꿔 재생성</b><small>톤은 그대로</small></li></ol><p class="flow-sum">JSON은 &quot;주인공&quot;, &quot;조명&quot;, &quot;카메라&quot;처럼 칸을 나눠 적는 형식이에요. 칸이 정해져 있으니 빠뜨리는 게 없고, 한 칸만 바꿔서 다시 만들기도 쉬워요.</p></div><h3 class="sub3">준비물</h3><ul class="prep"><li><b>영상 AI</b><span>Seedance(드리미나·CapCut·invideo 등에서 사용) 또는 다른 영상 AI</span></li><li><b>챗봇 하나</b><span>ChatGPT·Claude 무료 버전으로 JSON 변환</span></li><li><b>값은 영어로</b><span>칸 이름과 값은 영어가 결과가 안정적이에요</span></li></ul></section>
 
 
@@ -98,10 +110,12 @@
   &quot;color_grade&quot;: &quot;neutral, high contrast&quot;
 }</code></pre><p class="pk-note">쇼핑몰 상세 영상</p></div></div></div></section>
 
+<section class="wrap sec" id="easy"><div class="sec-h"><h2>가장 쉬운 방법</h2><span class="serif">easy way</span><p>챗봇에게 JSON 변환을 맡기기</p></div><div class="easy"><ul class="pts"><li>ChatGPT나 Claude에 아래 프롬프트 붙여넣기</li><li>[ ] 안에 내 아이디어를 한국어로</li><li>나온 JSON을 그대로 영상 AI에 복사</li></ul><div class="prompt"><div class="prompt-h"><span>아이디어 → JSON 한 번에</span><button class="copy" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg><span>복사</span></button></div><pre><code>아래 아이디어를 AI 영상용 JSON 프롬프트로 바꿔줘. 칸은 subject, action, environment, camera, lighting, style, mood 7개, 값은 모두 영어로, 5초 분량.
 
-<section class="wrap sec" id="faq"><div class="sec-h"><h2>이럴 땐 이렇게</h2><span class="serif">troubleshooting</span><p>자주 막히는 부분을 모았어요</p></div><div class="faq"><details class="qa"><summary><span>Q</span>JSON 문법이 틀리면요?</summary><div><span>A</span><p>괄호 { }, 따옴표 &quot; &quot;, 쉼표만 지키면 돼요. 헷갈리면 챗봇에 &quot;이 JSON 문법 맞는지 확인해줘&quot;라고 하세요.</p></div></details><details class="qa"><summary><span>Q</span>일반 문장보다 무조건 좋아요?</summary><div><span>A</span><p>아니에요. 일반 프롬프트도 좋은 결과가 나와요. 원하는 장면을 정확히, 여러 번 같은 톤으로 뽑고 싶을 때 JSON이 유리해요.</p></div></details><details class="qa"><summary><span>Q</span>카메라 움직임을 여러 개 넣으면요?</summary><div><span>A</span><p>화면이 흔들리거나 어색해지기 쉬워요. 한 영상에 하나만 넣는 게 좋아요.</p></div></details></div></section>
+아이디어: [비 오는 밤 편의점 앞에서 우산 없이 비를 맞는 고양이]</code></pre></div></div></section>
+<section class="wrap sec" id="faq"><div class="sec-h"><h2>이럴 땐 이렇게</h2><span class="serif">troubleshooting</span><p>자주 막히는 부분을 모았어요</p></div><div class="faq"><details class="qa"><summary><span>Q</span>JSON 문법이 틀리면요?</summary><div><span>A</span><p>괄호 { }, 따옴표 &quot; &quot;, 쉼표만 지키면 돼요. 헷갈리면 챗봇에 &quot;이 JSON 문법 맞는지 확인해줘&quot;라고 하세요.</p></div></details><details class="qa"><summary><span>Q</span>일반 문장보다 무조건 좋아요?</summary><div><span>A</span><p>아니에요. 일반 프롬프트도 좋은 결과가 나와요. 원하는 장면을 정확히, 여러 번 같은 톤으로 뽑고 싶을 때 JSON이 유리해요.</p></div></details><details class="qa"><summary><span>Q</span>카메라 움직임을 여러 개 넣으면요?</summary><div><span>A</span><p>화면이 흔들리거나 어색해지기 쉬워요. 한 영상에 하나만 넣는 게 좋아요.</p></div></details><details class="qa"><summary><span>Q</span>모든 영상 AI가 JSON을 알아들어요?</summary><div><span>A</span><p>대부분 글로 읽기 때문에 칸 이름과 값을 그대로 이해해요. 안 먹히면 같은 내용을 &quot;Subject: …, Camera: …&quot;처럼 줄글로 바꿔도 비슷한 효과가 나요.</p></div></details></div></section>
 <section class="wrap sec" id="tips"><div class="sec-h"><h2>꿀팁</h2><span class="serif">tips</span></div><ol class="tips"><li><span>1</span><p>&quot;epic, amazing&quot; 같은 막연한 단어 대신 golden hour, slow orbit처럼 구체적인 단어를 쓰세요.</p></li><li><span>2</span><p>틀은 그대로 두고 subject만 바꾸면 시리즈 영상의 톤이 일정하게 유지돼요.</p></li><li><span>3</span><p>마음에 드는 결과가 나오면 그 JSON을 꼭 저장해 두세요.</p></li></ol></section>
-<section class="wrap sec" id="gloss"><div class="sec-h"><h2>용어 풀이</h2><span class="serif">glossary</span><p>처음 보는 단어가 있다면</p></div><dl class="gloss"><div><dt>JSON</dt><dd>{ &quot;이름&quot;: &quot;값&quot; } 형태로 정보를 칸별로 적는 형식</dd></div><div><dt>orbit</dt><dd>피사체 주위를 빙 도는 카메라</dd></div><div><dt>push-in</dt><dd>피사체 쪽으로 천천히 다가가는 카메라</dd></div><div><dt>color grade</dt><dd>영상 전체의 색감 보정</dd></div></dl></section>
+<section class="wrap sec" id="gloss"><div class="sec-h"><h2>용어 풀이</h2><span class="serif">glossary</span><p>처음 보는 단어가 있다면</p></div><dl class="gloss"><div><dt>JSON</dt><dd>{ &quot;이름&quot;: &quot;값&quot; } 형태로 정보를 칸별로 적는 형식</dd></div><div><dt>orbit</dt><dd>피사체 주위를 빙 도는 카메라</dd></div><div><dt>push-in</dt><dd>피사체 쪽으로 천천히 다가가는 카메라</dd></div><div><dt>color grade</dt><dd>영상 전체의 색감 보정</dd></div><div><dt>키·값</dt><dd>JSON에서 &quot;camera&quot;: &quot;slow push-in&quot;처럼 칸 이름(키)과 내용(값)을 짝지어 쓰는 것.</dd></div><div><dt>dolly</dt><dd>카메라가 앞뒤로 미끄러지듯 움직이는 촬영.</dd></div></dl></section>
 <section class="wrap sec" id="source"><div class="sec-h"><h2>원작·출처</h2><span class="serif">source</span><p>릴스에 나온 영상과 글의 원본이에요</p></div><div class="src"><div><b>X @ZentrixHQ</b><span>Seedance 2.0 · 일반 vs JSON 비교 영상</span></div><a href="https://x.com/ZentrixHQ" target="_blank" rel="noopener">원문 보기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></a></div></section>
 <ul class="notes wrap"><li>예시 JSON은 미리봄이 만든 예시예요. 원작자의 실제 프롬프트는 공개되지 않았어요.</li><li>Seedance는 사용하는 서비스마다 유료 크레딧이 필요할 수 있어요.</li></ul>
 <section class="wrap share-band" aria-label="공유">
@@ -110,44 +124,44 @@
 </section>
 <section class="wrap sec more" aria-label="다른 레시피">
   <div class="pns"><a class="pn prev" href="../10/"><small><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>이전 레시피 · No.10</small><b>이 프롬프트 한 줄이면 모션 디자이너 쇼릴 완성</b></a><a class="pn next" href="../12/"><small>다음 레시피 · No.12<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></small><b>AI로 앱 만들 때 이거 안 붙이면 손해</b></a></div>
-  <div class="sec-h"><h2>다른 레시피</h2><span class="serif">more recipes</span></div>
-  <ul class="cards rail"><li class="card std" data-type="guide" data-kw="게임 개발자들 이거 보면 긴장할걸요 — claude로 게임 만드는 법 웹 3d 게임 · 다크소울풍 액션 rpg · 로블록스 대전 게임 — 바로 쓰는 프롬프트 3종(한국어·영어)과 연결 순서 claude opus 5.5로 만든 게임 영상들이 x에서 줄줄이 터졌어요. 설치 없이 웹에서 도시를 날아다니는 3d 게임(조회 183만), 보스전까지 있는 다크소울풍 액션 rpg(60만), 필살기 연출까지 있는 로블록스 대전 게임(46만). 셋 다 사람이 코드를 짠 게 아니라, 무엇을 만들지 말로 설명하고 결과를 보면서 고쳐 나갔어요. 처음 해보는 사람도 그대로 따라 할 수 있게 준비물, 연결 순서, 프롬프트 전문을 정리했어요. 따라하기 웹 3d 게임 (영어) 액션 rpg (영어) 로블록스 대전 게임 (영어) 조작감 렉 그래픽 난이도 첫 화면 저장 방법 a · 웹 3d 게임 (스파이더맨 방식) 방법 c · 다크소울풍 액션 rpg (보스전) 방법 b · 로블록스 대전 게임 (스튜디오 연결) 마무리 · 해보고 말로 고치기" style="--i:0">
-  <a href="../27/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/27-hero.mp4" poster="../assets/clips/27-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>27</span><span class="new">NEW</span></div>
+  <div class="sec-h"><h2>이것도 같이 보면 좋아요</h2><span class="serif">related</span><p>비슷한 도구·주제의 레시피예요</p></div>
+  <ul class="cards rail"><li class="card std" data-type="prompt" data-kw="ai 영상이 진짜가 되는 프롬프트 치트키 10가지 블랙박스 원테이크부터 같은 장면 다시 찍기까지 조회수 6,414만 블랙박스 영상을 포함해, 원작자들이 공개한 seedance 2.5 프롬프트에서 핵심 문장만 뽑았어요. 프롬프트 첫 장면을 실사 이미지로 먼저 고정 영화 말고 블랙박스 화질로 초 단위로 사건 배치 컷 없는 원테이크 인물·배경을 목록으로 고정 내 영상의 연기·타이밍은 그대로 바뀌는 건 카메라뿐 원본과 같은 속도로 끝까지 같은 사람으로 일부러 흔들리게 gpt image 2.5 → seedance 2.5 seedance 2.5 영상→영상 · 위 ai / 아래 원본 seedance 2.5" style="--i:0">
+  <a href="../15/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/15-hero.mp4" poster="../assets/clips/15-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>15</span></div>
     <div class="card-body">
-      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>4단계</span></div>
-      <h3>게임 개발자들 이거 보면 긴장할걸요 — Claude로 게임 만드는 법</h3>
-      <p>웹 3D 게임 · 다크소울풍 액션 RPG · 로블록스 대전 게임 — 바로 쓰는 프롬프트 3종(한국어·영어)과 연결 순서</p>
+      <div class="card-kick"><span class="pill t-prompt">프롬프트</span><span>프롬프트 10개</span></div>
+      <h3>AI 영상이 진짜가 되는 프롬프트 치트키 10가지</h3>
+      <p>블랙박스 원테이크부터 같은 장면 다시 찍기까지</p>
       
     </div>
   </a>
-</li><li class="card std" data-type="guide" data-kw="claude가 혼자 만든 뮤비, 이거 진짜예요? — 만드는 법 노래 한 곡 + 프롬프트 하나로 claude가 뮤직비디오를 끝까지 — 3가지 방법과 실제 프롬프트 전문 한 사람은 claude에게 틱톡을 보여주고 200달러를 쥐여줬고, 9시간 뒤 틱톡 피드를 통째로 패러디한 뮤직비디오를 받았어요(조회 361만). 원조는 &quot;컴퓨터에 5분 말하고 잤더니 claude가 12시간 일했다&quot;는 영상(조회 391만)이에요. 같은 노래로 레트로 애니, 다크 타이포, 종이 질감 버전까지 줄줄이 나왔어요. 원작자들이 공개한 프롬프트 전문과 도구 조합을, 처음 해보는 사람도 따라 할 수 있게 단계별로 풀어 정리했어요. 따라하기 원조 프롬프트 (영어) 가사 크게 첫 3초 얼굴 고정 세로로 싱크 점검 방법 a · 노래 + claude만으로 만들기 방법 b ① 원조 프롬프트로 지시하기 방법 b ② 캐릭터·장면 만들고 덧그리기 방법 c · 클립 만들고 편집은 claude에게 응용 · 틱톡을 보여주고 맡기기 (200달러, 9시간)" style="--i:1">
-  <a href="../26/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/26-hero.mp4" poster="../assets/clips/26-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>26</span></div>
+</li><li class="card std" data-type="prompt" data-kw="ai 영상 고수들만 아는 프롬프트 치트키 5가지 홈비디오, 게임 화면, 초 단위 샷까지 조회수 수백만 ai 영상 다섯 편의 공개 프롬프트에서, 공통으로 들어간 한 문장씩을 뽑았어요. 프롬프트 연출 없는 홈비디오처럼 게임 화면처럼 초 단위로 샷 나누기 끌어올리며 공개 참조 이미지로 인물 고정 seedance 2.5 midjourney 8.2 + seedance 2.5 seedance 2.5 seedance 2.5 seedance 2.5" style="--i:1">
+  <a href="../14/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/14-hero.mp4" poster="../assets/clips/14-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>14</span></div>
     <div class="card-body">
-      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>5단계</span></div>
-      <h3>Claude가 혼자 만든 뮤비, 이거 진짜예요? — 만드는 법</h3>
-      <p>노래 한 곡 + 프롬프트 하나로 Claude가 뮤직비디오를 끝까지 — 3가지 방법과 실제 프롬프트 전문</p>
+      <div class="card-kick"><span class="pill t-prompt">프롬프트</span><span>프롬프트 5개</span></div>
+      <h3>AI 영상 고수들만 아는 프롬프트 치트키 5가지</h3>
+      <p>홈비디오, 게임 화면, 초 단위 샷까지</p>
       
     </div>
   </a>
-</li><li class="card std" data-type="guide" data-kw="모션팀이 3주 걸릴 영상, opus 5.5는 15분 한 문장 쇼릴 프롬프트 + 평범하게 안 나오는 4단계 (레퍼런스 · remotion · 21st.dev · 스토리보드) claude opus 5.5는 영상을 &quot;그리는&quot; 대신 영상을 만드는 코드를 써요. 그래서 한 문장으로도 모션그래픽 쇼릴이 나오고, 1,500만 명이 본 서양 문명사 영상도 이렇게 만들어졌어요. 그런데 한 줄만 쓰면 다들 비슷한 결과가 나와요. 원작자들이 공개한 프롬프트와, 결과를 확 바꾸는 4단계 워크플로를 정리했어요. 따라하기 1,500만 조회 다큐 애니 배틀 내 영상 다시 편집 특이점 영상 한 문장으로 쇼릴 뽑기 (가장 쉬워요) ① 레퍼런스 영상 고르고 ② 렌더 도구 연결 ③ 진짜 ui 부품 쓰고 ④ 스토리보드 3개 먼저" style="--i:2">
-  <a href="../25/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/25-hero.mp4" poster="../assets/clips/25-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>25</span></div>
-    <div class="card-body">
-      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>3단계</span></div>
-      <h3>모션팀이 3주 걸릴 영상, Opus 5.5는 15분</h3>
-      <p>한 문장 쇼릴 프롬프트 + 평범하게 안 나오는 4단계 (레퍼런스 · Remotion · 21st.dev · 스토리보드)</p>
-      
-    </div>
-  </a>
-</li><li class="card std" data-type="guide" data-kw="편집 1년 배워도 못 하던 걸, 프롬프트 한 줄로 펜으로 가리키면 실사가 2d 만화로 — 영상 프롬프트 · claude + 애프터이펙트 펜으로 가리키기만 했는데 버스가 만화로 바뀌고, 도로가 만화 바다가 돼요. 예전엔 애프터이펙트로 며칠 걸리던 &quot;실사 + 2d 애니&quot; 합성을 이제 영상 ai 프롬프트 한 줄로 만들어요. 원작자들이 공개한 프롬프트 전문과, claude로 애프터이펙트를 직접 움직이는 방법까지 정리했어요. 따라하기 출근길 카페 반려동물 하늘 마무리 매직펜 프롬프트 (가장 화려해요) doodle overlay 프롬프트 (짧고 쉬워요) 고수: claude로 애프터이펙트 직접 움직이기" style="--i:3">
+</li><li class="card std" data-type="guide" data-kw="편집 1년 배워도 못 하던 걸, 프롬프트 한 줄로 펜으로 가리키면 실사가 2d 만화로 — 영상 프롬프트 · claude + 애프터이펙트 펜으로 가리키기만 했는데 버스가 만화로 바뀌고, 도로가 만화 바다가 돼요. 예전엔 애프터이펙트로 며칠 걸리던 &quot;실사 + 2d 애니&quot; 합성을 이제 영상 ai 프롬프트 한 줄로 만들어요. 원작자들이 공개한 프롬프트 전문과, claude로 애프터이펙트를 직접 움직이는 방법까지 정리했어요. 따라하기 출근길 카페 반려동물 하늘 마무리 매직펜 프롬프트 (가장 화려해요) doodle overlay 프롬프트 (짧고 쉬워요) 고수: claude로 애프터이펙트 직접 움직이기" style="--i:2">
   <a href="../24/">
     <div class="card-media"><video data-lazy data-src="../assets/clips/24-hero.mp4" poster="../assets/clips/24-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>24</span></div>
     <div class="card-body">
       <div class="card-kick"><span class="pill t-guide">따라하기</span><span>3단계</span></div>
       <h3>편집 1년 배워도 못 하던 걸, 프롬프트 한 줄로</h3>
       <p>펜으로 가리키면 실사가 2D 만화로 — 영상 프롬프트 · Claude + 애프터이펙트</p>
+      
+    </div>
+  </a>
+</li><li class="card std" data-type="guide" data-kw="우리 강아지도 춤추게 만드는 법 사진 한 장 + 댄스 영상 하나면 끝 요즘 릴스에서 난리 난 강아지 댄스 영상, ai를 처음 써보는 분도 따라 할 수 있게 사진 고르기부터 버튼 위치·프롬프트·실패했을 때 고치는 법까지 전부 정리했어요. 2026년 10월 기준이에요. 따라하기 강아지 사진 고르기 chatgpt로 &quot;두 발로 선 강아지&quot; 사진 만들기 따라 할 춤 영상 고르기 a. kling 모션 컨트롤로 만들기 b. higgsfield genjutsu로 만들기 음악 붙이고 올리기" style="--i:3">
+  <a href="../17/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/17-hero.mp4" poster="../assets/clips/17-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>17</span></div>
+    <div class="card-body">
+      <div class="card-kick"><span class="pill t-guide">따라하기</span><span>6단계</span></div>
+      <h3>우리 강아지도 춤추게 만드는 법</h3>
+      <p>사진 한 장 + 댄스 영상 하나면 끝</p>
       
     </div>
   </a>
@@ -161,13 +175,13 @@
       
     </div>
   </a>
-</li><li class="card std" data-type="prompt" data-kw="초보 vs 고수, 이미지 프롬프트 5가지 (+보너스 5) 사진 한 장·단어 하나로 광고컷, 퍼스널컬러, 수채화, 3d 지도까지 초보는 &quot;수채화로 바꿔줘&quot; 한 줄, 고수는 종이·여백·글씨까지 정해줘요. 해외 크리에이터들이 실제로 쓰고 결과까지 공개한 고수 프롬프트를 릴스 5개 + 보너스 5개로 모았어요. 내 사진을 올리거나 [ ] 부분만 바꿔서 그대로 붙여넣으세요. 프롬프트 셀카 → 퍼스널컬러 진단표 사진 → 미니멀 수채화 엽서 폰 사진 → 광고컷 보정 나라 이름 → 3d 미니어처 지도 도시 이름 → 미니멀 여행 포스터 셀카 → 셔츠색 어울림 분석표 사진 → 위 사진·아래 수채화 일러스트 여행 사진 → 건축 콜라주 포스터 제품 → 광고 콘티 8컷 코드 한 줄 → 같은 화풍 복사 (midjourney)" style="--i:5">
-  <a href="../22/">
-    <div class="card-media"><video data-lazy data-src="../assets/clips/22-hero.mp4" poster="../assets/clips/22-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>22</span></div>
+</li><li class="card std" data-type="prompt" data-kw="상사한테 칭찬받는 사람들이 몰래 쓰는 ai 문장 30 보고서·메일·회의·엑셀·기획·커리어 복붙 프롬프트 일 잘한다는 말 듣는 사람들은 ai에 &quot;잘 써줘&quot; 대신 형식과 순서를 정해서 시켜요. 직장인 업무 6가지에 바로 붙여 쓰는 문장 30개를 모았어요. [ ] 부분만 내 상황으로 바꾸세요. 프롬프트 결론부터 3줄 숫자로 바꾸기 예상 질문 대비 한 장 요약 약점 먼저 정중한 거절 일정 지연 보고 부드러운 독촉 영문 메일 톤 점검 회의록 정리 안건 짜기 1:1 준비 불참자 공유 30초 발언 수식 만들기 오류 고치기 변화 찾기 차트 고르기 피벗 정리 아이디어 20개 기획서 뼈대 경쟁사 비교표 고객 입장 발표 대본 업무 일지 평가 시즌 이력서 문장 4주 공부 계획 모르는 용어" style="--i:5">
+  <a href="../21/">
+    <div class="card-media"><video data-lazy data-src="../assets/clips/21-hero.mp4" poster="../assets/clips/21-hero.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><span class="card-no"><i>No.</i>21</span></div>
     <div class="card-body">
-      <div class="card-kick"><span class="pill t-prompt">프롬프트</span><span>프롬프트 10개</span></div>
-      <h3>초보 vs 고수, 이미지 프롬프트 5가지 (+보너스 5)</h3>
-      <p>사진 한 장·단어 하나로 광고컷, 퍼스널컬러, 수채화, 3D 지도까지</p>
+      <div class="card-kick"><span class="pill t-prompt">프롬프트</span><span>프롬프트 30개</span></div>
+      <h3>상사한테 칭찬받는 사람들이 몰래 쓰는 AI 문장 30</h3>
+      <p>보고서·메일·회의·엑셀·기획·커리어 복붙 프롬프트</p>
       
     </div>
   </a>
@@ -175,7 +189,7 @@
   <div class="center"><a class="btn" href="../">전체 레시피 보기</a></div>
 </section>
 </main>
-<div class="fab" aria-hidden="false"><a class="fab-btn" href="#prompts"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg><span>프롬프트 5개 바로 보기</span></a></div><footer class="foot"><div class="wrap">
+<div class="fab" aria-hidden="false"><a class="fab-btn" href="#prompts"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg><span>프롬프트 6개 바로 보기</span></a></div><footer class="foot"><div class="wrap">
   <div class="foot-top">
     <div class="foot-miri"><svg class="miri m-sit" viewBox="17 32 30 31" shape-rendering="crispEdges" aria-hidden="true"><g class="pz pz-sit"><path fill="#1c0814" d="M29 33h3v1h-3zM33 33h3v1h-3zM28 34h1v1h-1zM32 34h1v1h-1zM36 34h1v1h-1zM28 35h1v1h-1zM32 35h1v1h-1zM36 35h1v1h-1zM27 36h2v1h-2zM35 36h2v1h-2zM25 37h2v1h-2zM37 37h2v1h-2zM24 38h1v1h-1zM39 38h1v1h-1zM23 39h1v1h-1zM40 39h1v1h-1zM23 40h1v1h-1zM40 40h1v1h-1zM22 41h1v1h-1zM41 41h1v1h-1zM22 42h1v1h-1zM41 42h1v1h-1zM21 43h1v1h-1zM42 43h1v1h-1zM21 44h1v1h-1zM42 44h1v1h-1zM21 45h1v1h-1zM42 45h1v1h-1zM21 46h1v1h-1zM42 46h1v1h-1zM21 47h1v1h-1zM42 47h1v1h-1zM21 48h1v1h-1zM42 48h1v1h-1zM21 49h1v1h-1zM42 49h1v1h-1zM22 50h1v1h-1zM41 50h1v1h-1zM20 51h3v1h-3zM41 51h3v1h-3zM19 52h1v1h-1zM22 52h2v1h-2zM40 52h2v1h-2zM44 52h1v1h-1zM18 53h1v1h-1zM23 53h1v1h-1zM40 53h1v1h-1zM45 53h1v1h-1zM18 54h1v1h-1zM23 54h2v1h-2zM39 54h2v1h-2zM45 54h1v1h-1zM19 55h1v1h-1zM22 55h1v1h-1zM25 55h2v1h-2zM37 55h2v1h-2zM41 55h1v1h-1zM44 55h1v1h-1zM20 56h2v1h-2zM26 56h1v1h-1zM28 56h1v1h-1zM35 56h1v1h-1zM37 56h1v1h-1zM42 56h2v1h-2zM26 57h1v1h-1zM29 57h7v1h-7zM37 57h1v1h-1zM26 58h1v1h-1zM29 58h1v1h-1zM35 58h1v1h-1zM37 58h1v1h-1zM26 59h1v1h-1zM29 59h1v1h-1zM34 59h1v1h-1zM37 59h1v1h-1zM26 60h1v1h-1zM29 60h1v1h-1zM34 60h1v1h-1zM37 60h1v1h-1zM26 61h1v1h-1zM29 61h1v1h-1zM34 61h1v1h-1zM37 61h1v1h-1zM27 62h2v1h-2zM35 62h2v1h-2z"/><path fill="#c81e78" d="M29 34h3v1h-3zM33 34h3v1h-3zM29 35h3v1h-3zM33 35h3v1h-3zM30 36h1v1h-1zM34 36h1v1h-1z"/><path fill="#ff3ba0" d="M29 36h1v1h-1zM31 36h3v1h-3zM27 37h10v1h-10zM25 38h14v1h-14zM24 39h16v1h-16zM24 40h16v1h-16zM23 41h18v1h-18zM23 42h18v1h-18zM22 43h20v1h-20zM22 44h20v1h-20zM22 45h20v1h-20zM22 46h20v1h-20zM22 47h20v1h-20zM22 48h20v1h-20zM22 49h20v1h-20zM23 50h18v1h-18zM23 51h18v1h-18zM20 52h2v1h-2zM24 52h16v1h-16zM42 52h2v1h-2zM19 53h4v1h-4zM24 53h16v1h-16zM41 53h4v1h-4zM19 54h4v1h-4zM25 54h14v1h-14zM41 54h4v1h-4zM20 55h2v1h-2zM27 55h10v1h-10zM42 55h2v1h-2zM27 56h1v1h-1zM29 56h6v1h-6zM36 56h1v1h-1zM27 57h2v1h-2zM36 57h1v1h-1zM27 58h2v1h-2zM36 58h1v1h-1zM27 59h2v1h-2zM35 59h2v1h-2zM27 60h2v1h-2zM35 60h2v1h-2zM27 61h2v1h-2zM35 61h2v1h-2z"/><path class="e e-idle" fill="#140c12" d="M28 43h1v1h-1zM35 43h1v1h-1zM28 44h1v1h-1zM35 44h1v1h-1zM28 45h1v1h-1zM35 45h1v1h-1z"/><path class="e e-blink" fill="#140c12" d="M27 45h2v1h-2zM34 45h2v1h-2z"/><path class="e e-happy" fill="#140c12" d="M28 43h1v1h-1zM35 43h1v1h-1zM27 44h1v1h-1zM29 44h1v1h-1zM34 44h1v1h-1zM36 44h1v1h-1z"/><path class="e e-look" fill="#140c12" d="M29 43h1v1h-1zM36 43h1v1h-1zM29 44h1v1h-1zM36 44h1v1h-1zM29 45h1v1h-1zM36 45h1v1h-1z"/></g><g class="pz pz-sit2"><path fill="#1c0814" d="M29 33h3v1h-3zM33 33h3v1h-3zM28 34h1v1h-1zM32 34h1v1h-1zM36 34h1v1h-1zM28 35h1v1h-1zM32 35h1v1h-1zM36 35h1v1h-1zM27 36h2v1h-2zM35 36h2v1h-2zM25 37h2v1h-2zM37 37h2v1h-2zM24 38h1v1h-1zM39 38h1v1h-1zM23 39h1v1h-1zM40 39h1v1h-1zM23 40h1v1h-1zM40 40h1v1h-1zM22 41h1v1h-1zM41 41h1v1h-1zM22 42h1v1h-1zM41 42h1v1h-1zM21 43h1v1h-1zM42 43h1v1h-1zM21 44h1v1h-1zM42 44h1v1h-1zM21 45h1v1h-1zM42 45h1v1h-1zM21 46h1v1h-1zM42 46h1v1h-1zM21 47h1v1h-1zM42 47h1v1h-1zM21 48h1v1h-1zM42 48h1v1h-1zM21 49h1v1h-1zM42 49h1v1h-1zM22 50h1v1h-1zM41 50h1v1h-1zM20 51h3v1h-3zM41 51h3v1h-3zM19 52h1v1h-1zM22 52h2v1h-2zM40 52h2v1h-2zM44 52h1v1h-1zM18 53h1v1h-1zM23 53h1v1h-1zM40 53h1v1h-1zM45 53h1v1h-1zM18 54h1v1h-1zM23 54h2v1h-2zM39 54h2v1h-2zM45 54h1v1h-1zM19 55h1v1h-1zM22 55h1v1h-1zM25 55h2v1h-2zM37 55h2v1h-2zM41 55h1v1h-1zM44 55h1v1h-1zM20 56h2v1h-2zM26 56h1v1h-1zM28 56h1v1h-1zM35 56h1v1h-1zM38 56h1v1h-1zM42 56h2v1h-2zM25 57h1v1h-1zM28 57h8v1h-8zM38 57h1v1h-1zM25 58h1v1h-1zM28 58h1v1h-1zM36 58h1v1h-1zM38 58h1v1h-1zM25 59h1v1h-1zM27 59h1v1h-1zM36 59h1v1h-1zM38 59h1v1h-1zM25 60h1v1h-1zM27 60h1v1h-1zM36 60h1v1h-1zM39 60h1v1h-1zM24 61h1v1h-1zM27 61h1v1h-1zM36 61h1v1h-1zM39 61h1v1h-1zM25 62h2v1h-2zM37 62h2v1h-2z"/><path fill="#c81e78" d="M29 34h3v1h-3zM33 34h3v1h-3zM29 35h3v1h-3zM33 35h3v1h-3zM30 36h1v1h-1zM34 36h1v1h-1z"/><path fill="#ff3ba0" d="M29 36h1v1h-1zM31 36h3v1h-3zM27 37h10v1h-10zM25 38h14v1h-14zM24 39h16v1h-16zM24 40h16v1h-16zM23 41h18v1h-18zM23 42h18v1h-18zM22 43h20v1h-20zM22 44h20v1h-20zM22 45h20v1h-20zM22 46h20v1h-20zM22 47h20v1h-20zM22 48h20v1h-20zM22 49h20v1h-20zM23 50h18v1h-18zM23 51h18v1h-18zM20 52h2v1h-2zM24 52h16v1h-16zM42 52h2v1h-2zM19 53h4v1h-4zM24 53h16v1h-16zM41 53h4v1h-4zM19 54h4v1h-4zM25 54h14v1h-14zM41 54h4v1h-4zM20 55h2v1h-2zM27 55h10v1h-10zM42 55h2v1h-2zM27 56h1v1h-1zM29 56h6v1h-6zM36 56h2v1h-2zM26 57h2v1h-2zM36 57h2v1h-2zM26 58h2v1h-2zM37 58h1v1h-1zM26 59h1v1h-1zM37 59h1v1h-1zM26 60h1v1h-1zM37 60h2v1h-2zM25 61h2v1h-2zM37 61h2v1h-2z"/><path class="e e-idle" fill="#140c12" d="M28 43h1v1h-1zM35 43h1v1h-1zM28 44h1v1h-1zM35 44h1v1h-1zM28 45h1v1h-1zM35 45h1v1h-1z"/><path class="e e-blink" fill="#140c12" d="M27 45h2v1h-2zM34 45h2v1h-2z"/><path class="e e-happy" fill="#140c12" d="M28 43h1v1h-1zM35 43h1v1h-1zM27 44h1v1h-1zM29 44h1v1h-1zM34 44h1v1h-1zM36 44h1v1h-1z"/><path class="e e-look" fill="#140c12" d="M29 43h1v1h-1zM36 43h1v1h-1zM29 44h1v1h-1zM36 44h1v1h-1zM29 45h1v1h-1zM36 45h1v1h-1z"/></g><g class="pz pz-sit3"><path fill="#1c0814" d="M29 33h3v1h-3zM33 33h3v1h-3zM28 34h1v1h-1zM32 34h1v1h-1zM36 34h1v1h-1zM28 35h1v1h-1zM32 35h1v1h-1zM36 35h1v1h-1zM27 36h2v1h-2zM35 36h2v1h-2zM25 37h2v1h-2zM37 37h2v1h-2zM24 38h1v1h-1zM39 38h1v1h-1zM23 39h1v1h-1zM40 39h1v1h-1zM23 40h1v1h-1zM40 40h1v1h-1zM22 41h1v1h-1zM41 41h1v1h-1zM22 42h1v1h-1zM41 42h1v1h-1zM21 43h1v1h-1zM42 43h1v1h-1zM21 44h1v1h-1zM42 44h1v1h-1zM21 45h1v1h-1zM42 45h1v1h-1zM21 46h1v1h-1zM42 46h1v1h-1zM21 47h1v1h-1zM42 47h1v1h-1zM21 48h1v1h-1zM42 48h1v1h-1zM21 49h1v1h-1zM42 49h1v1h-1zM22 50h1v1h-1zM41 50h1v1h-1zM20 51h3v1h-3zM41 51h3v1h-3zM19 52h1v1h-1zM22 52h2v1h-2zM40 52h2v1h-2zM44 52h1v1h-1zM18 53h1v1h-1zM23 53h1v1h-1zM40 53h1v1h-1zM45 53h1v1h-1zM18 54h1v1h-1zM23 54h2v1h-2zM39 54h2v1h-2zM45 54h1v1h-1zM19 55h1v1h-1zM22 55h1v1h-1zM25 55h1v1h-1zM38 55h1v1h-1zM41 55h1v1h-1zM44 55h1v1h-1zM20 56h2v1h-2zM25 56h1v1h-1zM28 56h1v1h-1zM35 56h2v1h-2zM38 56h1v1h-1zM42 56h2v1h-2zM24 57h1v1h-1zM27 57h1v1h-1zM29 57h6v1h-6zM36 57h1v1h-1zM39 57h1v1h-1zM24 58h1v1h-1zM27 58h1v1h-1zM37 58h1v1h-1zM39 58h1v1h-1zM23 59h1v1h-1zM26 59h1v1h-1zM37 59h1v1h-1zM40 59h1v1h-1zM23 60h1v1h-1zM26 60h1v1h-1zM38 60h1v1h-1zM40 60h1v1h-1zM22 61h1v1h-1zM25 61h1v1h-1zM38 61h1v1h-1zM41 61h1v1h-1zM23 62h2v1h-2zM39 62h2v1h-2z"/><path fill="#c81e78" d="M29 34h3v1h-3zM33 34h3v1h-3zM29 35h3v1h-3zM33 35h3v1h-3zM30 36h1v1h-1zM34 36h1v1h-1z"/><path fill="#ff3ba0" d="M29 36h1v1h-1zM31 36h3v1h-3zM27 37h10v1h-10zM25 38h14v1h-14zM24 39h16v1h-16zM24 40h16v1h-16zM23 41h18v1h-18zM23 42h18v1h-18zM22 43h20v1h-20zM22 44h20v1h-20zM22 45h20v1h-20zM22 46h20v1h-20zM22 47h20v1h-20zM22 48h20v1h-20zM22 49h20v1h-20zM23 50h18v1h-18zM23 51h18v1h-18zM20 52h2v1h-2zM24 52h16v1h-16zM42 52h2v1h-2zM19 53h4v1h-4zM24 53h16v1h-16zM41 53h4v1h-4zM19 54h4v1h-4zM25 54h14v1h-14zM41 54h4v1h-4zM20 55h2v1h-2zM26 55h12v1h-12zM42 55h2v1h-2zM26 56h2v1h-2zM29 56h6v1h-6zM37 56h1v1h-1zM25 57h2v1h-2zM37 57h2v1h-2zM25 58h2v1h-2zM38 58h1v1h-1zM24 59h2v1h-2zM38 59h2v1h-2zM24 60h2v1h-2zM39 60h1v1h-1zM23 61h2v1h-2zM39 61h2v1h-2z"/><path class="e e-idle" fill="#140c12" d="M28 43h1v1h-1zM35 43h1v1h-1zM28 44h1v1h-1zM35 44h1v1h-1zM28 45h1v1h-1zM35 45h1v1h-1z"/><path class="e e-blink" fill="#140c12" d="M27 45h2v1h-2zM34 45h2v1h-2z"/><path class="e e-happy" fill="#140c12" d="M28 43h1v1h-1zM35 43h1v1h-1zM27 44h1v1h-1zM29 44h1v1h-1zM34 44h1v1h-1zM36 44h1v1h-1z"/><path class="e e-look" fill="#140c12" d="M29 43h1v1h-1zM36 43h1v1h-1zM29 44h1v1h-1zM36 44h1v1h-1zM29 45h1v1h-1zM36 45h1v1h-1z"/></g></svg></div>
     <img src="../assets/logo.svg" alt="" width="40" height="58">
@@ -187,6 +201,6 @@
 </div></footer>
 <button class="totop" type="button" aria-label="맨 위로"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>
 <div class="toast" role="status" aria-live="polite"><svg class="miri m-toast" viewBox="20 34 24 25" shape-rendering="crispEdges" aria-hidden="true"><g class="pz pz-ball"><path fill="#1c0814" d="M29 35h3v1h-3zM33 35h3v1h-3zM28 36h1v1h-1zM32 36h1v1h-1zM36 36h1v1h-1zM28 37h1v1h-1zM32 37h1v1h-1zM36 37h1v1h-1zM27 38h2v1h-2zM35 38h2v1h-2zM25 39h2v1h-2zM37 39h2v1h-2zM24 40h1v1h-1zM39 40h1v1h-1zM23 41h1v1h-1zM40 41h1v1h-1zM23 42h1v1h-1zM40 42h1v1h-1zM22 43h1v1h-1zM41 43h1v1h-1zM22 44h1v1h-1zM41 44h1v1h-1zM21 45h1v1h-1zM42 45h1v1h-1zM21 46h1v1h-1zM42 46h1v1h-1zM21 47h1v1h-1zM42 47h1v1h-1zM21 48h1v1h-1zM42 48h1v1h-1zM21 49h1v1h-1zM42 49h1v1h-1zM21 50h1v1h-1zM42 50h1v1h-1zM22 51h1v1h-1zM41 51h1v1h-1zM22 52h1v1h-1zM41 52h1v1h-1zM23 53h1v1h-1zM40 53h1v1h-1zM23 54h1v1h-1zM40 54h1v1h-1zM24 55h1v1h-1zM39 55h1v1h-1zM25 56h2v1h-2zM37 56h2v1h-2zM27 57h2v1h-2zM35 57h2v1h-2zM29 58h6v1h-6z"/><path fill="#c81e78" d="M29 36h3v1h-3zM33 36h3v1h-3zM29 37h3v1h-3zM33 37h3v1h-3zM30 38h1v1h-1zM34 38h1v1h-1z"/><path fill="#ff3ba0" d="M29 38h1v1h-1zM31 38h3v1h-3zM27 39h10v1h-10zM25 40h14v1h-14zM24 41h16v1h-16zM24 42h16v1h-16zM23 43h18v1h-18zM23 44h18v1h-18zM22 45h20v1h-20zM22 46h20v1h-20zM22 47h20v1h-20zM22 48h20v1h-20zM22 49h20v1h-20zM22 50h20v1h-20zM23 51h18v1h-18zM23 52h18v1h-18zM24 53h16v1h-16zM24 54h16v1h-16zM25 55h14v1h-14zM27 56h10v1h-10zM29 57h6v1h-6z"/><path class="e e-idle" fill="#140c12" d="M28 46h1v1h-1zM35 46h1v1h-1zM28 47h1v1h-1zM35 47h1v1h-1zM28 48h1v1h-1zM35 48h1v1h-1z"/><path class="e e-blink" fill="#140c12" d="M27 48h2v1h-2zM34 48h2v1h-2z"/><path class="e e-happy" fill="#140c12" d="M28 46h1v1h-1zM35 46h1v1h-1zM27 47h1v1h-1zM29 47h1v1h-1zM34 47h1v1h-1zM36 47h1v1h-1z"/><path class="e e-look" fill="#140c12" d="M29 46h1v1h-1zM36 46h1v1h-1zM29 47h1v1h-1zM36 47h1v1h-1zM29 48h1v1h-1zM36 48h1v1h-1z"/></g></svg><span class="toast-t"></span></div>
-<script src="../assets/app.js?v=17" defer></script>
+<script src="../assets/app.js?v=18" defer></script>
 </body>
 </html>

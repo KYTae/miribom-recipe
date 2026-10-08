@@ -298,3 +298,85 @@
     });
   }
 })();
+
+/* ---------- 2026-10-09: prompt maker + glossary search ---------- */
+(function () {
+  var mk = document.getElementById('maker');
+  if (mk) {
+    var out = document.getElementById('mk-out');
+    var tip = document.getElementById('mk-tip');
+    var cur = 'text';
+    function val(form, n) { var el = form.querySelector('[name="' + n + '"]'); return el ? el.value.trim() : ''; }
+    function parts(v) { return v ? v.split('|') : []; }
+    function lines(v) { return v.split('\n').map(function (s) { return s.trim(); }).filter(Boolean); }
+    function build() {
+      var f = mk.querySelector('[data-mk-form="' + cur + '"]'); var t = '';
+      if (cur === 'text') {
+        var task = val(f, 'task'); if (!task) { out.textContent = '“무엇을 해달라고 할까요?” 칸을 먼저 채워주세요.'; return; }
+        var role = val(f, 'role'), who = val(f, 'who'), ctx = val(f, 'ctx'), rules = lines(val(f, 'rules')), fmt = val(f, 'fmt');
+        if (role) t += '너는 ' + role + '야.\n';
+        t += task.replace(/[.。]?$/, '') + '.\n';
+        if (who) t += '\n[읽는 사람 / 쓰는 곳]\n' + who + '\n';
+        if (ctx) t += '\n[내 상황·재료]\n' + ctx + '\n';
+        if (rules.length) t += '\n[꼭 지킬 조건]\n' + rules.map(function (r) { return '- ' + r; }).join('\n') + '\n';
+        if (fmt) t += '\n[결과 모양]\n' + fmt + '\n';
+        t += '\n모르는 정보는 지어내지 말고 [확인 필요]로 표시하거나 먼저 질문해줘.';
+        tip.textContent = '팁: 결과가 길면 “핵심만 3줄로”, 엉뚱하면 “질문 3개를 먼저 해줘”라고 이어서 보내세요.';
+      } else if (cur === 'image') {
+        var subj = val(f, 'subj'); if (!subj) { out.textContent = '“무엇을 그릴까요?” 칸을 먼저 채워주세요.'; return; }
+        var st = parts(val(f, 'style')), li = parts(val(f, 'light')), co = parts(val(f, 'comp')), ra = parts(val(f, 'ratio'));
+        var scene = val(f, 'scene'), keep = val(f, 'keep'), text = val(f, 'text');
+        t = subj + (scene ? ', 배경은 ' + scene : '') + '.\n';
+        t += '스타일: ' + (st[1] || '') + (li[0] ? ', ' + li[0] : '') + (co[0] ? ', ' + co[0] : '') + '.\n';
+        if (keep) t += '첨부한 사진의 ' + keep + '은(는) 절대 바꾸지 마.\n';
+        if (text) t += '이미지 안에 “' + text + '” 글자를 또렷하게 넣어줘.\n';
+        t += '비율: ' + (ra[0] || '') + '.\n';
+tip.textContent = '팁: 사진을 바꾸는 거라면 사진을 꼭 첨부하고 “바꾸면 안 되는 것”을 채우세요. Midjourney처럼 영어가 더 잘 먹히는 곳이라면 ChatGPT에 이 프롬프트와 함께 “영어 이미지 프롬프트로 바꿔줘”라고 하세요.';
+      } else if (cur === 'video') {
+        var vs = val(f, 'subj'); if (!vs) { out.textContent = '“누가 무엇을 해요?” 칸을 먼저 채워주세요.'; return; }
+        var cam = parts(val(f, 'cam')), sty = parts(val(f, 'style')), len = parts(val(f, 'len')), sc = val(f, 'scene'), kp = val(f, 'keep');
+        t = '장면: ' + vs + (sc ? ' (장소: ' + sc + ')' : '') + '\n카메라: ' + cam[0] + '\n느낌: ' + sty[0] + '\n길이: ' + len[0] + '\n';
+        if (kp) t += '첨부한 이미지의 ' + kp + '은(는) 처음부터 끝까지 그대로 유지.\n';
+tip.textContent = '팁: 처음엔 5초로 테스트하세요. 영상 AI는 영어를 더 정확히 알아들어요. ChatGPT에 이 프롬프트를 붙이고 “영상 AI용 영어 프롬프트로 바꿔줘”라고 하면 돼요.';
+      } else {
+        var what = val(f, 'what'); if (!what) { out.textContent = '“무엇을 만들까요?” 칸을 먼저 채워주세요.'; return; }
+        var who2 = val(f, 'who'), must = lines(val(f, 'must')), look = val(f, 'look'), wh = parts(val(f, 'where'));
+        t = what.replace(/[.。]?$/, '') + '을(를) 만들어줘.\n';
+        if (who2) t += '쓰는 사람: ' + who2 + '\n';
+        if (must.length) t += '\n[꼭 있어야 할 기능]\n' + must.map(function (r, i) { return (i + 1) + '. ' + r; }).join('\n') + '\n';
+        if (look) t += '\n[화면 느낌]\n' + look + '\n';
+        if (wh[0] === 'app') t += '\n[만드는 방식]\nHTML 파일 하나로 만들어서 바로 미리보기로 볼 수 있게 해줘. 모바일 화면에서도 보기 좋게.\n';
+        else if (wh[0] === 'roblox') t += '\n[만드는 방식]\n지금 열려 있는 로블록스 스튜디오에 직접 만들어줘. 스크립트는 역할별로 나눠 넣고, 다 만들면 플레이 모드로 테스트해서 오류를 고쳐줘.\n';
+        else t += '\n[만드는 방식]\n먼저 계획(화면·파일 구조)을 짧게 보여주고 시작해. 단계마다 실행해서 스크린샷으로 확인하고, 마지막에 실행 방법을 알려줘.\n';
+        t += '\n처음엔 핵심 기능만 되는 작은 버전부터 만들고, 내가 써본 뒤 하나씩 늘려가자.';
+        tip.textContent = '팁: 만든 뒤엔 “[증상] → [원하는 느낌]” 형식으로 고칠 점을 하나씩 말하세요. 27번 레시피에 고치는 문장이 더 있어요.';
+      }
+      out.textContent = t;
+    }
+    mk.addEventListener('input', build);
+    mk.addEventListener('change', build);
+    mk.addEventListener('click', function (ev) {
+      var tb = ev.target.closest('[data-mk]');
+      if (tb) {
+        cur = tb.getAttribute('data-mk');
+        mk.querySelectorAll('[data-mk]').forEach(function (b) { var on = b === tb; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        mk.querySelectorAll('[data-mk-form]').forEach(function (fm) { fm.hidden = fm.getAttribute('data-mk-form') !== cur; });
+        build(); return;
+      }
+      var ex = ev.target.closest('[data-fill]');
+      if (ex) {
+        var fm = ex.closest('form'); var el = fm.querySelector('[name="' + ex.getAttribute('data-fill') + '"]');
+        if (el) { if (el.tagName === 'TEXTAREA' && el.name === 'rules' && el.value) el.value += '\n' + ex.getAttribute('data-v'); else el.value = ex.getAttribute('data-v'); }
+        build();
+      }
+    });
+  }
+  var gs = document.querySelector('[data-gl-search]');
+  if (gs) {
+    gs.addEventListener('input', function () {
+      var q = gs.value.trim().toLowerCase();
+      document.querySelectorAll('.gl-list > div').forEach(function (d) { d.hidden = q && d.getAttribute('data-term').indexOf(q) < 0; });
+      document.querySelectorAll('.gl-sec').forEach(function (s) { s.hidden = !s.querySelector('.gl-list > div:not([hidden])'); });
+    });
+  }
+})();
