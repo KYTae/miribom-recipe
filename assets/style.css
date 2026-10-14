@@ -353,6 +353,7 @@ mark { background: none; color: var(--pink); }
 .step-media { position: relative; margin: 0; border-radius: var(--r); overflow: hidden; background: var(--surface); width: 100%; }
 .step-media.tall { aspect-ratio: 4 / 5; max-width: 440px; }
 .step-media.wide { aspect-ratio: 16 / 9; }
+.step-media.square { aspect-ratio: 1 / 1; max-width: 460px; }
 .step-media.stack { aspect-ratio: 640 / 722; max-width: 460px; }
 .step-media video { width: 100%; height: 100%; object-fit: cover; }
 @media (min-width: 860px) { .step-media { position: sticky; top: calc(var(--bar) + 74px); } }
