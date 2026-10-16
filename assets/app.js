@@ -464,3 +464,27 @@ tip.textContent = '팁: 처음엔 5초로 테스트하세요. 영상 AI는 영�
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', all); else all();
   window.miriDropdowns = all;
 })();
+
+/* visitor counter — Firebase Realtime Database (REST, no SDK) or GoatCounter; hidden unless numbers load */
+(function () {
+  var el = document.querySelector('.foot-visit'); if (!el || !window.fetch) return;
+  var fb = (el.getAttribute('data-fb') || '').replace(/\/$/, ''), code = el.getAttribute('data-gc');
+  var today = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);   // KST date
+  function fmt(n) { return Number(n || 0).toLocaleString('ko-KR'); }
+  function show(t, all) { el.querySelector('[data-k="today"]').textContent = fmt(t); el.querySelector('[data-k="total"]').textContent = fmt(all); el.hidden = false; }
+  if (fb) {
+    var seen = false, k = 'mr_visit_' + today;
+    try { seen = localStorage.getItem(k) === '1'; } catch (e) {}
+    var inc = JSON.stringify({ '.sv': { increment: 1 } });
+    function put(path) { return fetch(fb + path + '.json', { method: 'PUT', body: inc }).then(function (r) { if (!r.ok) throw r.status; return r.json(); }); }
+    function get(path) { return fetch(fb + path + '.json').then(function (r) { if (!r.ok) throw r.status; return r.json(); }); }
+    var p = seen ? Promise.all([get('/visits/daily/' + today), get('/visits/total')])
+                 : Promise.all([put('/visits/daily/' + today), put('/visits/total')]).then(function (v) { try { localStorage.setItem(k, '1'); } catch (e) {} return v; });
+    p.then(function (v) { show(v[0], v[1]); }).catch(function () {});
+    return;
+  }
+  if (!code) return;
+  var base = 'https://' + code + '.goatcounter.com/counter/TOTAL.json';
+  function gc(u) { return fetch(u).then(function (r) { if (!r.ok) throw r.status; return r.json(); }).then(function (j) { return String(j.count).replace(/,/g, ''); }); }
+  gc(base).then(function (all) { gc(base + '?start=' + today).then(function (t) { show(t, all); }, function () { show(0, all); }); }).catch(function () {});
+})();

@@ -744,3 +744,10 @@ mark { background: none; color: var(--pink); }
 .dd-opt[aria-selected="true"] .dd-ck { opacity: 1; }
 @media (hover: none) { .dd-opt:hover { background: transparent; color: var(--ink-2); } .dd-opt[aria-selected="true"]:hover { color: var(--ink); } }
 @media (prefers-reduced-motion: reduce) { .dd-pop, .dd.open .dd-pop, .dd-chev { transition: none; } }
+
+/* visitor counter — small, quiet */
+.foot-visit { display: inline-flex; align-items: center; gap: 6px; margin: 34px 0 -22px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; color: var(--dim-2); font-size: 12px; line-height: 1; font-variant-numeric: tabular-nums; }
+.foot-visit[hidden] { display: none; }
+.foot-visit i { width: 6px; height: 6px; border-radius: 50%; background: var(--pink); opacity: .8; }
+.foot-visit b { color: var(--dim); font-weight: 700; }
+.foot-visit span { opacity: .5; }
