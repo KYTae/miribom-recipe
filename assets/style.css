@@ -752,3 +752,10 @@ mark { background: none; color: var(--pink); }
 .foot-visit i { width: 6px; height: 6px; border-radius: 50%; background: var(--pink); opacity: .8; }
 .foot-visit b { color: var(--dim); font-weight: 700; }
 .foot-visit span { opacity: .5; }
+
+/* 2026-10-23 overflow guard */
+.prompt-h > span { min-width: 0; flex: 1 1 auto; }
+.has-prompt, .step-txt, .pts > li { min-width: 0; }
+.prompt { max-width: 100%; }
+.prompt pre, .prompt pre code { white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; }
+.pt-note span, .pt-list li, .pt-do span { overflow-wrap: anywhere; }
